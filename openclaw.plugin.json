@@ -1,6 +1,6 @@
 {
-  "id": "hindsight-astromech",
-  "name": "Hindsight Memory",
+  "id": "hindsight-openclaw-pro",
+  "name": "Hindsight Memory Pro",
   "kind": "memory",
   "configSchema": {
     "type": "object",
@@ -192,6 +192,52 @@
         "type": "boolean",
         "description": "Enable debug logging for Hindsight plugin operations.",
         "default": false
+      },
+      "bootstrap": {
+        "type": "boolean",
+        "description": "Apply bank configs on first run if bank is empty on server.",
+        "default": false
+      },
+      "agents": {
+        "type": "object",
+        "description": "Per-agent bank config registration. Keys are agent IDs.",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "bankConfig": {
+              "type": "string",
+              "description": "Path to bank config template file (relative to .openclaw/)."
+            }
+          },
+          "required": ["bankConfig"]
+        }
+      },
+      "retainTags": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Tags added to every retained fact. Used for recall filtering."
+      },
+      "retainContext": {
+        "type": "string",
+        "description": "Short label describing the source context for retained facts."
+      },
+      "retainObservationScopes": {
+        "description": "Controls observation consolidation.",
+        "oneOf": [
+          { "type": "string", "enum": ["combined", "per_tag", "all_combinations"] },
+          { "type": "array", "items": { "type": "array", "items": { "type": "string" } } }
+        ]
+      },
+      "recallTags": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Static tags to filter recall results."
+      },
+      "recallTagsMatch": {
+        "type": "string",
+        "enum": ["any", "all", "any_strict", "all_strict"],
+        "description": "Tag matching mode for recall filtering.",
+        "default": "any"
       }
     },
     "additionalProperties": false
@@ -311,6 +357,12 @@
     },
     "debug": {
       "label": "Debug"
-    }
+    },
+    "bootstrap": { "label": "Bootstrap", "placeholder": "false (apply bank configs on first run)" },
+    "agents": { "label": "Agent Bank Configs", "placeholder": "Map of agentId → { bankConfig: path }" },
+    "retainTags": { "label": "Retain Tags", "placeholder": "e.g. ['domain:finance']" },
+    "retainContext": { "label": "Retain Context", "placeholder": "e.g. 'telegram conversation'" },
+    "recallTags": { "label": "Recall Tags", "placeholder": "e.g. ['domain:finance']" },
+    "recallTagsMatch": { "label": "Recall Tags Match", "placeholder": "any, all, any_strict, all_strict" }
   }
 }

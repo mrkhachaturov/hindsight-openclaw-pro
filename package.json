@@ -1,7 +1,10 @@
 {
-  "name": "hindsight-astromech",
-  "version": "0.5.0",
-  "description": "Hindsight memory plugin for Astromech - per-agent biomimetic long-term memory with fact extraction",
+  "name": "hindsight-openclaw-pro",
+  "version": "1.0.0-alpha.1",
+  "description": "Production-grade Hindsight memory plugin for OpenClaw — per-agent config, multi-bank recall, IaC bank management",
+  "bin": {
+    "hoppro": "dist/cli/index.js"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
@@ -15,15 +18,15 @@
     "memory",
     "ai",
     "agent",
+    "multiagent",
     "hindsight",
     "long-term-memory"
   ],
-  "author": "Vectorize <support@vectorize.io>",
+  "author": "Ruben Khachaturov <mr.kha4a2rov@protonmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vectorize-io/hindsight.git",
-    "directory": "hindsight-integrations/openclaw"
+    "url": "git+ssh://git@github.com/mrkhachaturov/hindsight-astromech.git"
   },
   "files": [
     "dist",
@@ -40,6 +43,7 @@
     "prepublishOnly": "npm run clean && npm run build"
   },
   "dependencies": {
+    "json5": "^2.2.3",
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {
