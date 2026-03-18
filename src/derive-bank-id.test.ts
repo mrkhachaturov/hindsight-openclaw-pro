@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { deriveBankId } from './index.js';
+import { deriveBankId } from './derive-bank-id.js';
 import type { PluginHookAgentContext, PluginConfig } from './types.js';
 
 describe('deriveBankId', () => {
