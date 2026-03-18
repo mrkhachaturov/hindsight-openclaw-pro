@@ -307,10 +307,13 @@ function getPluginConfig(api: MoltbotPluginAPI): PluginConfig {
 
 // Resolve OpenClaw config directory for bank config file paths.
 // Bank config paths (e.g., "./banks/yoda.json5") are relative to .openclaw/ dir.
-// OPENCLAW_CONFIG_PATH env var takes precedence, fallback to ~/.openclaw/
+// OPENCLAW_CONFIG_PATH points to the config FILE (e.g., /path/.openclaw/openclaw.json)
+// so we take dirname() to get the directory.
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const openclawConfigDir = process.env.OPENCLAW_CONFIG_PATH || join(homedir(), '.openclaw');
+const openclawConfigDir = process.env.OPENCLAW_CONFIG_PATH
+  ? dirname(process.env.OPENCLAW_CONFIG_PATH)
+  : join(homedir(), '.openclaw');
 
 // ── Plugin entry point ──────────────────────────────────────────────────
 export default function (api: MoltbotPluginAPI) {
