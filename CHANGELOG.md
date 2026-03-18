@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-alpha.2] - 2026-03-18
+
+### Fixed
+- Bank config paths now resolve relative to OpenClaw state dir (`OPENCLAW_STATE_DIR` → `OPENCLAW_CONFIG_PATH` dirname → `~/.openclaw/`)
+- Plugin config reads from `hindsight-openclaw-pro` entry (was reading old `hindsight-openclaw` name)
+- Skip duplicate daemon start when gateway loads plugin multiple times during startup/hot-reload
+- Inject `claude-agent-sdk` into uvx when using `claude-code` LLM provider
+
 ## [1.0.0-alpha.1] - 2026-03-18
 
 ### Added
