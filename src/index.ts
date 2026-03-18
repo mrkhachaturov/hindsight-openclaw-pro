@@ -13,8 +13,9 @@ import { handleSessionStart } from './hooks/session-start.js';
 import { deriveBankId } from './derive-bank-id.js';
 import { formatMemories } from './format.js';
 import { bootstrapBank } from './sync/bootstrap.js';
-import { dirname } from 'path';
+import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import { homedir } from 'os';
 
 // ── Re-exports for backward compatibility ───────────────────────────────
 export { stripMemoryTags, prepareRetentionTranscript } from './hooks/retain.js';
@@ -304,9 +305,12 @@ function getPluginConfig(api: MoltbotPluginAPI): PluginConfig {
   };
 }
 
-// Get directory of current module (for resolving bank config paths)
+// Resolve OpenClaw config directory for bank config file paths.
+// Bank config paths (e.g., "./banks/yoda.json5") are relative to .openclaw/ dir.
+// OPENCLAW_CONFIG_PATH env var takes precedence, fallback to ~/.openclaw/
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const openclawConfigDir = process.env.OPENCLAW_CONFIG_PATH || join(homedir(), '.openclaw');
 
 // ── Plugin entry point ──────────────────────────────────────────────────
 export default function (api: MoltbotPluginAPI) {
@@ -320,7 +324,7 @@ export default function (api: MoltbotPluginAPI) {
     // Load bank config files for configured agents
     if (pluginConfig.agents) {
       try {
-        bankConfigs = loadBankConfigFiles(pluginConfig.agents, __dirname);
+        bankConfigs = loadBankConfigFiles(pluginConfig.agents, openclawConfigDir);
         debug(`[Hindsight] Loaded bank configs for ${bankConfigs.size} agents`);
       } catch (error) {
         console.warn('[Hindsight] Failed to load bank config files:', error instanceof Error ? error.message : error);
