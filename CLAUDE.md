@@ -84,10 +84,19 @@ Integration tests require:
 
 Push a `v*` tag — GitHub Actions publishes to npm via OIDC trusted publisher.
 
+**MANDATORY before tagging:**
+1. Bump version in `package.json`
+2. Add changelog entry in `CHANGELOG.md` with the **exact same version** — the workflow reads changelog by tag version and **will fail** if the entry is missing
+3. Commit both files
+4. Then tag and push
+
 ```bash
-# bump version in package.json + CHANGELOG.md, then:
-git tag v1.0.0-alpha.1
-git push origin main --tags
+# Example:
+# 1. Edit package.json: "version": "1.0.0-alpha.3"
+# 2. Edit CHANGELOG.md: ## [1.0.0-alpha.3] - YYYY-MM-DD
+# 3. git add package.json CHANGELOG.md && git commit -m "chore: bump v1.0.0-alpha.3"
+# 4. git tag v1.0.0-alpha.3
+# 5. git push origin main --tags
 ```
 
 ## CLI: hoppro
