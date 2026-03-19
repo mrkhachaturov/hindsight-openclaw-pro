@@ -1,6 +1,6 @@
 # Access Control
 
-Confluence-style permission model: users belong to groups, groups define defaults, banks override per-group or per-user.
+Layered permission model: users belong to groups, groups define defaults, banks override per-group or per-user.
 
 ## Directory Structure
 
@@ -10,8 +10,8 @@ Access control uses a self-contained directory at `.openclaw/hindsight/`:
 .openclaw/hindsight/
 ├── config.json5           <- plugin settings
 ├── banks/
-│   ├── yoda.json5         <- bank config (file name = agent ID)
-│   ├── yoda/              <- $include fragments
+│   ├── atlas.json5        <- bank config (file name = agent ID)
+│   ├── atlas/             <- $include fragments
 │   └── ...
 ├── groups/
 │   ├── _default.json5     <- REQUIRED — anonymous/unknown users
@@ -19,7 +19,7 @@ Access control uses a self-contained directory at `.openclaw/hindsight/`:
 │   ├── staff.json5
 │   └── ...
 └── users/
-    ├── ruben.json5        <- canonical ID = file name
+    ├── alice.json5        <- canonical ID = file name
     └── ...
 ```
 
@@ -37,10 +37,10 @@ Enable by setting `configPath` in your plugin config:
 A user file defines identity only — who they are across channels. No permissions, no group membership.
 
 ```json5
-// users/ruben.json5
+// users/alice.json5
 {
-  "displayName": "Ruben",
-  "email": "ruben@astrateam.ru",
+  "displayName": "Alice",
+  "email": "alice@northwind.com",
   "channels": {
     "telegram": "123456",
     "slack": "U123456"
@@ -58,7 +58,7 @@ A group file defines who's in it and what permission defaults they get.
 // groups/executive.json5
 {
   "displayName": "Executive",
-  "members": ["ruben"],
+  "members": ["alice"],
   "recall": true,
   "retain": true,
   "retainRoles": ["user", "assistant", "tool"],
@@ -74,7 +74,7 @@ A group file defines who's in it and what permission defaults they get.
 // groups/staff.json5
 {
   "displayName": "Staff",
-  "members": ["petya"],
+  "members": ["charlie"],
   "recall": true,
   "retain": true,
   "retainRoles": ["assistant"],
@@ -93,14 +93,14 @@ A group file defines who's in it and what permission defaults they get.
 ### Department Groups
 
 ```json5
-// groups/motors.json5
+// groups/sales.json5
 {
-  "displayName": "AstroMotors Team",
-  "members": ["vagan", "petya"],
+  "displayName": "Sales Team",
+  "members": ["bob", "charlie"],
   "recallTagGroups": [
-    {"tags": ["department:motors"], "match": "any"}
+    {"tags": ["department:sales"], "match": "any"}
   ],
-  "retainTags": ["department:motors"]
+  "retainTags": ["department:sales"]
 }
 ```
 
@@ -151,7 +151,7 @@ When a user belongs to multiple groups:
 
 ## Bank-Level Permissions
 
-Each bank can override group defaults — like Confluence space permissions:
+Each bank can override group defaults — the most specific scope wins:
 
 ```json5
 // In bank config
@@ -163,7 +163,7 @@ Each bank can override group defaults — like Confluence space permissions:
       "_default":  { "recall": false, "retain": false }
     },
     "users": {
-      "vagan": { "recallBudget": "high", "recallMaxTokens": 2048 }
+      "bob": { "recallBudget": "high", "recallMaxTokens": 2048 }
     }
   }
 }
@@ -189,7 +189,7 @@ Banks without `permissions` fall through to global group defaults (backward comp
 {"not": {"tags": ["sensitivity:restricted"], "match": "any_strict"}}
 
 // Include only department content (plus untagged)
-{"tags": ["department:motors"], "match": "any"}
+{"tags": ["department:sales"], "match": "any"}
 ```
 
 Tags come from two sources:

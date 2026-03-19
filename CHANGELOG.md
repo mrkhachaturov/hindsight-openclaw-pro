@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2026-03-19
 
 ### Added
-- **User-scoped access control** — Confluence-style permission model with users, groups, and bank-level overrides
+- **User-scoped access control** — RBAC permission model with users, groups, and bank-level overrides
   - Users: identity profiles with cross-channel mapping (`users/*.json5`)
   - Groups: membership + permission defaults (`groups/*.json5`, `_default.json5` required)
   - Bank permissions: per-bank group/user overrides (`permissions` section in bank configs)

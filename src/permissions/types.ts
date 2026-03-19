@@ -42,7 +42,7 @@ export interface GroupConfig {
 }
 
 /**
- * Bank-level permissions — Confluence-style space permissions.
+ * Bank-level permissions — RBAC with per-bank overrides.
  * Defined inside bank config files under the "permissions" key.
  */
 export interface BankPermissions {

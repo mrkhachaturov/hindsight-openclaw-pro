@@ -3,7 +3,7 @@
 HindClaw uses a two-level config system: plugin-level defaults in `openclaw.json` and per-agent overrides in bank config files.
 
 ```
-openclaw.json (plugin config)          banks/yoda.json5 (bank config)
+openclaw.json (plugin config)          banks/atlas.json5 (bank config)
 ├── Daemon (global only)               ├── Server-side (agent-only)
 │   apiPort, embedVersion              │   retain_mission, entity_labels
 │   embedPackagePath, daemonIdleTimeout│   dispositions, directives
@@ -52,11 +52,11 @@ Per-agent infrastructure overrides enable connecting different agents to differe
 
 ```
 Gateway
-├── yoda   (private)  -> hindsightApiUrl: "https://hindsight.home.local"
-├── l337   (health)   -> hindsightApiUrl: "https://hindsight.home.local"
-├── bb8    (company)  -> hindsightApiUrl: "https://hindsight.office.local"
-├── bb9e   (company)  -> hindsightApiUrl: "https://hindsight.office.local"
-└── cb23   (local)    -> no hindsightApiUrl (local daemon)
+├── atlas    (private)  -> hindsightApiUrl: "https://hindsight.home.local"
+├── health   (private)  -> hindsightApiUrl: "https://hindsight.home.local"
+├── support  (company)  -> hindsightApiUrl: "https://hindsight.office.local"
+├── sales    (company)  -> hindsightApiUrl: "https://hindsight.office.local"
+└── dev      (local)    -> no hindsightApiUrl (local daemon)
 ```
 
 ## Remote Hindsight Server
@@ -76,7 +76,7 @@ An agent can recall from multiple banks using `recallFrom` in its bank config:
 
 ```json5
 {
-  "recallFrom": ["yoda", "r4p17", "bb9e"],
+  "recallFrom": ["atlas", "finance", "ops"],
   "recallBudget": "high",
   "recallMaxTokens": 2048
 }

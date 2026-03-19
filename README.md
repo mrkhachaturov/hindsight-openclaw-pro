@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/assets/hindclaw.png" alt="HindClaw" width="600">
+  <img src=".github/assets/hindclaw.png" alt="HindClaw">
 </p>
 
 <p align="center">
@@ -26,8 +26,8 @@ Built on [Hindsight](https://hindsight.vectorize.io) — the highest-scoring age
 
 The official Hindsight plugin gives you auto-capture and auto-recall. HindClaw adds what you need to run it in production:
 
-- **Per-user access control** — Confluence-style permissions. Groups, roles, bank-level overrides. CEO gets full recall; staff gets filtered views.
-- **Cross-agent recall** — Yoda reads from R4-P17's financial memories and BB-8's operational notes. One query, multiple banks.
+- **Per-user access control** — Granular permissions with groups, roles, and bank-level overrides. CEO gets full recall; staff gets filtered views.
+- **Cross-agent recall** — Atlas reads from Finance's revenue data and Ops' deployment notes. One query, multiple banks.
 - **Named retain strategies** — "deep-analysis" for strategy topics, "lightweight" for daily chat. Routed by conversation topic.
 - **Infrastructure as code** — `hindclaw plan` shows what will change. `hindclaw apply` syncs it. Like Terraform for memory banks.
 
@@ -83,7 +83,7 @@ Define agent memory banks as JSON5 files — missions, entity labels, directives
 ```bash
 hindclaw plan --all     # preview changes
 hindclaw apply --all    # sync to Hindsight
-hindclaw import --agent yoda --output ./banks/yoda.json5
+hindclaw import --agent atlas --output ./banks/atlas.json5
 ```
 
 See [CLI Reference](docs/cli.md).
@@ -96,7 +96,7 @@ Users, groups, and bank-level permission overrides. Tag-based recall filtering w
 // groups/executive.json5
 {
   "displayName": "Executive",
-  "members": ["ruben"],
+  "members": ["alice"],
   "recall": true,
   "retain": true,
   "recallBudget": "high",
@@ -130,7 +130,7 @@ An agent can recall from multiple banks. Permissions are checked per-bank — no
 
 ```json5
 {
-  "recallFrom": ["yoda", "r4p17", "bb9e"],
+  "recallFrom": ["atlas", "finance", "ops"],
   "recallBudget": "high"
 }
 ```
@@ -159,8 +159,8 @@ openclaw plugins install hindclaw
 ```
 
 Bank ID scheme is compatible — existing memories are preserved.
-`bankMission` becomes `retain_mission` in bank config files.
-All other plugin-level options use the same names.
+All plugin-level options use the same names, including `bankMission`.
+Per-agent bank config files use `retain_mission` for the same purpose (server-side field name).
 
 ---
 

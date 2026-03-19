@@ -31,7 +31,7 @@ Server-side fields are synced to Hindsight via `hindclaw apply`. Routing and beh
 ## Example Bank Config
 
 ```json5
-// .openclaw/banks/yoda.json5
+// .openclaw/banks/atlas.json5
 {
   // Server-side — synced to Hindsight
   "retain_mission": "Extract strategic decisions, cross-departmental patterns.",
@@ -39,15 +39,15 @@ Server-side fields are synced to Hindsight via `hindclaw apply`. Routing and beh
   "disposition_skepticism": 4,
   "disposition_literalism": 2,
   "disposition_empathy": 3,
-  "entity_labels": { "$include": "./yoda/entity-labels.json5" },
+  "entity_labels": { "$include": "./atlas/entity-labels.json5" },
   "directives": [
     { "name": "cross_dept_honesty", "content": "Flag contradictions between departments explicitly." }
   ],
 
   // Named strategies — different extraction rules per context
   "retain_strategies": {
-    "deep-analysis": { "$include": "./yoda/deep-analysis.json5" },
-    "lightweight":   { "$include": "./yoda/lightweight.json5" }
+    "deep-analysis": { "$include": "./atlas/deep-analysis.json5" },
+    "lightweight":   { "$include": "./atlas/lightweight.json5" }
   },
 
   // Strategy routing — which topics use which strategies
@@ -59,7 +59,7 @@ Server-side fields are synced to Hindsight via `hindclaw apply`. Routing and beh
   },
 
   // Multi-bank recall
-  "recallFrom": ["yoda", "r4p17", "bb9e"],
+  "recallFrom": ["atlas", "finance", "ops"],
   "recallBudget": "high",
   "recallMaxTokens": 2048
 }
@@ -106,7 +106,7 @@ Route memory behavior per conversation context. Each Telegram topic can use a di
 |-------|----------|--------------|
 | "Fitness log" | `training` | Extracts sets, reps, PRs, recovery scores |
 | "Medical" | *(disabled)* | No memory interaction — strict boundary |
-| "Sleep" | `wellness` | Tracks sleep patterns, WHOOP scores |
+| "Sleep" | `wellness` | Tracks sleep patterns, recovery scores |
 
 ## `$include` Directives
 
@@ -115,17 +115,17 @@ Split large configs into manageable files. Resolved recursively, relative to the
 ```json5
 // Main bank config
 {
-  "entity_labels": { "$include": "./yoda/labels.json5" },
+  "entity_labels": { "$include": "./atlas/labels.json5" },
   "retain_strategies": {
-    "detailed": { "$include": "./yoda/detailed-strategy.json5" }
+    "detailed": { "$include": "./atlas/detailed-strategy.json5" }
   }
 }
 ```
 
 ```
 .openclaw/banks/
-├── yoda.json5                     <- main bank config
-├── yoda/
+├── atlas.json5                    <- main bank config
+├── atlas/
 │   ├── labels.json5               <- entity label definitions
 │   ├── detailed-strategy.json5    <- strategy: verbose + custom labels
 │   └── quick-strategy.json5       <- strategy: concise extraction
