@@ -3,6 +3,7 @@ import { stripMemoryTags } from '../utils.js';
 import { prepareRetentionTranscript, handleRetain } from './retain.js';
 import type { HindsightClient } from '../client.js';
 import type { ResolvedConfig, PluginConfig, PluginHookAgentContext } from '../types.js';
+import type { DiscoveryResult, GroupConfig, UserProfile } from '../permissions/types.js';
 
 // ── stripMemoryTags ───────────────────────────────────────────────────
 
@@ -377,5 +378,89 @@ describe('handleRetain', () => {
     expect(mockRetain).toHaveBeenCalledOnce();
     const [, request] = mockRetain.mock.calls[0];
     expect(request.items[0].strategy).toBeUndefined();
+  });
+});
+
+// ── handleRetain — permission-aware (v2.0.0) ─────────────────────────
+
+function makeDiscovery(overrides?: Partial<DiscoveryResult>): DiscoveryResult {
+  const users = new Map<string, UserProfile>([
+    ['ruben', { displayName: 'Ruben', channels: { telegram: '123456' } }],
+    ['petya', { displayName: 'Petya', channels: { telegram: '345678' } }],
+  ]);
+  const groups = new Map<string, GroupConfig>([
+    ['_default', { displayName: 'Anonymous', members: [], recall: false, retain: false }],
+    ['executive', {
+      displayName: 'Executive', members: ['ruben'],
+      recall: true, retain: true,
+      retainRoles: ['user', 'assistant', 'tool'],
+      retainTags: ['role:executive'],
+    }],
+    ['staff', {
+      displayName: 'Staff', members: ['petya'],
+      recall: true, retain: true,
+      retainRoles: ['assistant'],
+      retainTags: ['role:staff'],
+    }],
+  ]);
+  const channelIndex = new Map([['telegram:123456', 'ruben'], ['telegram:345678', 'petya']]);
+  const membershipIndex = new Map([['ruben', ['executive']], ['petya', ['staff']]]);
+  return {
+    banks: new Map([['yoda', { bank_id: 'yoda' }]]),
+    groups, users, channelIndex, membershipIndex,
+    strategyIndex: new Map(),
+    ...overrides,
+  };
+}
+
+describe('handleRetain — permission-aware', () => {
+  let mockRetain: ReturnType<typeof vi.fn>;
+  let client: HindsightClient;
+
+  beforeEach(() => {
+    mockRetain = vi.fn().mockResolvedValue({ message: 'ok', document_id: 'doc1', memory_unit_ids: [] });
+    client = { retain: mockRetain } as unknown as HindsightClient;
+  });
+
+  const makeEvent = (messages: Array<{ role: string; content: string }>) => ({ messages });
+
+  it('skips retain when permissions.retain is false', async () => {
+    const discovery = makeDiscovery();
+    const ctx: PluginHookAgentContext = { agentId: 'yoda', channelId: 'c1', senderId: '999999', messageProvider: 'telegram', sessionKey: 'test' };
+    const event = makeEvent([{ role: 'user', content: 'Hello there' }, { role: 'assistant', content: 'World' }]);
+    await handleRetain(event, ctx, {}, client, {}, discovery);
+    expect(mockRetain).not.toHaveBeenCalled();
+  });
+
+  it('uses permission retainRoles for transcript filtering', async () => {
+    const discovery = makeDiscovery();
+    // Petya (staff) has retainRoles: ["assistant"] — user messages should be excluded
+    const ctx: PluginHookAgentContext = { agentId: 'yoda', channelId: 'c1', senderId: '345678', messageProvider: 'telegram', sessionKey: 'test' };
+    const event = makeEvent([{ role: 'user', content: 'Dumb question' }, { role: 'assistant', content: 'Smart answer' }]);
+    await handleRetain(event, ctx, {}, client, {}, discovery);
+    expect(mockRetain).toHaveBeenCalledOnce();
+    const [, request] = mockRetain.mock.calls[0];
+    expect(request.items[0].content).toContain('Smart answer');
+    expect(request.items[0].content).not.toContain('Dumb question');
+  });
+
+  it('merges permission retainTags with bank retainTags', async () => {
+    const discovery = makeDiscovery();
+    const ctx: PluginHookAgentContext = { agentId: 'yoda', channelId: 'c1', senderId: '123456', messageProvider: 'telegram', sessionKey: 'test' };
+    const event = makeEvent([{ role: 'user', content: 'Hello there' }, { role: 'assistant', content: 'World' }]);
+    const agentConfig: ResolvedConfig = { retainTags: ['source:telegram'] };
+    await handleRetain(event, ctx, agentConfig, client, {}, discovery);
+    const [, request] = mockRetain.mock.calls[0];
+    const tags = request.items[0].tags;
+    expect(tags).toContain('role:executive');
+    expect(tags).toContain('user:ruben');
+    expect(tags).toContain('source:telegram');
+  });
+
+  it('falls back to v1.x behavior when discovery is null', async () => {
+    const ctx: PluginHookAgentContext = { agentId: 'yoda', channelId: 'c1', senderId: '123456', messageProvider: 'telegram', sessionKey: 'test' };
+    const event = makeEvent([{ role: 'user', content: 'Hello there' }, { role: 'assistant', content: 'World' }]);
+    await handleRetain(event, ctx, {}, client, {}, null);
+    expect(mockRetain).toHaveBeenCalled();
   });
 });

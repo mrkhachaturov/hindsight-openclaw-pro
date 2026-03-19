@@ -1,5 +1,7 @@
 import type { HindsightClient } from '../client.js';
 import type { ResolvedConfig, PluginConfig, PluginHookAgentContext } from '../types.js';
+import type { DiscoveryResult, ResolvedPermissions } from '../permissions/types.js';
+import { resolvePermissions } from '../permissions/resolver.js';
 import { debug } from '../debug.js';
 import { deriveBankId } from '../derive-bank-id.js';
 import { stripMemoryTags, stripMetadataEnvelopes, sliceLastTurnsByUserBoundary, extractTopicId } from '../utils.js';
@@ -124,11 +126,31 @@ export async function handleRetain(
   agentConfig: ResolvedConfig,
   client: HindsightClient,
   pluginConfig: PluginConfig,
+  discovery: DiscoveryResult | null = null,
 ): Promise<void> {
   const bankId = deriveBankId(ctx, pluginConfig);
   debug(`[Hindsight Hook] agent_end triggered - bank: ${bankId}`);
 
-  if (agentConfig.autoRetain === false) {
+  // ── Per-user permission resolution (v2.0.0) ──
+  let permissions: ResolvedPermissions | null = null;
+  if (discovery) {
+    const provider = ctx?.messageProvider ?? 'unknown';
+    const sid = ctx?.senderId ?? 'unknown';
+    const channelKey = `${provider}:${sid}`;
+    permissions = resolvePermissions(channelKey, bankId, discovery);
+
+    if (!permissions.retain) {
+      debug(`[Hindsight Hook] Retain: skipped (retain=false for ${permissions.displayName} on ${bankId})`);
+      return;
+    }
+
+    if (permissions.excludeProviders?.includes(ctx?.messageProvider ?? '')) {
+      debug(`[Hindsight Hook] Retain: provider "${ctx?.messageProvider}" excluded for ${permissions.displayName}`);
+      return;
+    }
+  }
+
+  if (agentConfig.autoRetain === false && !discovery) {
     debug('[Hindsight Hook] autoRetain is disabled, skipping retention');
     return;
   }
@@ -139,12 +161,12 @@ export async function handleRetain(
     return;
   }
 
-  const retainRoles = agentConfig.retainRoles ?? ['user', 'assistant'];
+  const retainRoles = permissions?.retainRoles ?? agentConfig.retainRoles ?? ['user', 'assistant'];
 
   // ── Chunked retention (C2/C5) ──────────────────────────────────────
   // Skip non-Nth turns and use a sliding window when firing.
   // Ported from native index.ts lines 1200-1231.
-  const retainEveryN = agentConfig.retainEveryNTurns ?? pluginConfig.retainEveryNTurns ?? 1;
+  const retainEveryN = permissions?.retainEveryNTurns ?? agentConfig.retainEveryNTurns ?? pluginConfig.retainEveryNTurns ?? 1;
   let messagesToRetain = allMessages;
   let retainFullWindow = false;
 
@@ -182,22 +204,32 @@ export async function handleRetain(
   const { transcript, messageCount } = retention;
   const documentId = `session-${ctx?.sessionKey ?? 'unknown'}-${Date.now()}`;
 
-  // Resolve topic-based memory mode and strategy
+  // Resolve topic-based strategy (discovery or legacy _topicIndex)
   const topicId = extractTopicId(ctx?.sessionKey);
-  const topicEntry = topicId ? agentConfig._topicIndex?.get(topicId) : undefined;
-  const effectiveMode = topicEntry?.mode ?? agentConfig._defaultMode ?? 'full';
+  let strategy: string | undefined;
 
-  if (effectiveMode === 'disabled' || effectiveMode === 'recall') {
-    debug(`[Hindsight Hook] Mode "${effectiveMode}" for topic ${topicId ?? 'default'} — skipping retain`);
-    return;
+  if (discovery && topicId) {
+    strategy = discovery.strategyIndex.get(`${bankId}:${topicId}`);
+  } else {
+    const topicEntry = topicId ? agentConfig._topicIndex?.get(topicId) : undefined;
+    const effectiveMode = topicEntry?.mode ?? agentConfig._defaultMode ?? 'full';
+
+    if (effectiveMode === 'disabled' || effectiveMode === 'recall') {
+      debug(`[Hindsight Hook] Mode "${effectiveMode}" for topic ${topicId ?? 'default'} — skipping retain`);
+      return;
+    }
+    strategy = topicEntry?.strategy;
   }
-
-  const strategy = topicEntry?.strategy; // undefined for default/unscoped
   if (strategy) {
     debug(`[Hindsight Hook] Topic ${topicId} → strategy "${strategy}"`);
   }
 
   debug(`[Hindsight] Retaining to bank ${bankId}, document: ${documentId}, chars: ${transcript.length}${strategy ? `, strategy: ${strategy}` : ''}\n---\n${transcript.substring(0, 500)}${transcript.length > 500 ? '\n...(truncated)' : ''}\n---`);
+
+  // Merge tags: permission-level (includes user: tag + group retainTags) + bank-level
+  const retainTags = permissions
+    ? [...new Set([...(permissions.retainTags ?? []), ...(agentConfig.retainTags ?? [])])]
+    : agentConfig.retainTags;
 
   await client.retain(bankId, {
     items: [{
@@ -210,7 +242,7 @@ export async function handleRetain(
         channel_id: ctx?.channelId ?? '',
         sender_id: ctx?.senderId ?? '',
       },
-      tags: agentConfig.retainTags,
+      tags: retainTags,
       context: agentConfig.retainContext,
       observation_scopes: agentConfig.retainObservationScopes,
       strategy,
