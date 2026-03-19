@@ -1,4 +1,8 @@
-# 🧠 HindClaw
+<p align="center">
+  <img src=".github/assets/hindclaw.png" alt="HindClaw" width="600">
+</p>
+
+# HindClaw
 
 > 🔌 Production-grade [Hindsight](https://vectorize.io/hindsight) memory plugin for [OpenClaw](https://openclaw.ai)
 >
