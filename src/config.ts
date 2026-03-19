@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
 import JSON5 from 'json5';
 import type {
   BankConfig,
@@ -31,6 +31,47 @@ const EXTRACTED_FIELDS = new Set<string>([
   'reflectBudget',
   'reflectMaxTokens',
 ]);
+
+// ── $include resolution ───────────────────────────────────────────────
+
+const MAX_INCLUDE_DEPTH = 10;
+
+/**
+ * Recursively resolve $include directives in a parsed config object.
+ * Each { "$include": "./path" } is replaced with the parsed contents of the referenced file.
+ * Paths are resolved relative to basePath.
+ */
+export function resolveIncludes<T>(obj: T, basePath: string, depth = 0, seen = new Set<string>()): T {
+  if (depth > MAX_INCLUDE_DEPTH) {
+    throw new Error(`$include depth exceeded (max ${MAX_INCLUDE_DEPTH})`);
+  }
+  if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
+    return obj;
+  }
+
+  const record = obj as Record<string, unknown>;
+
+  // Check if this object IS an $include directive
+  if ('$include' in record && typeof record.$include === 'string' && Object.keys(record).length === 1) {
+    const includePath = record.$include as string;
+    const filePath = includePath.startsWith('/') ? includePath : join(basePath, includePath);
+    if (seen.has(filePath)) {
+      throw new Error(`Circular $include detected: ${filePath}`);
+    }
+    const content = readFileSync(filePath, 'utf-8');
+    const parsed = JSON5.parse(content);
+    const nextSeen = new Set(seen);
+    nextSeen.add(filePath);
+    return resolveIncludes(parsed, dirname(filePath), depth + 1, nextSeen) as T;
+  }
+
+  // Walk child properties
+  const result: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(record)) {
+    result[key] = resolveIncludes(value, basePath, depth, seen);
+  }
+  return result as T;
+}
 
 // ── Public API ────────────────────────────────────────────────────────
 
@@ -133,7 +174,9 @@ export function loadBankConfigFiles(
 
     try {
       const content = readFileSync(filePath, 'utf-8');
-      result.set(agentId, parseBankConfigFile(content));
+      const parsed = parseBankConfigFile(content);
+      const resolved = resolveIncludes(parsed, dirname(filePath));
+      result.set(agentId, resolved);
       debug(`[Hindsight] Loaded bank config for agent "${agentId}" from ${filePath}`);
     } catch (error) {
       console.warn(`[Hindsight] Failed to load bank config for agent "${agentId}" from ${filePath}:`, error instanceof Error ? error.message : error);
