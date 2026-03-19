@@ -24,129 +24,245 @@
 
 Built on [Hindsight](https://hindsight.vectorize.io) — the highest-scoring agent memory system on the [LongMemEval benchmark](https://vectorize.io/#:~:text=The%20New%20Leader%20in%20Agent%20Memory).
 
-The official Hindsight plugin gives you auto-capture and auto-recall. HindClaw adds what you need to run it in production:
+The official Hindsight plugin gives you auto-capture and auto-recall. HindClaw adds what you need to run it in production — two orthogonal dimensions that combine per-message:
 
-### Per-User Access Control
+**WHO** (permissions) — resolved through 4 layers, each can override any field:
+- Global config defaults → group merge → bank group override → bank user override
+- Not just `recall: true/false` — LLM model, token budget, extraction depth, tag visibility, retention frequency. 11 configurable fields at every layer.
 
-RBAC for agent memory. Users inherit permissions from groups, banks override per-role.
+**HOW** (strategies) — resolved per topic:
+- Each conversation topic routes to a named strategy with its own extraction mission, mode, and entity labels
+- Strategies are orthogonal to permissions — a blocked user never reaches strategy resolution
 
 ```mermaid
 graph LR
-    MSG[Message from user-1] --> RESOLVE[Resolve identity]
-    RESOLVE --> GROUPS[Groups: group-1, group-2]
-    GROUPS --> MERGE[Merge permissions]
-    MERGE --> BANK{Bank override?}
-    BANK -->|yes| OVERRIDE[Apply bank permissions]
-    BANK -->|no| GLOBAL[Use global defaults]
-    OVERRIDE --> RESULT[recall: true, budget: high]
-    GLOBAL --> RESULT
+    MSG["💬 Message"] --> WHO{"🔐 WHO?"}
+    WHO --> PERM["👥 Permission resolution<br/>group → bank → user"]
+    PERM --> ACCESS{Access?}
+    ACCESS -->|blocked| STOP["🚫 No memory"]
+    ACCESS -->|allowed| HOW{"🎯 HOW?"}
+    HOW --> STRATEGY["📝 Strategy resolution<br/>topic → named strategy"]
+    STRATEGY --> RECALL["📥 Recall with filters"]
+    STRATEGY --> RETAIN["📤 Retain with strategy"]
+
+    style MSG fill:#1d4ed8,color:#fff,stroke:#1d4ed8
+    style PERM fill:#8b5cf6,color:#fff,stroke:#8b5cf6
+    style STOP fill:#ef4444,color:#fff,stroke:#ef4444
+    style STRATEGY fill:#c2410c,color:#fff,stroke:#c2410c
+    style RECALL fill:#10b981,color:#fff,stroke:#10b981
+    style RETAIN fill:#10b981,color:#fff,stroke:#10b981
 ```
 
-### Cross-Agent Recall
+---
+
+### 🔐 Per-User Access & Behavioral Overrides
+
+The same user gets different behavior on different agents. Every parameter is configurable per group, overridable per bank and per user.
+
+```mermaid
+graph TD
+    MSG["💬 Message"] --> ID["🔍 Resolve identity"]
+    ID --> GROUPS["👥 Merge group permissions"]
+    GROUPS --> BANK{"🏦 Bank overrides?"}
+    BANK -->|group override| BG["⚙️ Bank group permissions"]
+    BANK -->|user override| BU["👤 Bank user permissions"]
+    BANK -->|none| GLOBAL["📋 Global defaults"]
+    BG --> RESOLVED["✅ Resolved permissions"]
+    BU --> RESOLVED
+    GLOBAL --> RESOLVED
+    RESOLVED --> TOPIC{"🎯 Topic?"}
+    TOPIC -->|mapped| STRATEGY["📝 Named strategy"]
+    TOPIC -->|unmapped| DEFAULT["📝 Bank defaults"]
+
+    style MSG fill:#1d4ed8,color:#fff,stroke:#1d4ed8
+    style ID fill:#8b5cf6,color:#fff,stroke:#8b5cf6
+    style GROUPS fill:#8b5cf6,color:#fff,stroke:#8b5cf6
+    style BG fill:#c2410c,color:#fff,stroke:#c2410c
+    style BU fill:#c2410c,color:#fff,stroke:#c2410c
+    style GLOBAL fill:#c2410c,color:#fff,stroke:#c2410c
+    style RESOLVED fill:#0f766e,color:#fff,stroke:#0f766e
+    style STRATEGY fill:#10b981,color:#fff,stroke:#10b981
+    style DEFAULT fill:#f59e0b,color:#fff,stroke:#f59e0b
+```
+
+**Override chain** (most specific wins):
+
+```
+config.json5 defaults → group → bank group → bank user
+```
+
+**Configurable at every level:** `recall`, `retain`, `retainRoles`, `retainTags`, `retainEveryNTurns`, `recallBudget`, `recallMaxTokens`, `recallTagGroups`, `llmModel`, `llmProvider`, `excludeProviders`
+
+**Same user, different agents:**
+
+| | agent-1 (strategic) | agent-2 (financial) |
+|---|---|---|
+| **user-1** (executive) | recall + retain, high budget, no filters | recall + retain, high budget, no filters |
+| **user-2** (dept-head) | recall only, mid budget, filtered | recall + retain, high budget (user override) |
+| **user-3** (staff) | blocked (no entry → `_default`) | recall only, low budget, filtered |
+| **anonymous** | blocked | blocked |
+```
+
+### 🔀 Cross-Agent Recall
 
 One agent queries multiple banks in parallel. Permissions checked per-bank.
 
 ```mermaid
 graph LR
-    Q[agent-1 recall query] --> B1[bank: agent-1]
-    Q --> B2[bank: agent-2]
-    Q --> B3[bank: agent-3]
-    B1 -->|recall: true| R1[results]
-    B2 -->|recall: true| R2[results]
-    B3 -->|recall: false| SKIP[skipped]
-    R1 --> MERGE[Merge + interleave]
+    Q["🔍 agent-1 recall query"] --> B1["🏦 bank: agent-1"]
+    Q --> B2["🏦 bank: agent-2"]
+    Q --> B3["🏦 bank: agent-3"]
+    B1 -->|recall: true| R1["📥 results"]
+    B2 -->|recall: true| R2["📥 results"]
+    B3 -->|recall: false| SKIP["🚫 skipped"]
+    R1 --> MERGE["🔀 Merge + interleave"]
     R2 --> MERGE
-    MERGE --> INJECT[Inject into prompt]
+    MERGE --> INJECT["💉 Inject into prompt"]
+
+    style Q fill:#1d4ed8,color:#fff,stroke:#1d4ed8
+    style B1 fill:#8b5cf6,color:#fff,stroke:#8b5cf6
+    style B2 fill:#8b5cf6,color:#fff,stroke:#8b5cf6
+    style B3 fill:#8b5cf6,color:#fff,stroke:#8b5cf6
+    style R1 fill:#10b981,color:#fff,stroke:#10b981
+    style R2 fill:#10b981,color:#fff,stroke:#10b981
+    style SKIP fill:#ef4444,color:#fff,stroke:#ef4444
+    style MERGE fill:#0f766e,color:#fff,stroke:#0f766e
+    style INJECT fill:#0f766e,color:#fff,stroke:#0f766e
 ```
 
-### Named Retain Strategies
+### 🎯 Named Retain Strategies
 
 Different conversation topics routed to different extraction strategies.
 
 ```mermaid
 graph LR
-    MSG[Incoming message] --> TOPIC{Topic ID?}
-    TOPIC -->|280304| DEEP[deep-analysis strategy]
-    TOPIC -->|280418| LIGHT[lightweight strategy]
-    TOPIC -->|other| DEFAULT[bank default strategy]
-    DEEP --> RETAIN1[Verbose extraction]
-    LIGHT --> RETAIN2[Concise extraction]
-    DEFAULT --> RETAIN3[Standard extraction]
+    MSG["💬 Incoming message"] --> TOPIC{"🎯 Topic ID?"}
+    TOPIC -->|280304| DEEP["🔬 deep-analysis"]
+    TOPIC -->|280418| LIGHT["⚡ lightweight"]
+    TOPIC -->|other| DEFAULT["📋 bank default"]
+    DEEP --> RETAIN1["📝 Verbose extraction"]
+    LIGHT --> RETAIN2["📝 Concise extraction"]
+    DEFAULT --> RETAIN3["📝 Standard extraction"]
+
+    style MSG fill:#1d4ed8,color:#fff,stroke:#1d4ed8
+    style DEEP fill:#8b5cf6,color:#fff,stroke:#8b5cf6
+    style LIGHT fill:#f59e0b,color:#fff,stroke:#f59e0b
+    style DEFAULT fill:#c2410c,color:#fff,stroke:#c2410c
+    style RETAIN1 fill:#10b981,color:#fff,stroke:#10b981
+    style RETAIN2 fill:#10b981,color:#fff,stroke:#10b981
+    style RETAIN3 fill:#10b981,color:#fff,stroke:#10b981
 ```
 
-### Infrastructure as Code
+### 🏗️ Infrastructure as Code
 
 `hindclaw plan` shows what will change. `hindclaw apply` syncs it. Like Terraform for memory banks.
 
 ```mermaid
 graph LR
-    FILE[Bank config files] --> PLAN[hindclaw plan]
-    PLAN --> DIFF{Changes?}
-    DIFF -->|none| OK[Up to date]
-    DIFF -->|yes| SHOW[Show diff]
-    SHOW --> APPLY[hindclaw apply]
-    APPLY --> CONFIRM{Confirm?}
-    CONFIRM -->|yes| SYNC[Sync to Hindsight]
-    CONFIRM -->|no| CANCEL[Cancelled]
+    FILE["📂 Bank config files"] --> PLAN["📋 hindclaw plan"]
+    PLAN --> DIFF{"🔍 Changes?"}
+    DIFF -->|none| OK["✅ Up to date"]
+    DIFF -->|yes| SHOW["📄 Show diff"]
+    SHOW --> APPLY["⚡ hindclaw apply"]
+    APPLY --> CONFIRM{"❓ Confirm?"}
+    CONFIRM -->|yes| SYNC["🚀 Sync to Hindsight"]
+    CONFIRM -->|no| CANCEL["❌ Cancelled"]
+
+    style FILE fill:#1d4ed8,color:#fff,stroke:#1d4ed8
+    style PLAN fill:#8b5cf6,color:#fff,stroke:#8b5cf6
+    style APPLY fill:#8b5cf6,color:#fff,stroke:#8b5cf6
+    style OK fill:#10b981,color:#fff,stroke:#10b981
+    style SHOW fill:#f59e0b,color:#fff,stroke:#f59e0b
+    style SYNC fill:#10b981,color:#fff,stroke:#10b981
+    style CANCEL fill:#ef4444,color:#fff,stroke:#ef4444
 ```
 
-### Session Start Context
+### 🧩 Session Start Context
 
 Mental models loaded before the first message — no cold start.
 
 ```mermaid
 graph LR
-    START[Session starts] --> LOAD[Load mental models]
-    LOAD --> M1[Project context]
-    LOAD --> M2[User preferences]
-    M1 --> INJECT[Inject into system prompt]
+    START["🎬 Session starts"] --> LOAD["📦 Load mental models"]
+    LOAD --> M1["🧠 Project context"]
+    LOAD --> M2["👤 User preferences"]
+    M1 --> INJECT["💉 Inject into system prompt"]
     M2 --> INJECT
-    INJECT --> READY[Agent ready with full context]
-    READY --> MSG1[First user message]
+    INJECT --> READY["✅ Agent ready with full context"]
+    READY --> MSG1["💬 First user message"]
+
+    style START fill:#1d4ed8,color:#fff,stroke:#1d4ed8
+    style LOAD fill:#8b5cf6,color:#fff,stroke:#8b5cf6
+    style M1 fill:#c2410c,color:#fff,stroke:#c2410c
+    style M2 fill:#c2410c,color:#fff,stroke:#c2410c
+    style INJECT fill:#0f766e,color:#fff,stroke:#0f766e
+    style READY fill:#10b981,color:#fff,stroke:#10b981
+    style MSG1 fill:#10b981,color:#fff,stroke:#10b981
 ```
 
-### Reflect on Recall
+### 🪞 Reflect on Recall
 
 Instead of raw memory retrieval, the agent reasons over its memories.
 
 ```mermaid
 graph LR
-    Q[User question] --> MODE{Reflect enabled?}
-    MODE -->|yes| REFLECT[Hindsight reflect API]
-    MODE -->|no| RECALL[Hindsight recall API]
-    REFLECT --> REASON[LLM reasons over memories]
-    REASON --> ANSWER[Grounded response]
-    RECALL --> RAW[Raw memory list]
+    Q["💬 User question"] --> MODE{"🪞 Reflect enabled?"}
+    MODE -->|yes| REFLECT["🧠 Hindsight reflect API"]
+    MODE -->|no| RECALL["📥 Hindsight recall API"]
+    REFLECT --> REASON["💡 LLM reasons over memories"]
+    REASON --> ANSWER["✅ Grounded response"]
+    RECALL --> RAW["📋 Raw memory list"]
     RAW --> ANSWER
+
+    style Q fill:#1d4ed8,color:#fff,stroke:#1d4ed8
+    style REFLECT fill:#8b5cf6,color:#fff,stroke:#8b5cf6
+    style RECALL fill:#c2410c,color:#fff,stroke:#c2410c
+    style REASON fill:#0f766e,color:#fff,stroke:#0f766e
+    style RAW fill:#f59e0b,color:#fff,stroke:#f59e0b
+    style ANSWER fill:#10b981,color:#fff,stroke:#10b981
 ```
 
-### Multi-Server Support
+### 🌐 Multi-Server Support
 
 Per-agent infrastructure routing — one gateway, multiple Hindsight servers.
 
 ```mermaid
 graph LR
-    GW[Gateway] --> A1[agent-1]
-    GW --> A2[agent-2]
-    GW --> A3[agent-3]
-    GW --> A4[agent-4]
-    A1 --> HOME[Home server]
+    GW["🌐 Gateway"] --> A1["🤖 agent-1"]
+    GW --> A2["🤖 agent-2"]
+    GW --> A3["🤖 agent-3"]
+    GW --> A4["🤖 agent-4"]
+    A1 --> HOME["🏠 Home server"]
     A2 --> HOME
-    A3 --> OFFICE[Office server]
-    A4 --> LOCAL[Local daemon]
+    A3 --> OFFICE["🏢 Office server"]
+    A4 --> LOCAL["💻 Local daemon"]
+
+    style GW fill:#0f766e,color:#fff,stroke:#0f766e
+    style A1 fill:#1d4ed8,color:#fff,stroke:#1d4ed8
+    style A2 fill:#1d4ed8,color:#fff,stroke:#1d4ed8
+    style A3 fill:#1d4ed8,color:#fff,stroke:#1d4ed8
+    style A4 fill:#1d4ed8,color:#fff,stroke:#1d4ed8
+    style HOME fill:#8b5cf6,color:#fff,stroke:#8b5cf6
+    style OFFICE fill:#c2410c,color:#fff,stroke:#c2410c
+    style LOCAL fill:#f59e0b,color:#fff,stroke:#f59e0b
 ```
 
-### Zero-Config Bootstrap
+### 🚀 Zero-Config Bootstrap
 
 Set `bootstrap: true` and start the gateway. Bank configs applied automatically on first run.
 
 ```mermaid
 graph LR
-    START[Gateway starts] --> CHECK{Bank empty?}
-    CHECK -->|yes| APPLY[Auto-apply config]
-    CHECK -->|no| SKIP[Already configured]
-    APPLY --> READY[Bank ready]
+    START["🚀 Gateway starts"] --> CHECK{"🏦 Bank empty?"}
+    CHECK -->|yes| APPLY["⚙️ Auto-apply config"]
+    CHECK -->|no| SKIP["⏭️ Already configured"]
+    APPLY --> READY["✅ Bank ready"]
     SKIP --> READY
+
+    style START fill:#1d4ed8,color:#fff,stroke:#1d4ed8
+    style APPLY fill:#8b5cf6,color:#fff,stroke:#8b5cf6
+    style SKIP fill:#f59e0b,color:#fff,stroke:#f59e0b
+    style READY fill:#10b981,color:#fff,stroke:#10b981
 ```
 
 ---
@@ -194,7 +310,7 @@ The plugin starts a local Hindsight daemon on first run (requires Python 3.11+ a
 
 ## Features
 
-### Bank Management
+### 📋 Bank Management
 
 Define agent memory banks as JSON5 files — missions, entity labels, directives, dispositions. All version-controlled.
 
@@ -206,43 +322,80 @@ hindclaw import --agent agent-1 --output ./banks/agent-1.json5
 
 See [CLI Reference](docs/cli.md).
 
-### Access Control
+### 🔐 Access & Behavioral Control
 
-Users, groups, and bank-level permission overrides. Tag-based recall filtering with Hindsight's `tag_groups` API (AND/OR/NOT boolean logic).
+Per-user memory behavior — access flags, LLM model, recall budget, token limits, tag visibility, retention depth. All configurable per group, overridable per bank and per user.
 
 ```json5
-// groups/group-1.json5
+// groups/group-1.json5 — executive role
 {
   "displayName": "Executive",
   "members": ["user-1"],
   "recall": true,
   "retain": true,
+  "retainRoles": ["user", "assistant", "tool"],
+  "retainTags": ["role:executive"],
   "recallBudget": "high",
-  "recallTagGroups": null  // no filter — sees everything
+  "recallMaxTokens": 2048,
+  "recallTagGroups": null,  // no filter — sees everything
+  "llmModel": "claude-sonnet-4-5-20250929"
+}
+```
+
+```json5
+// groups/group-2.json5 — staff role
+{
+  "displayName": "Staff",
+  "members": ["user-2", "user-3"],
+  "recall": true,
+  "retain": true,
+  "retainRoles": ["assistant"],
+  "retainEveryNTurns": 2,
+  "recallBudget": "low",
+  "recallMaxTokens": 512,
+  "recallTagGroups": [
+    {"not": {"tags": ["sensitivity:restricted"], "match": "any_strict"}}
+  ],
+  "llmModel": "gpt-4o-mini"
 }
 ```
 
 See [Access Control](docs/access-control.md).
 
-### Named Strategies
+### 🎯 Named Strategies & Topic Routing
 
-Route different conversation topics to different extraction strategies:
+Each conversation topic gets its own memory behavior — different extraction rules, or no memory at all. Strategies are defined server-side with their own mission, extraction mode, and entity labels. Topics route to strategies.
+
+| Mode | Recall | Retain | Use case |
+|------|--------|--------|----------|
+| `full` | yes | yes (with named strategy) | Strategic conversations — every detail extracted |
+| `recall` | yes | no | Read-only — agent reads memory but conversation isn't stored |
+| `disabled` | no | no | No memory at all — ephemeral conversations |
 
 ```json5
 // In bank config
 {
+  // Server-side strategies (synced via hindclaw apply)
+  "retain_strategies": {
+    "deep-analysis": { "$include": "./agent-1/deep-analysis.json5" },
+    "lightweight":   { "$include": "./agent-1/lightweight.json5" }
+  },
+
+  // Topic routing (plugin-side)
   "retain": {
     "strategies": {
-      "deep-analysis": { "topics": ["280304"] },
-      "lightweight":   { "topics": ["280418"] }
+      "deep-analysis": { "topics": ["280304"] },  // strategy topic → verbose
+      "lightweight":   { "topics": ["280418"] }    // daily topic → concise
     }
   }
 }
 ```
 
+Configs stay modular with `$include` — split entity labels, strategies, and directives into separate files (max depth 10, circular detection).
+
 See [Bank Configuration](docs/bank-config.md).
 
-### Cross-Agent Recall
+### 🔀 Cross-Agent Recall
 
 An agent can recall from multiple banks. Permissions are checked per-bank — no unauthorized cross-reads.
 
