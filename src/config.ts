@@ -34,6 +34,7 @@ const EXTRACTED_FIELDS = new Set<string>([
   'reflectBudget',
   'reflectMaxTokens',
   'memory',
+  'retain',
 ]);
 
 // ── $include resolution ───────────────────────────────────────────────
@@ -149,22 +150,37 @@ export function resolveAgentConfig(
     merged._reflectMaxTokens = bankConfig.reflectMaxTokens;
   }
 
-  // Hoist memory routing → _topicIndex + _defaultMode
-  if (bankConfig.memory) {
-    merged._defaultMode = bankConfig.memory.default;
-    const topicIndex = new Map<string, { strategy: string; mode: 'full' | 'recall' | 'disabled' }>();
-    for (const mode of ['full', 'recall', 'disabled'] as const) {
-      const strategies = bankConfig.memory[mode];
-      if (!strategies) continue;
-      for (const [name, scopes] of Object.entries(strategies)) {
-        for (const topicId of scopes.topics ?? []) {
-          topicIndex.set(topicId, { strategy: name, mode });
+  // Hoist retain/memory routing → _topicIndex + _defaultMode
+  const retainRouting = bankConfig.retain?.strategies;
+  const memoryRouting = bankConfig.memory;
+  const topicIndex = new Map<string, { strategy: string; mode: 'full' | 'recall' | 'disabled' }>();
+
+  if (retainRouting) {
+    // v2.0.0: flat strategy map — permissions handle access, default mode is always 'full'
+    merged._defaultMode = 'full';
+    for (const [strategyName, scope] of Object.entries(retainRouting)) {
+      if (scope?.topics) {
+        for (const topicId of scope.topics) {
+          topicIndex.set(String(topicId), { strategy: strategyName, mode: 'full' });
         }
       }
     }
-    if (topicIndex.size > 0) {
-      merged._topicIndex = topicIndex;
+  } else if (memoryRouting) {
+    // v1.1.0 fallback: mode bucket format
+    merged._defaultMode = memoryRouting.default;
+    for (const mode of ['full', 'recall', 'disabled'] as const) {
+      const strategies = memoryRouting[mode];
+      if (!strategies) continue;
+      for (const [name, scopes] of Object.entries(strategies)) {
+        for (const topicId of scopes.topics ?? []) {
+          topicIndex.set(String(topicId), { strategy: name, mode });
+        }
+      }
     }
+  }
+
+  if (topicIndex.size > 0) {
+    merged._topicIndex = topicIndex;
   }
 
   return merged;

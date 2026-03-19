@@ -159,6 +159,43 @@ describe('resolveAgentConfig', () => {
     expect(result._defaultMode).toBeUndefined();
   });
 
+  it('builds topicIndex from retain.strategies (v2.0.0 format)', () => {
+    const bankConfigs = new Map([['yoda', {
+      retain: {
+        strategies: {
+          'deep-analysis': { topics: ['280304'] },
+          'lightweight': { topics: ['280418'] },
+        },
+      },
+    }]]);
+    const result = resolveAgentConfig('yoda', pluginDefaults, bankConfigs);
+    expect(result._topicIndex?.get('280304')?.strategy).toBe('deep-analysis');
+    expect(result._topicIndex?.get('280304')?.mode).toBe('full');
+    expect(result._topicIndex?.get('280418')?.strategy).toBe('lightweight');
+    expect(result._defaultMode).toBe('full');
+  });
+
+  it('falls back to memory format (v1.1.0 compat)', () => {
+    const bankConfigs = new Map([['yoda', {
+      memory: {
+        default: 'full' as const,
+        full: { 'deep-analysis': { topics: ['280304'] } },
+      },
+    }]]);
+    const result = resolveAgentConfig('yoda', pluginDefaults, bankConfigs);
+    expect(result._topicIndex?.get('280304')?.strategy).toBe('deep-analysis');
+    expect(result._topicIndex?.get('280304')?.mode).toBe('full');
+  });
+
+  it('retain.strategies takes priority over memory', () => {
+    const bankConfigs = new Map([['yoda', {
+      retain: { strategies: { 'v2-strat': { topics: ['100'] } } },
+      memory: { default: 'full' as const, full: { 'v1-strat': { topics: ['100'] } } },
+    }]]);
+    const result = resolveAgentConfig('yoda', pluginDefaults, bankConfigs);
+    expect(result._topicIndex?.get('100')?.strategy).toBe('v2-strat');
+  });
+
   it('extracts memory into EXTRACTED_FIELDS (does not leak into overrides)', () => {
     const bankConfigs = new Map([['yoda', {
       retain_mission: 'Strategic',

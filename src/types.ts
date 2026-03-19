@@ -140,6 +140,11 @@ export interface MemoryRouting {
   disabled?: Record<string, MemoryScope>;
 }
 
+/** v2.0.0 retain strategy routing — flat strategy map, permissions handle access */
+export interface RetainRouting {
+  strategies?: Record<string, MemoryScope>;
+}
+
 export interface TopicIndexEntry {
   strategy: string;
   mode: 'full' | 'recall' | 'disabled';
@@ -203,7 +208,10 @@ export interface BankConfig {
   reflectMaxTokens?: number;
 
   // Memory routing (plugin-side)
+  /** @deprecated Use retain.strategies instead */
   memory?: MemoryRouting;
+  /** Topic-to-strategy routing (v2.0.0) */
+  retain?: RetainRouting;
 
   // Retain strategies (server-side, synced via hoppro)
   retain_strategies?: Record<string, Record<string, unknown>>;
