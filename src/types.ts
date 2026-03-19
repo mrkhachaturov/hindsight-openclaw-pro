@@ -92,6 +92,9 @@ export interface PluginConfig {
   excludeProviders?: string[];
   debug?: boolean;
 
+  /** Path to .openclaw/hindsight/ directory (v2.0.0). If set, auto-discovers banks/groups/users. */
+  configPath?: string;
+
   // Agent map
   agents?: Record<string, AgentEntry>;
 

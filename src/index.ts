@@ -19,6 +19,11 @@ import { bootstrapBank } from './sync/bootstrap.js';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { homedir } from 'os';
+import {
+  scanConfigPath, buildChannelIndex, buildMembershipIndex,
+  buildStrategyIndex, validateDiscovery,
+} from './permissions/index.js';
+import type { DiscoveryResult } from './permissions/index.js';
 
 // ── Re-exports for backward compatibility ───────────────────────────────
 export { stripMemoryTags, stripMetadataEnvelopes, sliceLastTurnsByUserBoundary } from './utils.js';
@@ -40,6 +45,7 @@ let usingExternalApi = false;
 
 let currentPluginConfig: PluginConfig | null = null;
 let bankConfigs: Map<string, BankConfig> = new Map();
+let discovery: DiscoveryResult | null = null;
 
 // Cache sender IDs discovered in before_prompt_build for agent_end
 const senderIdBySession = new Map<string, string>();
@@ -332,8 +338,25 @@ export default function (api: MoltbotPluginAPI) {
     setDebugEnabled(pluginConfig.debug ?? false);
     currentPluginConfig = pluginConfig;
 
-    // Load bank config files for configured agents
-    if (pluginConfig.agents) {
+    // Load bank configs — v2.0.0 (configPath) or v1.x (agents map)
+    const configPath = pluginConfig.configPath;
+    if (configPath) {
+      try {
+        const resolvedPath = join(openclawConfigDir, configPath);
+        discovery = scanConfigPath(resolvedPath);
+        discovery.channelIndex = buildChannelIndex(discovery.users);
+        discovery.membershipIndex = buildMembershipIndex(discovery.groups);
+        discovery.strategyIndex = buildStrategyIndex(discovery.banks);
+
+        const warnings = validateDiscovery(discovery, discovery.membershipIndex);
+        for (const w of warnings) console.warn(`[Hindsight] ⚠ ${w}`);
+
+        bankConfigs = discovery.banks;
+      } catch (error) {
+        console.error('[Hindsight] Failed to load config from configPath:', error instanceof Error ? error.message : error);
+        throw error;
+      }
+    } else if (pluginConfig.agents) {
       try {
         bankConfigs = loadBankConfigFiles(pluginConfig.agents, openclawConfigDir);
         debug(`[Hindsight] Loaded bank configs for ${bankConfigs.size} agents`);
