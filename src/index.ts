@@ -527,6 +527,7 @@ export default function (api: MoltbotPluginAPI) {
           isInitialized = false;
           // Clear stale state from hooks to prevent misattribution after reinit
           senderIdBySession.clear();
+          discovery = null;
           resetRetainState();
           resetRecallState();
           resetBootstrapState();
@@ -584,7 +585,7 @@ export default function (api: MoltbotPluginAPI) {
         await waitForClient();
         if (!client) { debug('[Hindsight] Client not ready, skipping recall'); return; }
 
-        const result = await handleRecall(event, effectiveCtx, agentConfig, client, pluginConfig);
+        const result = await handleRecall(event, effectiveCtx, agentConfig, client, pluginConfig, discovery);
         if (result) {
           return { prependSystemContext: result };
         }
@@ -641,7 +642,7 @@ export default function (api: MoltbotPluginAPI) {
         await waitForClient();
         if (!client) { console.warn('[Hindsight] Client not ready, skipping retain'); return; }
 
-        await handleRetain(event, effectiveCtxForRetain, agentConfig, client, pluginConfig);
+        await handleRetain(event, effectiveCtxForRetain, agentConfig, client, pluginConfig, discovery);
       } catch (error) {
         console.error('[Hindsight] Error retaining messages:', error);
       }
