@@ -567,3 +567,90 @@ describe('handleRecall — memory mode gating', () => {
     expect(result).toBeDefined();
   });
 });
+
+// ── handleRecall — permission-aware (v2.0.0) ─────────────────────────
+
+import type { DiscoveryResult, GroupConfig, UserProfile } from '../permissions/types.js';
+
+function makeDiscovery(overrides?: Partial<DiscoveryResult>): DiscoveryResult {
+  const users = new Map<string, UserProfile>([
+    ['ruben', { displayName: 'Ruben', channels: { telegram: '123456' } }],
+  ]);
+  const groups = new Map<string, GroupConfig>([
+    ['_default', { displayName: 'Anonymous', members: [], recall: false, retain: false }],
+    ['executive', {
+      displayName: 'Executive', members: ['ruben'],
+      recall: true, retain: true, recallBudget: 'high' as const, recallMaxTokens: 2048,
+    }],
+  ]);
+  const channelIndex = new Map([['telegram:123456', 'ruben']]);
+  const membershipIndex = new Map([['ruben', ['executive']]]);
+  return {
+    banks: new Map([['yoda', {
+      bank_id: 'yoda',
+      permissions: {
+        groups: {
+          executive: { recall: true, retain: true },
+          _default: { recall: false, retain: false },
+        },
+      },
+    }]]),
+    groups, users, channelIndex, membershipIndex,
+    strategyIndex: new Map(),
+    ...overrides,
+  };
+}
+
+describe('handleRecall — permission-aware', () => {
+  let mockClient: ReturnType<typeof makeClient>;
+
+  beforeEach(() => {
+    mockClient = makeClient();
+  });
+
+  it('skips recall when permissions.recall is false', async () => {
+    const discovery = makeDiscovery();
+    // Unknown user → _default → recall: false
+    const ctx: PluginHookAgentContext = { ...baseCtx, senderId: '999999', messageProvider: 'telegram' };
+    const result = await handleRecall(
+      { rawMessage: 'tell me about stuff' }, ctx, baseAgentConfig, mockClient, basePluginConfig, discovery,
+    );
+    expect(result).toBeUndefined();
+    expect(mockClient.recall).not.toHaveBeenCalled();
+  });
+
+  it('passes recallTagGroups to API when permissions define them', async () => {
+    mockClient.recall.mockResolvedValue({ results: [makeMemory('m1', 'fact')], entities: null, trace: null, chunks: null });
+    const groups = new Map<string, GroupConfig>([
+      ['_default', { displayName: 'Anon', members: [], recall: false, retain: false }],
+      ['executive', {
+        displayName: 'Exec', members: ['ruben'], recall: true, retain: true,
+        recallTagGroups: [{ not: { tags: ['sensitivity:restricted'], match: 'any_strict' as const } }],
+      }],
+    ]);
+    const discovery = makeDiscovery({ groups });
+    const ctx: PluginHookAgentContext = { ...baseCtx, senderId: '123456', messageProvider: 'telegram' };
+    await handleRecall({ rawMessage: 'test query here' }, ctx, baseAgentConfig, mockClient, basePluginConfig, discovery);
+    expect(mockClient.recall).toHaveBeenCalledOnce();
+    const [, request] = mockClient.recall.mock.calls[0];
+    expect(request.tag_groups).toBeDefined();
+    expect(request.tag_groups).toHaveLength(1);
+  });
+
+  it('uses permission budget/tokens over agentConfig', async () => {
+    mockClient.recall.mockResolvedValue({ results: [makeMemory('m1', 'fact')], entities: null, trace: null, chunks: null });
+    const discovery = makeDiscovery();
+    const agentConfig: ResolvedConfig = { ...baseAgentConfig, recallBudget: 'low' as const, recallMaxTokens: 512 };
+    const ctx: PluginHookAgentContext = { ...baseCtx, senderId: '123456', messageProvider: 'telegram' };
+    await handleRecall({ rawMessage: 'test query here' }, ctx, agentConfig, mockClient, basePluginConfig, discovery);
+    const [, request] = mockClient.recall.mock.calls[0];
+    expect(request.budget).toBe('high');
+    expect(request.max_tokens).toBe(2048);
+  });
+
+  it('falls back to v1.x behavior when discovery is null', async () => {
+    mockClient.recall.mockResolvedValue({ results: [makeMemory('m1', 'fact')], entities: null, trace: null, chunks: null });
+    await handleRecall({ rawMessage: 'test query here' }, baseCtx, baseAgentConfig, mockClient, basePluginConfig, null);
+    expect(mockClient.recall).toHaveBeenCalled();
+  });
+});

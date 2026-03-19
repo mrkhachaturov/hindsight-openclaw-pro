@@ -9,6 +9,8 @@ import type {
   ReflectResponse,
 } from '../types.js';
 import type { HindsightClient } from '../client.js';
+import type { DiscoveryResult, ResolvedPermissions } from '../permissions/types.js';
+import { resolvePermissions } from '../permissions/resolver.js';
 import { debug } from '../debug.js';
 import { deriveBankId } from '../derive-bank-id.js';
 import { formatMemories, formatCurrentTimeForRecall, DEFAULT_RECALL_PROMPT_PREAMBLE } from '../format.js';
@@ -78,18 +80,40 @@ export async function handleRecall(
   agentConfig: ResolvedConfig,
   client: HindsightClient,
   pluginConfig: PluginConfig,
+  discovery: DiscoveryResult | null = null,
 ): Promise<string | undefined> {
   // 1. Determine primary bank
   const primaryBankId = deriveBankId(ctx, pluginConfig);
 
-  // Memory mode gating
-  const topicId = extractTopicId(ctx?.sessionKey);
-  const topicEntry = topicId ? agentConfig._topicIndex?.get(topicId) : undefined;
-  const effectiveMode = topicEntry?.mode ?? agentConfig._defaultMode ?? 'full';
+  // ── Per-user permission resolution (v2.0.0) ──
+  let permissions: ResolvedPermissions | null = null;
+  if (discovery) {
+    const provider = ctx?.messageProvider ?? 'unknown';
+    const sid = ctx?.senderId ?? 'unknown';
+    const channelKey = `${provider}:${sid}`;
+    permissions = resolvePermissions(channelKey, primaryBankId, discovery);
 
-  if (effectiveMode === 'disabled') {
-    debug(`[Hindsight] Mode "disabled" for topic ${topicId ?? 'default'} — skipping recall`);
-    return undefined;
+    if (!permissions.recall) {
+      debug(`[Hindsight Hook] Recall: skipped (recall=false for ${permissions.displayName} on ${primaryBankId})`);
+      return undefined;
+    }
+
+    if (permissions.excludeProviders?.includes(ctx?.messageProvider ?? '')) {
+      debug(`[Hindsight Hook] Recall: provider "${ctx?.messageProvider}" excluded for ${permissions.displayName}`);
+      return undefined;
+    }
+  }
+
+  // Memory mode gating (v1.x path — skipped when discovery is active)
+  if (!discovery) {
+    const topicId = extractTopicId(ctx?.sessionKey);
+    const topicEntry = topicId ? agentConfig._topicIndex?.get(topicId) : undefined;
+    const effectiveMode = topicEntry?.mode ?? agentConfig._defaultMode ?? 'full';
+
+    if (effectiveMode === 'disabled') {
+      debug(`[Hindsight] Mode "disabled" for topic ${topicId ?? 'default'} — skipping recall`);
+      return undefined;
+    }
   }
 
   debug(`[Hindsight] before_prompt_build - bank: ${primaryBankId}, channel: ${ctx?.messageProvider}/${ctx?.channelId}`);
@@ -128,10 +152,11 @@ export async function handleRecall(
   // 4. Determine recall-from banks
   const recallFrom = agentConfig._recallFrom;
 
-  // 5. Build common recall params
-  const tagGroups = resolveRecallFilter(agentConfig);
-  const budget = agentConfig.recallBudget;
-  const maxTokens = agentConfig.recallMaxTokens;
+  // 5. Build common recall params (permissions override agentConfig)
+  const tagGroups = permissions?.recallTagGroups
+    ?? resolveRecallFilter(agentConfig);  // v1.x fallback
+  const budget = permissions?.recallBudget ?? agentConfig.recallBudget;
+  const maxTokens = permissions?.recallMaxTokens ?? agentConfig.recallMaxTokens;
   const types = agentConfig.recallTypes;
   const topK = agentConfig.recallTopK;
 
@@ -213,18 +238,56 @@ export async function handleRecall(
   }
 
   // 9. Multi-bank — parallel recall + interleave (with dedup)
-  debug(`[Hindsight] Multi-bank recall across ${banks.length} banks: ${banks.map(b => b.bankId).join(', ')}`);
+  // In v2.0.0, resolve permissions per target bank and skip banks with recall=false
+  const provider = ctx?.messageProvider ?? 'unknown';
+  const sid = ctx?.senderId ?? 'unknown';
+  const channelKey = `${provider}:${sid}`;
+
+  type BankRecallEntry = { bankId: string; tagGroups: TagGroup[] | null; budget?: string; maxTokens?: number; types?: any };
+  const permittedBanks: BankRecallEntry[] = [];
+
+  for (const bank of banks) {
+    if (discovery) {
+      const bankPerms = resolvePermissions(channelKey, bank.bankId, discovery);
+      if (!bankPerms.recall) {
+        debug(`[Hindsight Hook]   ${bank.bankId}: recall=false — skipping (no access)`);
+        continue;
+      }
+      permittedBanks.push({
+        bankId: bank.bankId,
+        tagGroups: bankPerms.recallTagGroups,
+        budget: bankPerms.recallBudget ?? bank.budget ?? budget,
+        maxTokens: bankPerms.recallMaxTokens ?? bank.maxTokens ?? maxTokens,
+        types: bank.types ?? types,
+      });
+    } else {
+      permittedBanks.push({
+        bankId: bank.bankId,
+        tagGroups: bank.tagGroups ?? tagGroups,
+        budget: bank.budget ?? budget,
+        maxTokens: bank.maxTokens ?? maxTokens,
+        types: bank.types ?? types,
+      });
+    }
+  }
+
+  if (permittedBanks.length === 0) {
+    debug('[Hindsight Hook] Multi-bank recall: no permitted banks');
+    return undefined;
+  }
+
+  debug(`[Hindsight] Multi-bank recall across ${permittedBanks.length}/${banks.length} banks: ${permittedBanks.map(b => b.bankId).join(', ')}`);
   const results = await Promise.allSettled(
-    banks.map(bank =>
+    permittedBanks.map(bank =>
       recallWithDedup(
         client,
         bank.bankId,
         {
           query,
-          budget: bank.budget ?? budget,
-          max_tokens: bank.maxTokens ?? maxTokens,
-          types: bank.types ?? types,
-          tag_groups: (bank.tagGroups ?? tagGroups).length > 0 ? (bank.tagGroups ?? tagGroups) : undefined,
+          budget: bank.budget as any,
+          max_tokens: bank.maxTokens,
+          types: bank.types,
+          tag_groups: bank.tagGroups?.length ? bank.tagGroups : undefined,
         },
       ),
     ),
@@ -233,13 +296,13 @@ export async function handleRecall(
   const successSets: MemoryResult[][] = [];
   for (const [i, result] of results.entries()) {
     if (result.status === 'fulfilled' && result.value.results?.length) {
-      debug(`[Hindsight] Bank ${banks[i].bankId}: ${result.value.results.length} results`);
+      debug(`[Hindsight] Bank ${permittedBanks[i].bankId}: ${result.value.results.length} results`);
       successSets.push(result.value.results);
     } else if (result.status === 'rejected') {
-      const bankId = banks[i].bankId;
+      const bankId = permittedBanks[i].bankId;
       console.warn(`[Hindsight] Recall failed for bank ${bankId}:`, result.reason instanceof Error ? result.reason.message : result.reason);
     } else if (result.status === 'fulfilled') {
-      debug(`[Hindsight] Bank ${banks[i].bankId}: no results`);
+      debug(`[Hindsight] Bank ${permittedBanks[i].bankId}: no results`);
     }
   }
 
