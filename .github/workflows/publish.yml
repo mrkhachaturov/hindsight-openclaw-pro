@@ -1,10 +1,9 @@
 name: Publish to npm
 
 on:
-  workflow_dispatch:  # temporarily disabled — re-enable push trigger after first manual publish
-  # push:
-  #   tags:
-  #     - 'v*'
+  push:
+    tags:
+      - 'v*'
 
 permissions:
   id-token: write

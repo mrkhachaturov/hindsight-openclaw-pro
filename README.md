@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="docs/">Documentation</a> &middot;
-  <a href="https://vectorize.io/hindsight">Hindsight</a> &middot;
+  <a href="https://hindsight.vectorize.io">Hindsight</a> &middot;
   <a href="https://openclaw.ai">OpenClaw</a>
 </p>
 
@@ -22,7 +22,7 @@
 
 ## Why HindClaw?
 
-Built on [Hindsight](https://vectorize.io/hindsight) — the highest-scoring agent memory system on the [LongMemEval benchmark](https://vectorize.io/hindsight-benchmark/).
+Built on [Hindsight](https://hindsight.vectorize.io) — the highest-scoring agent memory system on the [LongMemEval benchmark](https://vectorize.io/#:~:text=The%20New%20Leader%20in%20Agent%20Memory).
 
 The official Hindsight plugin gives you auto-capture and auto-recall. HindClaw adds what you need to run it in production:
 
@@ -166,7 +166,7 @@ All other plugin-level options use the same names.
 
 ## Links
 
-- [Hindsight](https://vectorize.io/hindsight) — the memory engine
+- [Hindsight](https://hindsight.vectorize.io) — the memory engine
 - [OpenClaw](https://openclaw.ai) — the agent framework
 - [GitHub](https://github.com/mrkhachaturov/hindsight-openclaw-pro)
 
