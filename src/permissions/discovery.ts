@@ -51,7 +51,7 @@ export function buildChannelIndex(users: Map<string, UserProfile>): Map<string, 
       const key = `${provider}:${senderId}`;
       if (index.has(key)) {
         throw new Error(
-          `[Hindsight] Duplicate channel ID: ${key} is mapped to both "${index.get(key)}" and "${userId}" (duplicate)`
+          `[Hindsight] Duplicate channel ID: ${key} is mapped to both "${index.get(key)}" and "${userId}"`
         );
       }
       index.set(key, userId);

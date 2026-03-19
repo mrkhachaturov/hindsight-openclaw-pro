@@ -131,7 +131,7 @@ describe('buildChannelIndex', () => {
       channels: { telegram: '123456' },  // same as ruben
     });
     const discovery = scanConfigPath(TEST_DIR);
-    expect(() => buildChannelIndex(discovery.users)).toThrow('duplicate');
+    expect(() => buildChannelIndex(discovery.users)).toThrow('Duplicate');
   });
 });
 
@@ -218,5 +218,45 @@ describe('validateDiscovery', () => {
     const membership = buildMembershipIndex(discovery.groups);
     const warnings = validateDiscovery(discovery, membership);
     expect(warnings.some(w => w.includes('nonexistent_user'))).toBe(true);
+  });
+
+  it('returns warning for non-default group with empty members', () => {
+    writeJson5(join(TEST_DIR, 'groups', 'empty.json5'), {
+      displayName: 'Empty',
+      members: [],
+    });
+    const discovery = scanConfigPath(TEST_DIR);
+    const membership = buildMembershipIndex(discovery.groups);
+    const warnings = validateDiscovery(discovery, membership);
+    expect(warnings.some(w => w.includes('empty') && w.includes('no members'))).toBe(true);
+  });
+
+  it('returns warning when _default group has retain: true', () => {
+    writeJson5(join(TEST_DIR, 'groups', '_default.json5'), {
+      displayName: 'Anonymous',
+      members: [],
+      recall: false,
+      retain: true,
+    });
+    const discovery = scanConfigPath(TEST_DIR);
+    const membership = buildMembershipIndex(discovery.groups);
+    const warnings = validateDiscovery(discovery, membership);
+    expect(warnings.some(w => w.includes('_default') && w.includes('retain: true'))).toBe(true);
+  });
+
+  it('returns warning for bank referencing non-existent group', () => {
+    writeJson5(join(TEST_DIR, 'banks', 'bad-bank.json5'), {
+      bank_id: 'bad-bank',
+      permissions: {
+        groups: {
+          ghost_group: { recall: true },
+          _default: { recall: false },
+        },
+      },
+    });
+    const discovery = scanConfigPath(TEST_DIR);
+    const membership = buildMembershipIndex(discovery.groups);
+    const warnings = validateDiscovery(discovery, membership);
+    expect(warnings.some(w => w.includes('ghost_group'))).toBe(true);
   });
 });

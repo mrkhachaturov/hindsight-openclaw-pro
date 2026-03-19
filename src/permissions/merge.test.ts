@@ -192,4 +192,12 @@ describe('overlayFields', () => {
     const result = overlayFields(base, {});
     expect(result).toEqual(base);
   });
+
+  it('overlay non-null recallTagGroups replaces null base', () => {
+    const base: PermissionOverride = { recallTagGroups: null };
+    const filter = [{ tags: ['dept:motors'], match: 'any' as const }];
+    const overlay: PermissionOverride = { recallTagGroups: filter };
+    const result = overlayFields(base, overlay);
+    expect(result.recallTagGroups).toEqual(filter);
+  });
 });

@@ -37,7 +37,12 @@ export function resolvePermissions(
     debug(`[Hindsight Hook] Step 1 (global merge): recall=${effective.recall}, retain=${effective.retain}, budget=${effective.recallBudget}`);
   } else {
     const defaultGroup = discovery.groups.get('_default');
-    effective = defaultGroup ? { ...defaultGroup } : {};
+    if (defaultGroup) {
+      const { displayName: _, members: __, ...permFields } = defaultGroup;
+      effective = permFields;
+    } else {
+      effective = {};
+    }
     debug(`[Hindsight Hook] Step 1 (no groups, using _default): recall=${effective.recall}, retain=${effective.retain}`);
   }
 
