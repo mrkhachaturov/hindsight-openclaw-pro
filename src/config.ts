@@ -22,6 +22,9 @@ const SERVER_SIDE_FIELDS = new Set<string>([
   'disposition_empathy',
   'entity_labels',
   'directives',
+  'retain_strategies',
+  'retain_default_strategy',
+  'retain_chunk_size',
 ]);
 
 const EXTRACTED_FIELDS = new Set<string>([
@@ -30,6 +33,7 @@ const EXTRACTED_FIELDS = new Set<string>([
   'reflectOnRecall',
   'reflectBudget',
   'reflectMaxTokens',
+  'memory',
 ]);
 
 // ── $include resolution ───────────────────────────────────────────────
@@ -143,6 +147,24 @@ export function resolveAgentConfig(
   }
   if (bankConfig.reflectMaxTokens !== undefined) {
     merged._reflectMaxTokens = bankConfig.reflectMaxTokens;
+  }
+
+  // Hoist memory routing → _topicIndex + _defaultMode
+  if (bankConfig.memory) {
+    merged._defaultMode = bankConfig.memory.default;
+    const topicIndex = new Map<string, { strategy: string; mode: 'full' | 'recall' | 'disabled' }>();
+    for (const mode of ['full', 'recall', 'disabled'] as const) {
+      const strategies = bankConfig.memory[mode];
+      if (!strategies) continue;
+      for (const [name, scopes] of Object.entries(strategies)) {
+        for (const topicId of scopes.topics ?? []) {
+          topicIndex.set(topicId, { strategy: name, mode });
+        }
+      }
+    }
+    if (topicIndex.size > 0) {
+      merged._topicIndex = topicIndex;
+    }
   }
 
   return merged;
