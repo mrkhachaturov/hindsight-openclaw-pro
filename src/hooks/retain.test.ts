@@ -298,4 +298,84 @@ describe('handleRetain', () => {
     const [, request] = mockRetain.mock.calls[0];
     expect(request.items[0].content).toContain('From session entry');
   });
+
+  it('skips retain when topic mode is "disabled"', async () => {
+    const event = makeEvent([{ role: 'user', content: 'Hello there friend' }]);
+    const topicIndex = new Map([['12345', { strategy: 'silent', mode: 'disabled' as const }]]);
+    const agentConfig: ResolvedConfig = { _topicIndex: topicIndex };
+    const ctxWithTopic: PluginHookAgentContext = {
+      ...ctx,
+      sessionKey: 'agent:yoda:main:thread:276243527:12345',
+    };
+
+    await handleRetain(event, ctxWithTopic, agentConfig, client, pluginConfig);
+
+    expect(mockRetain).not.toHaveBeenCalled();
+  });
+
+  it('skips retain when topic mode is "recall"', async () => {
+    const event = makeEvent([{ role: 'user', content: 'Hello there friend' }]);
+    const topicIndex = new Map([['12345', { strategy: 'readonly', mode: 'recall' as const }]]);
+    const agentConfig: ResolvedConfig = { _topicIndex: topicIndex };
+    const ctxWithTopic: PluginHookAgentContext = {
+      ...ctx,
+      sessionKey: 'agent:yoda:main:thread:276243527:12345',
+    };
+
+    await handleRetain(event, ctxWithTopic, agentConfig, client, pluginConfig);
+
+    expect(mockRetain).not.toHaveBeenCalled();
+  });
+
+  it('retains with strategy name when topic mode is "full"', async () => {
+    const event = makeEvent([{ role: 'user', content: 'Deep analysis topic' }]);
+    const topicIndex = new Map([['280304', { strategy: 'deep-analysis', mode: 'full' as const }]]);
+    const agentConfig: ResolvedConfig = { _topicIndex: topicIndex };
+    const ctxWithTopic: PluginHookAgentContext = {
+      ...ctx,
+      sessionKey: 'agent:yoda:main:thread:276243527:280304',
+    };
+
+    await handleRetain(event, ctxWithTopic, agentConfig, client, pluginConfig);
+
+    expect(mockRetain).toHaveBeenCalledOnce();
+    const [, request] = mockRetain.mock.calls[0];
+    expect(request.items[0].strategy).toBe('deep-analysis');
+  });
+
+  it('falls back to _defaultMode when topic not in index', async () => {
+    const event = makeEvent([{ role: 'user', content: 'Unknown topic msg' }]);
+    const topicIndex = new Map([['280304', { strategy: 'deep-analysis', mode: 'full' as const }]]);
+    const agentConfig: ResolvedConfig = { _topicIndex: topicIndex, _defaultMode: 'full' as const };
+    const ctxWithTopic: PluginHookAgentContext = {
+      ...ctx,
+      sessionKey: 'agent:yoda:main:thread:276243527:999999',
+    };
+
+    await handleRetain(event, ctxWithTopic, agentConfig, client, pluginConfig);
+
+    expect(mockRetain).toHaveBeenCalledOnce();
+    const [, request] = mockRetain.mock.calls[0];
+    expect(request.items[0].strategy).toBeUndefined();
+  });
+
+  it('skips retain when _defaultMode is "disabled" and no topic match', async () => {
+    const event = makeEvent([{ role: 'user', content: 'Hello there friend' }]);
+    const agentConfig: ResolvedConfig = { _defaultMode: 'disabled' as const };
+
+    await handleRetain(event, ctx, agentConfig, client, pluginConfig);
+
+    expect(mockRetain).not.toHaveBeenCalled();
+  });
+
+  it('proceeds with bank defaults when no memory section (backward compat)', async () => {
+    const event = makeEvent([{ role: 'user', content: 'Regular message here' }]);
+    const agentConfig: ResolvedConfig = {};
+
+    await handleRetain(event, ctx, agentConfig, client, pluginConfig);
+
+    expect(mockRetain).toHaveBeenCalledOnce();
+    const [, request] = mockRetain.mock.calls[0];
+    expect(request.items[0].strategy).toBeUndefined();
+  });
 });

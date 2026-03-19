@@ -254,3 +254,20 @@ export function truncateRecallQuery(query: string, latestQuery: string, maxChars
 
   return latestOnly;
 }
+
+// ── extractTopicId ────────────────────────────────────────────────────
+/**
+ * Extract the topic thread ID from a session key.
+ * DM topics: "agent:yoda:main:thread:276243527:280475" → "280475"
+ * Group topics: "agent:yoda:telegram:group:-100xxx:topic:42" → "42"
+ */
+export function extractTopicId(sessionKey: string | undefined): string | undefined {
+  if (!sessionKey) return undefined;
+  // DM topic: ...thread:{userId}:{topicId}
+  const threadMatch = sessionKey.match(/:thread:\d+:(\d+)$/);
+  if (threadMatch) return threadMatch[1];
+  // Group forum topic: ...topic:{topicId}
+  const topicMatch = sessionKey.match(/:topic:(\d+)$/);
+  if (topicMatch) return topicMatch[1];
+  return undefined;
+}

@@ -19,6 +19,7 @@ import {
   stripMetadataEnvelopes,
   stripMemoryTags,
   sliceLastTurnsByUserBoundary,
+  extractTopicId,
 } from '../utils.js';
 
 // Re-export utilities for backward compatibility and testing
@@ -80,6 +81,17 @@ export async function handleRecall(
 ): Promise<string | undefined> {
   // 1. Determine primary bank
   const primaryBankId = deriveBankId(ctx, pluginConfig);
+
+  // Memory mode gating
+  const topicId = extractTopicId(ctx?.sessionKey);
+  const topicEntry = topicId ? agentConfig._topicIndex?.get(topicId) : undefined;
+  const effectiveMode = topicEntry?.mode ?? agentConfig._defaultMode ?? 'full';
+
+  if (effectiveMode === 'disabled') {
+    debug(`[Hindsight] Mode "disabled" for topic ${topicId ?? 'default'} — skipping recall`);
+    return undefined;
+  }
+
   debug(`[Hindsight] before_prompt_build - bank: ${primaryBankId}, channel: ${ctx?.messageProvider}/${ctx?.channelId}`);
   debug(`[Hindsight] event keys: ${Object.keys(event ?? {}).join(', ')}`);
   debug(`[Hindsight] event.context keys: ${Object.keys(event?.context ?? {}).join(', ')}`);

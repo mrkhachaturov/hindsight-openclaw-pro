@@ -490,3 +490,80 @@ describe('handleRecall', () => {
     expect(request.query).toContain('what about that?');
   });
 });
+
+// ── handleRecall — memory mode gating ───────────────────────────────
+
+describe('handleRecall — memory mode gating', () => {
+  it('skips recall when topic mode is "disabled"', async () => {
+    const client = makeClient();
+    const topicIndex = new Map([['12345', { strategy: 'silent', mode: 'disabled' as const }]]);
+    const agentConfig: ResolvedConfig = { ...baseAgentConfig, _topicIndex: topicIndex };
+    const ctxWithTopic: PluginHookAgentContext = {
+      ...baseCtx,
+      sessionKey: 'agent:yoda:main:thread:276243527:12345',
+    };
+    const event = { rawMessage: 'Hello there friend' };
+
+    const result = await handleRecall(event, ctxWithTopic, agentConfig, client as any, basePluginConfig);
+
+    expect(result).toBeUndefined();
+    expect(client.recall).not.toHaveBeenCalled();
+  });
+
+  it('proceeds with recall when topic mode is "recall"', async () => {
+    const client = makeClient();
+    client.recall.mockResolvedValue({ results: [makeMemory('m1', 'memory text')], entities: null, trace: null, chunks: null });
+    const topicIndex = new Map([['12345', { strategy: 'readonly', mode: 'recall' as const }]]);
+    const agentConfig: ResolvedConfig = { ...baseAgentConfig, _topicIndex: topicIndex };
+    const ctxWithTopic: PluginHookAgentContext = {
+      ...baseCtx,
+      sessionKey: 'agent:yoda:main:thread:276243527:12345',
+    };
+    const event = { rawMessage: 'What do you remember?' };
+
+    const result = await handleRecall(event, ctxWithTopic, agentConfig, client as any, basePluginConfig);
+
+    expect(client.recall).toHaveBeenCalled();
+    expect(result).toBeDefined();
+  });
+
+  it('proceeds with recall when topic mode is "full"', async () => {
+    const client = makeClient();
+    client.recall.mockResolvedValue({ results: [makeMemory('m1', 'memory text')], entities: null, trace: null, chunks: null });
+    const topicIndex = new Map([['280304', { strategy: 'deep-analysis', mode: 'full' as const }]]);
+    const agentConfig: ResolvedConfig = { ...baseAgentConfig, _topicIndex: topicIndex };
+    const ctxWithTopic: PluginHookAgentContext = {
+      ...baseCtx,
+      sessionKey: 'agent:yoda:main:thread:276243527:280304',
+    };
+    const event = { rawMessage: 'Recall something please' };
+
+    const result = await handleRecall(event, ctxWithTopic, agentConfig, client as any, basePluginConfig);
+
+    expect(client.recall).toHaveBeenCalled();
+    expect(result).toBeDefined();
+  });
+
+  it('skips recall when _defaultMode is "disabled" and no topic match', async () => {
+    const client = makeClient();
+    const agentConfig: ResolvedConfig = { ...baseAgentConfig, _defaultMode: 'disabled' as const };
+    const event = { rawMessage: 'Hello there friend' };
+
+    const result = await handleRecall(event, baseCtx, agentConfig, client as any, basePluginConfig);
+
+    expect(result).toBeUndefined();
+    expect(client.recall).not.toHaveBeenCalled();
+  });
+
+  it('proceeds when no memory section at all (backward compat)', async () => {
+    const client = makeClient();
+    client.recall.mockResolvedValue({ results: [makeMemory('m1', 'memory text')], entities: null, trace: null, chunks: null });
+    const agentConfig: ResolvedConfig = { ...baseAgentConfig };
+    const event = { rawMessage: 'Regular recall query' };
+
+    const result = await handleRecall(event, baseCtx, agentConfig, client as any, basePluginConfig);
+
+    expect(client.recall).toHaveBeenCalled();
+    expect(result).toBeDefined();
+  });
+});

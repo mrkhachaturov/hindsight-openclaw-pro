@@ -13,6 +13,9 @@ const CONFIG_FIELDS = [
   'disposition_literalism',
   'disposition_empathy',
   'entity_labels',
+  'retain_strategies',
+  'retain_default_strategy',
+  'retain_chunk_size',
 ] as const;
 
 /**

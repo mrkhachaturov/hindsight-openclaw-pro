@@ -128,6 +128,23 @@ export interface RecallFromEntry {
   tagGroups?: TagGroup[];
 }
 
+export interface MemoryScope {
+  topics?: string[];
+  // Future: channels?: string[]; providers?: string[];
+}
+
+export interface MemoryRouting {
+  default: 'full' | 'recall' | 'disabled';
+  full?: Record<string, MemoryScope>;
+  recall?: Record<string, MemoryScope>;
+  disabled?: Record<string, MemoryScope>;
+}
+
+export interface TopicIndexEntry {
+  strategy: string;
+  mode: 'full' | 'recall' | 'disabled';
+}
+
 export interface BankConfig {
   // Infrastructure overrides (per-agent)
   hindsightApiUrl?: string;
@@ -184,6 +201,14 @@ export interface BankConfig {
   reflectOnRecall?: boolean;
   reflectBudget?: 'low' | 'mid' | 'high';
   reflectMaxTokens?: number;
+
+  // Memory routing (plugin-side)
+  memory?: MemoryRouting;
+
+  // Retain strategies (server-side, synced via hoppro)
+  retain_strategies?: Record<string, Record<string, unknown>>;
+  retain_default_strategy?: string;
+  retain_chunk_size?: number;
 }
 
 // ── Resolved Config (after merge) ────────────────────────────────────
@@ -198,6 +223,9 @@ export interface ServerConfig {
   disposition_empathy?: number;
   entity_labels?: EntityLabel[];
   directives?: BankConfigDirective[];
+  retain_strategies?: Record<string, Record<string, unknown>>;
+  retain_default_strategy?: string;
+  retain_chunk_size?: number;
 }
 
 export interface ResolvedConfig {
@@ -251,6 +279,10 @@ export interface ResolvedConfig {
   _reflectOnRecall?: boolean;
   _reflectBudget?: 'low' | 'mid' | 'high';
   _reflectMaxTokens?: number;
+
+  // Memory routing (resolved from bankConfig.memory)
+  _topicIndex?: Map<string, TopicIndexEntry>;
+  _defaultMode?: 'full' | 'recall' | 'disabled';
 }
 
 // ── Session Start ────────────────────────────────────────────────────
@@ -277,6 +309,7 @@ export interface RetainItem {
   entities?: string[];
   tags?: string[];
   observation_scopes?: string | string[][];
+  strategy?: string;
 }
 
 export interface RetainRequest {

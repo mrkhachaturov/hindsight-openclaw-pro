@@ -2,7 +2,7 @@ import type { HindsightClient } from '../client.js';
 import type { ResolvedConfig, PluginConfig, PluginHookAgentContext } from '../types.js';
 import { debug } from '../debug.js';
 import { deriveBankId } from '../derive-bank-id.js';
-import { stripMemoryTags, stripMetadataEnvelopes, sliceLastTurnsByUserBoundary } from '../utils.js';
+import { stripMemoryTags, stripMetadataEnvelopes, sliceLastTurnsByUserBoundary, extractTopicId } from '../utils.js';
 
 // Re-export for backward compatibility
 export { stripMemoryTags } from '../utils.js';
@@ -182,7 +182,22 @@ export async function handleRetain(
   const { transcript, messageCount } = retention;
   const documentId = `session-${ctx?.sessionKey ?? 'unknown'}-${Date.now()}`;
 
-  debug(`[Hindsight] Retaining to bank ${bankId}, document: ${documentId}, chars: ${transcript.length}\n---\n${transcript.substring(0, 500)}${transcript.length > 500 ? '\n...(truncated)' : ''}\n---`);
+  // Resolve topic-based memory mode and strategy
+  const topicId = extractTopicId(ctx?.sessionKey);
+  const topicEntry = topicId ? agentConfig._topicIndex?.get(topicId) : undefined;
+  const effectiveMode = topicEntry?.mode ?? agentConfig._defaultMode ?? 'full';
+
+  if (effectiveMode === 'disabled' || effectiveMode === 'recall') {
+    debug(`[Hindsight Hook] Mode "${effectiveMode}" for topic ${topicId ?? 'default'} — skipping retain`);
+    return;
+  }
+
+  const strategy = topicEntry?.strategy; // undefined for default/unscoped
+  if (strategy) {
+    debug(`[Hindsight Hook] Topic ${topicId} → strategy "${strategy}"`);
+  }
+
+  debug(`[Hindsight] Retaining to bank ${bankId}, document: ${documentId}, chars: ${transcript.length}${strategy ? `, strategy: ${strategy}` : ''}\n---\n${transcript.substring(0, 500)}${transcript.length > 500 ? '\n...(truncated)' : ''}\n---`);
 
   await client.retain(bankId, {
     items: [{
@@ -198,6 +213,7 @@ export async function handleRetain(
       tags: agentConfig.retainTags,
       context: agentConfig.retainContext,
       observation_scopes: agentConfig.retainObservationScopes,
+      strategy,
     }],
     async: true,
   });

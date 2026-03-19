@@ -1,5 +1,8 @@
-import { describe, it, expect } from 'vitest';
-import { resolveAgentConfig, parseBankConfigFile } from './config.js';
+import { writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { resolveAgentConfig, parseBankConfigFile, resolveIncludes } from './config.js';
 
 describe('resolveAgentConfig', () => {
   const pluginDefaults = {
@@ -119,6 +122,142 @@ describe('resolveAgentConfig', () => {
       entity_labels: [{ key: 'dept', description: 'Department', type: 'value' }],
       directives: [{ name: 'rule1', content: 'Do this' }],
     });
+  });
+
+  it('builds _topicIndex and _defaultMode from memory section', () => {
+    const bankConfigs = new Map([['yoda', {
+      retain_mission: 'Strategic',
+      memory: {
+        default: 'full' as const,
+        full: {
+          'deep-analysis': { topics: ['280304'] },
+          'lightweight': { topics: ['280418'] },
+        },
+        recall: {
+          'no-write': { topics: ['999'] },
+        },
+        disabled: {
+          'silent': { topics: ['888'] },
+        },
+      },
+    }]]);
+    const result = resolveAgentConfig('yoda', pluginDefaults, bankConfigs);
+    expect(result._defaultMode).toBe('full');
+    expect(result._topicIndex).toBeDefined();
+    expect(result._topicIndex!.get('280304')).toEqual({ strategy: 'deep-analysis', mode: 'full' });
+    expect(result._topicIndex!.get('280418')).toEqual({ strategy: 'lightweight', mode: 'full' });
+    expect(result._topicIndex!.get('999')).toEqual({ strategy: 'no-write', mode: 'recall' });
+    expect(result._topicIndex!.get('888')).toEqual({ strategy: 'silent', mode: 'disabled' });
+  });
+
+  it('returns undefined _topicIndex and _defaultMode when no memory section', () => {
+    const bankConfigs = new Map([['r2d2', {
+      retain_mission: 'Maintenance',
+    }]]);
+    const result = resolveAgentConfig('r2d2', pluginDefaults, bankConfigs);
+    expect(result._topicIndex).toBeUndefined();
+    expect(result._defaultMode).toBeUndefined();
+  });
+
+  it('extracts memory into EXTRACTED_FIELDS (does not leak into overrides)', () => {
+    const bankConfigs = new Map([['yoda', {
+      retain_mission: 'Strategic',
+      memory: { default: 'recall' as const },
+    }]]);
+    const result = resolveAgentConfig('yoda', pluginDefaults, bankConfigs);
+    expect((result as any).memory).toBeUndefined();
+    expect(result._defaultMode).toBe('recall');
+  });
+
+  it('extracts retain_strategies, retain_default_strategy, retain_chunk_size into _serverConfig', () => {
+    const bankConfigs = new Map([['yoda', {
+      retain_mission: 'Strategic',
+      retain_strategies: { 'deep': { retain_extraction_mode: 'verbose' } },
+      retain_default_strategy: 'deep',
+      retain_chunk_size: 3,
+    }]]);
+    const result = resolveAgentConfig('yoda', pluginDefaults, bankConfigs);
+    expect(result._serverConfig).toBeDefined();
+    expect(result._serverConfig!.retain_strategies).toEqual({ 'deep': { retain_extraction_mode: 'verbose' } });
+    expect(result._serverConfig!.retain_default_strategy).toBe('deep');
+    expect(result._serverConfig!.retain_chunk_size).toBe(3);
+  });
+});
+
+describe('resolveIncludes', () => {
+  let testDir: string;
+
+  beforeEach(() => {
+    testDir = join(tmpdir(), `hoppro-test-${Date.now()}`);
+    mkdirSync(testDir, { recursive: true });
+  });
+
+  afterEach(() => {
+    rmSync(testDir, { recursive: true, force: true });
+  });
+
+  it('resolves a single $include directive', () => {
+    writeFileSync(join(testDir, 'labels.json5'), '["label1", "label2"]');
+    const obj = { entity_labels: { $include: './labels.json5' } };
+    const result = resolveIncludes(obj, testDir);
+    expect(result.entity_labels).toEqual(['label1', 'label2']);
+  });
+
+  it('resolves nested $include directives', () => {
+    writeFileSync(join(testDir, 'inner.json5'), '{ "mode": "verbose" }');
+    writeFileSync(join(testDir, 'outer.json5'), '{ "strategy": { "$include": "./inner.json5" } }');
+    const obj = { config: { $include: './outer.json5' } };
+    const result = resolveIncludes(obj, testDir);
+    expect(result.config).toEqual({ strategy: { mode: 'verbose' } });
+  });
+
+  it('resolves $include values in a record (retain_strategies pattern)', () => {
+    writeFileSync(join(testDir, 'deep.json5'), '{ "retain_extraction_mode": "verbose" }');
+    writeFileSync(join(testDir, 'light.json5'), '{ "retain_extraction_mode": "concise" }');
+    const obj = {
+      retain_strategies: {
+        'deep-analysis': { $include: './deep.json5' },
+        'lightweight': { $include: './light.json5' },
+      },
+    };
+    const result = resolveIncludes(obj, testDir);
+    expect(result.retain_strategies['deep-analysis']).toEqual({ retain_extraction_mode: 'verbose' });
+    expect(result.retain_strategies['lightweight']).toEqual({ retain_extraction_mode: 'concise' });
+  });
+
+  it('throws on circular $include', () => {
+    writeFileSync(join(testDir, 'a.json5'), '{ "ref": { "$include": "./b.json5" } }');
+    writeFileSync(join(testDir, 'b.json5'), '{ "ref": { "$include": "./a.json5" } }');
+    const obj = { top: { $include: './a.json5' } };
+    expect(() => resolveIncludes(obj, testDir)).toThrow(/circular/i);
+  });
+
+  it('throws when max depth exceeded', () => {
+    for (let i = 0; i < 12; i++) {
+      const next = i < 11 ? `{ "ref": { "$include": "./f${i + 1}.json5" } }` : '{ "value": "end" }';
+      writeFileSync(join(testDir, `f${i}.json5`), next);
+    }
+    const obj = { start: { $include: './f0.json5' } };
+    expect(() => resolveIncludes(obj, testDir)).toThrow(/depth/i);
+  });
+
+  it('throws on missing file', () => {
+    const obj = { data: { $include: './nonexistent.json5' } };
+    expect(() => resolveIncludes(obj, testDir)).toThrow();
+  });
+
+  it('passes through objects without $include unchanged', () => {
+    const obj = { memory: { default: 'full', full: {} } };
+    const result = resolveIncludes(obj, testDir);
+    expect(result).toEqual(obj);
+  });
+
+  it('does not mutate the original object', () => {
+    writeFileSync(join(testDir, 'data.json5'), '"resolved"');
+    const obj = { ref: { $include: './data.json5' } };
+    const original = JSON.parse(JSON.stringify(obj));
+    resolveIncludes(obj, testDir);
+    expect(obj).toEqual(original);
   });
 });
 
