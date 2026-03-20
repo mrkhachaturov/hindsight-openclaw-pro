@@ -15,8 +15,6 @@ const config: Config = {
     mermaid: true,
   },
 
-  themes: ['@docusaurus/theme-mermaid'],
-
   url: 'https://hindclaw.pro',
   baseUrl: '/',
 
@@ -30,6 +28,33 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'anonymous',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap',
+        media: 'print',
+        onload: "this.media='all'",
+      },
+    },
+  ],
 
   presets: [
     [
@@ -59,13 +84,33 @@ const config: Config = {
     ],
   ],
 
+  themes: [
+    '@docusaurus/theme-mermaid',
+    [
+      '@easyops-cn/docusaurus-search-local',
+      {
+        hashed: true,
+        docsRouteBasePath: '/docs',
+        indexBlog: true,
+        blogRouteBasePath: '/blog',
+        highlightSearchTermsOnTargetPage: false,
+      },
+    ],
+  ],
+
   themeConfig: {
-    image: 'img/social-card.jpg',
+    image: 'img/hindclaw-logo.png',
     colorMode: {
+      defaultMode: 'dark',
       respectPrefersColorScheme: true,
     },
     navbar: {
       title: 'hindclaw',
+      logo: {
+        alt: 'hindclaw Logo',
+        src: 'img/hindclaw-logo.png',
+        style: {height: '32px'},
+      },
       items: [
         {
           type: 'docSidebar',
@@ -130,7 +175,46 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
-      additionalLanguages: ['bash', 'json5', 'json'],
+      additionalLanguages: ['bash', 'json5', 'json', 'python', 'rust', 'hcl', 'sql'],
+    },
+    mermaid: {
+      theme: {
+        light: 'base',
+        dark: 'base',
+      },
+      options: {
+        themeVariables: {
+          // Teal primary for nodes
+          primaryColor: '#00BCD4',
+          primaryTextColor: '#ffffff',
+          primaryBorderColor: '#00838F',
+          // Orange accent for edges/clusters
+          secondaryColor: '#E64A19',
+          secondaryTextColor: '#ffffff',
+          secondaryBorderColor: '#BF360C',
+          // Tertiary
+          tertiaryColor: '#E0F7FA',
+          tertiaryTextColor: '#1A1A2E',
+          // Lines and edges - teal
+          lineColor: '#00BCD4',
+          // Text
+          textColor: '#1A1A2E',
+          // Node specific - teal
+          nodeBkg: '#00BCD4',
+          nodeTextColor: '#ffffff',
+          nodeBorder: '#00838F',
+          // Main background
+          mainBkg: '#00BCD4',
+          // Clusters/subgraphs - teal tint
+          clusterBkg: 'rgba(0, 188, 212, 0.08)',
+          clusterBorder: '#00BCD4',
+          // Labels
+          edgeLabelBackground: 'transparent',
+          labelBackground: 'transparent',
+          // Font - Inter to match body text
+          fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        },
+      },
     },
   } satisfies Preset.ThemeConfig,
 };

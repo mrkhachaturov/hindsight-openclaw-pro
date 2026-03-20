@@ -1,30 +1,263 @@
 /**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
+ * hindclaw landing page styles.
  */
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
+/* ─── Hero ─── */
+
+.hero {
   position: relative;
   overflow: hidden;
+  padding: 6rem 0 5rem;
+  background: #0D0D1A;
 }
 
+.heroInner {
+  position: relative;
+  z-index: 1;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.heroLogo {
+  width: 220px;
+  height: auto;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 40px rgba(0, 188, 212, 0.3));
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.heroTitle {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #29B6F6, #4DD0E1, #80DEEA);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.heroSubtitle {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.heroPrimary {
+  background: linear-gradient(135deg, #0288D1, #00BCD4) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.heroPrimary:hover {
+  background: linear-gradient(135deg, #039BE5, #26C6DA) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0, 188, 212, 0.3);
+}
+
+.heroSecondary {
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.heroSecondary:hover {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.heroInstall {
+  padding: 0.625rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+}
+
+.heroInstall code {
+  font-size: 0.875rem;
+  color: #4DD0E1;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.heroGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(0, 188, 212, 0.08) 0%, rgba(2, 136, 209, 0.04) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Section Titles ─── */
+
+.sectionTitle {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  background: linear-gradient(90deg, #0288D1, #00BCD4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ─── Features ─── */
+
+.features {
+  padding: 5rem 0;
+}
+
+.featureCard {
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--ifm-toc-border-color);
+  background: var(--ifm-background-surface-color);
+  transition: all 0.2s ease;
+  height: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.featureCard:hover {
+  border-color: #00BCD4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 188, 212, 0.1);
+}
+
+.featureTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #00BCD4;
+}
+
+[data-theme='dark'] .featureTitle {
+  background: linear-gradient(90deg, #29B6F6, #4DD0E1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.featureDescription {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0;
+}
+
+/* ─── Architecture ─── */
+
+.architecture {
+  padding: 5rem 0;
+  background: var(--ifm-background-surface-color);
+}
+
+.architectureGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.archStep {
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+
+.archNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0288D1, #00BCD4);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.archTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.archStep p {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0;
+}
+
+/* ─── Responsive ─── */
+
 @media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+  .hero {
+    padding: 4rem 0 3rem;
+  }
+
+  .heroLogo {
+    width: 160px;
+  }
+
+  .heroTitle {
+    font-size: 2.25rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.05rem;
+  }
+
+  .heroButtons {
+    flex-direction: column;
+  }
+
+  .architectureGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
-  width: 100%;
+@media screen and (max-width: 600px) {
+  .architectureGrid {
+    grid-template-columns: 1fr;
+  }
 }

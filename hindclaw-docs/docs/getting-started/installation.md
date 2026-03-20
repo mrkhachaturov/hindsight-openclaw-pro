@@ -5,7 +5,7 @@ title: Installation
 
 # Installation
 
-This guide walks you through installing hindclaw and its dependencies, configuring the Hindsight daemon, and enabling the plugin in your OpenClaw gateway.
+This guide walks you through installing hindclaw and its dependencies, configuring the Hindsight daemon, enabling the plugin in your OpenClaw gateway, and (for multi-user setups) installing the server-side extension.
 
 ## Prerequisites
 
@@ -88,9 +88,9 @@ What each field does:
 - **`dynamicBankGranularity`** -- controls how bank IDs are derived from context. `["agent"]` means one bank per agent (recommended starting point). Other options include `["agent", "channel"]` or `["agent", "channel", "user"]` for finer granularity.
 - **`bootstrap`** -- when `true`, the plugin automatically applies bank config files to Hindsight on first run. This means you do not need to manually run `hindclaw apply` for initial setup.
 
-### Optional: external Hindsight server
+### Optional: external Hindsight server (single-user)
 
-If you are running a remote Hindsight server instead of the local daemon, add the server URL and token:
+If you are running a remote Hindsight server and do not need multi-user access control, add the server URL and a static API token:
 
 ```json5
 {
@@ -112,21 +112,62 @@ If you are running a remote Hindsight server instead of the local daemon, add th
 
 When `hindsightApiUrl` is set, the plugin connects to that server directly and does not start a local daemon.
 
-### Optional: configPath for separated config
+### Optional: external Hindsight server (multi-user with hindclaw-extension)
 
-For larger deployments, you can move hindclaw's configuration (access control groups, users, per-bank overrides) into a separate directory:
+If the server is running the hindclaw-extension (see Step 4 below), use `jwtSecret` instead of `hindsightApiToken`. The plugin will generate short-lived JWTs for each request:
 
 ```json5
 {
-  "config": {
-    "configPath": "./hindsight"
+  "plugins": {
+    "entries": {
+      "hindclaw": {
+        "enabled": true,
+        "config": {
+          "dynamicBankGranularity": ["agent"],
+          "bootstrap": true,
+          "hindsightApiUrl": "https://hindsight.your-server.local",
+          "jwtSecret": "shared-secret-between-plugin-and-server"
+        }
+      }
+    }
   }
 }
 ```
 
-This tells hindclaw to look for its config structure at `.openclaw/hindsight/` relative to your OpenClaw config directory. Run `hindclaw init` to scaffold the directory structure. See the [access control guide](/docs/guides/access-control) for details.
+The `jwtSecret` must match the `HINDSIGHT_API_TENANT_JWT_SECRET` environment variable configured on the server.
 
-## Step 4: Restart the gateway
+## Step 4: Install hindclaw-extension on the server (multi-user only)
+
+This step is **required for multi-user setups** where you need access control, per-user permissions, and server-side enrichment. For single-user setups, the extension is optional -- the plugin works without it using a static API token.
+
+The hindclaw-extension is a Python package that installs three Hindsight server extensions (tenant authentication, operation validation, and an HTTP management API). Install it on the machine running the Hindsight API server:
+
+```bash
+pip install hindclaw-extension
+```
+
+Then configure the server environment variables to load the extensions:
+
+```bash
+# Extension classes
+HINDSIGHT_API_TENANT_EXTENSION=hindclaw_ext.tenant:HindclawTenant
+HINDSIGHT_API_OPERATION_VALIDATOR_EXTENSION=hindclaw_ext.validator:HindclawValidator
+HINDSIGHT_API_HTTP_EXTENSION=hindclaw_ext.http:HindclawHttp
+
+# Shared secret for JWT validation (must match jwtSecret in plugin config)
+HINDSIGHT_API_TENANT_JWT_SECRET=shared-secret-between-plugin-and-server
+
+# Optional: admin client IDs for CRUD API access
+HINDSIGHT_API_TENANT_ADMIN_CLIENTS=openclaw-prod
+```
+
+The extensions use the same PostgreSQL database as Hindsight core (`HINDSIGHT_API_DATABASE_URL`). Tables are created automatically on startup via `CREATE TABLE IF NOT EXISTS`.
+
+After configuring the env vars, restart the Hindsight API server. You should see startup logs confirming the extensions loaded.
+
+Once the extension is running, manage users, groups, and permissions via the `/ext/hindclaw/*` REST API. See the [Access Control guide](../guides/access-control) and the [Configuration Reference](../reference/configuration) for details.
+
+## Step 5: Restart the gateway
 
 ```bash
 openclaw gateway

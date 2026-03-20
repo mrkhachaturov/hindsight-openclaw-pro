@@ -71,7 +71,7 @@ Fields not specified fall back to the agent's top-level `recallBudget` and `reca
 
 When access control is active, permissions are checked independently for each target bank. The requesting user must have `recall: true` on each bank they read from.
 
-If the current user has `recall: false` on bank `c3po` (resolved through the [4-step permission algorithm](./access-control.md#the-4-step-resolution-algorithm)), that bank is silently skipped. The agent still recalls from the remaining permitted banks.
+If the current user has `recall: false` on bank `c3po` (resolved through the [permission resolution algorithm](./access-control.md#the-resolution-algorithm)), that bank is silently skipped. The agent still recalls from the remaining permitted banks.
 
 This means cross-agent recall respects the same access control rules as single-bank recall. No unauthorized cross-reads.
 
