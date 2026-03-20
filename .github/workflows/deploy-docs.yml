@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: hindclaw-docs/package-lock.json
       - run: cd hindclaw-docs && npm ci && npm run build
@@ -27,5 +27,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy hindclaw-docs/build --project-name=hindsight-openclaw-pro
+          command: pages deploy hindclaw-docs/build --project-name=hindclaw --commit-dirty=true
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
