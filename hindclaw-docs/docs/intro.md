@@ -1,92 +1,60 @@
 ---
 sidebar_position: 1
 slug: /intro
+title: What is hindclaw?
 ---
 
 # What is hindclaw?
 
 hindclaw is a production-grade [Hindsight](https://hindsight.vectorize.io) memory plugin for [OpenClaw](https://github.com/openclaw/openclaw). It gives your AI agent fleet long-term memory with per-agent configuration, multi-bank recall, named retain strategies, and infrastructure-as-code management.
 
-## Features
+## Two Dimensions
 
-- **Per-agent bank configs** -- each agent gets its own retain mission, entity labels, dispositions, and directives (JSON5 files)
-- **Multi-bank recall** -- agents read from multiple banks in parallel (round-robin interleave)
-- **Named retain strategies** -- map conversation topics to extraction profiles (deep analysis, lightweight, review)
-- **Session start context** -- inject mental models at session start
-- **Reflect-on-recall** -- use reflect instead of recall for richer context injection
-- **Infrastructure as Code** -- `hindclaw plan/apply/import` CLI to sync bank configs (like Terraform for memory banks)
-- **Stateless client** -- bankId per-call, no instance state, enables multi-bank operations
+Every message resolves along two orthogonal axes:
 
-## Quick Start
+**WHO** -- permissions resolved through 4 layers (global config -> group merge -> bank group override -> bank user override). Not just access flags -- 11 configurable fields at every layer: LLM model, token budget, extraction depth, tag visibility, retention frequency.
 
-### 1. Install and configure hindsight-embed
+**HOW** -- strategy resolved per topic. Each conversation topic routes to a named strategy with its own extraction mission, mode, and entity labels.
 
-```bash
-uv tool install hindsight-embed
-hindsight-embed configure -p openclaw
+```mermaid
+graph TD
+    MSG["Message: user + bank + topic"] --> PERM["Resolve permissions\nfor THIS user on THIS bank"]
+    MSG --> STRAT["Resolve strategy\nfor THIS topic on THIS bank"]
+    PERM --> R{"recall?"}
+    PERM --> W{"retain?"}
+    R -->|true| RECALL["Recall\nbudget, tokens, tag filters"]
+    R -->|false| NO_R["No recall"]
+    W -->|true| RETAIN["Retain\nroles, tags, LLM model\n+ topic strategy"]
+    W -->|false| NO_W["No retain"]
+    STRAT --> RETAIN
 ```
 
-### 2. Install the plugin
+Every combination of **(user x bank x topic)** can produce different behavior.
 
-```bash
-openclaw plugins install hindclaw
-```
+## Core Features
 
-### 3. Create bank configs
+**Per-agent bank configs** -- each agent gets its own retain mission, entity labels, dispositions, and directives. Configured via JSON5 files, synced to Hindsight via `hindclaw apply`.
 
-Create JSON5 files in `.openclaw/banks/` for each agent:
+**Multi-bank recall** -- agents read from multiple banks in parallel. A strategic advisor recalls from finance, marketing, and ops banks simultaneously.
 
-```json5
-// .openclaw/banks/yoda.json5
-{
-  "bank_id": "yoda",
-  "retain_mission": "Extract strategic decisions, priorities, cross-departmental patterns.",
-  "disposition_skepticism": 4,
-  "disposition_literalism": 2,
-  "disposition_empathy": 3,
-  "entity_labels": [
-    {
-      "key": "department",
-      "description": "Which AstraTeam department",
-      "type": "multi-values",
-      "tag": true,
-      "values": [
-        {"value": "motors", "description": "AstroMotors"},
-        {"value": "detail", "description": "AstroDetail"},
-        {"value": "estate", "description": "AstraEstate"}
-      ]
-    }
-  ]
-}
-```
+**Named retain strategies** -- map conversation topics to extraction profiles. Strategic conversations get deep analysis, daily chats get lightweight extraction. Strategies can also be assigned per user group.
 
-### 4. Restart the gateway
+**Access control** -- Confluence-style permission model. Users belong to groups. Groups define defaults. Banks override per-group or per-user. Anonymous users blocked by default.
 
-```bash
-just restart
-```
+**Infrastructure as Code** -- `hindclaw plan/apply/import`. Declare bank configs in JSON5 files, diff against server state, apply changes. Like Terraform for memory banks.
 
-The plugin auto-discovers bank configs, bootstraps them to the Hindsight server, and starts memory operations.
+**Session start context** -- mental models loaded before the first message. No cold start.
 
-## Architecture
+**Reflect-on-recall** -- use Hindsight's reflect API instead of raw recall for richer, reasoned responses.
 
-```
-User (Telegram/Slack) --> OpenClaw Gateway --> hindclaw plugin --> Hindsight API --> PostgreSQL
-```
-
-hindclaw sits between OpenClaw and Hindsight. It handles:
-- **Recall hook** (before_prompt_build) -- retrieves relevant memories and injects them into the prompt
-- **Retain hook** (agent_end) -- extracts facts from conversations and stores them
-- **Session start hook** -- loads mental models for context
-- **Bank config sync** -- keeps server state in sync with local JSON5 files
+**Multi-server** -- per-agent infrastructure routing. One gateway, multiple Hindsight servers (home, office, local daemon).
 
 ## Built on Hindsight
 
-[Hindsight](https://hindsight.vectorize.io) is a biomimetic memory system for AI agents. It provides semantic, BM25, graph, and temporal retrieval strategies. hindclaw is a client that maps OpenClaw concepts (agents, channels, topics) onto Hindsight capabilities (banks, strategies, tags).
+[Hindsight](https://hindsight.vectorize.io) is a biomimetic memory system for AI agents with semantic, BM25, graph, and temporal retrieval. hindclaw is a client that maps OpenClaw concepts (agents, channels, topics, users) onto Hindsight capabilities (banks, strategies, tags, tag_groups).
 
-## Links
+## Next Steps
 
-- [GitHub](https://github.com/mrkhachaturov/hindsight-openclaw-pro)
-- [npm](https://www.npmjs.com/package/hindclaw)
-- [Hindsight](https://hindsight.vectorize.io)
-- [OpenClaw](https://github.com/openclaw/openclaw)
+- [Installation](./getting-started/installation) -- set up hindsight-embed and install the plugin
+- [Bank Configuration](./guides/bank-configs) -- configure your first agent's memory
+- [Access Control](./guides/access-control) -- set up multi-user permissions

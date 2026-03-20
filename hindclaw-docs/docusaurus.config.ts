@@ -4,12 +4,18 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'hindclaw',
-  tagline: 'Enterprise memory for AI agent fleets',
+  tagline: 'Pro Hindsight plugin for OpenClaw',
   favicon: 'img/favicon.ico',
 
   future: {
     v4: true,
   },
+
+  markdown: {
+    mermaid: true,
+  },
+
+  themes: ['@docusaurus/theme-mermaid'],
 
   url: 'https://hindclaw.pro',
   baseUrl: '/',

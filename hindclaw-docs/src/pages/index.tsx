@@ -67,10 +67,9 @@ function Feature({title, description}: {title: string; description: string}) {
 }
 
 export default function Home(): ReactNode {
-  const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title="Enterprise memory for AI agent fleets"
+      title="Pro Hindsight plugin for OpenClaw"
       description="Production-grade Hindsight memory plugin for OpenClaw with per-agent bank configs, multi-bank recall, named strategies, and infrastructure-as-code.">
       <HomepageHeader />
       <main>
