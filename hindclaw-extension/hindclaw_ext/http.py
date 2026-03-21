@@ -12,7 +12,8 @@ import os
 import secrets
 
 import asyncpg
-from fastapi import APIRouter, Depends, Header, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from hindsight_api.extensions import AuthenticationError, HttpExtension
 
@@ -139,15 +140,19 @@ def _get_admin_client_ids() -> list[str]:
     return [c.strip() for c in os.environ.get("HINDCLAW_ADMIN_CLIENTS", "").split(",") if c.strip()]
 
 
-async def require_admin(authorization: str = Header()):
-    """FastAPI dependency: parse JWT and verify admin client_id.
+_bearer = HTTPBearer()
+
+
+async def require_admin(credentials: HTTPAuthorizationCredentials = Depends(_bearer)):
+    """Parse JWT from Bearer token and verify admin client_id.
 
     /ext/ routes bypass TenantExtension — we parse JWT here directly.
-    AuthenticationError is caught by Hindsight's global exception handler
-    (returns 401).
+    HTTPBearer extracts the token and returns 403 for missing/malformed
+    credentials. AuthenticationError is caught by Hindsight's global
+    exception handler (returns 401).
 
     Args:
-        authorization: Raw Authorization header value.
+        credentials: Bearer token extracted by FastAPI's HTTPBearer scheme.
 
     Returns:
         Decoded JWT claims dict.
@@ -155,9 +160,8 @@ async def require_admin(authorization: str = Header()):
     Raises:
         AuthenticationError: If token is invalid or client_id is not an admin.
     """
-    token = authorization.removeprefix("Bearer ").strip()
     try:
-        claims = decode_jwt(token)
+        claims = decode_jwt(credentials.credentials)
     except Exception as e:
         raise AuthenticationError(str(e))
     if claims.get("client_id") not in _get_admin_client_ids():

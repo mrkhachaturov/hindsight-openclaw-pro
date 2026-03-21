@@ -93,10 +93,10 @@ def mock_db_pool_with_tx():
         yield mock_db, pool, conn
 
 
-def test_no_auth_returns_422(client):
-    """Missing Authorization header returns 422 (FastAPI validates Header dependency)."""
+def test_no_auth_returns_401(client):
+    """Missing Authorization header returns 401."""
     resp = client.get("/ext/hindclaw/users")
-    assert resp.status_code == 422
+    assert resp.status_code == 401
 
 
 def test_bad_client_id_returns_401(client):
