@@ -1,0 +1,3 @@
+[submodule "hindclaw-terraform"]
+	path = hindclaw-terraform
+	url = git@github.com:mrkhachaturov/terraform-provider-hindclaw.git
