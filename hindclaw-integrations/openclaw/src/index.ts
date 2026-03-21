@@ -11,19 +11,12 @@ import { handleRecall, resetRecallState } from './hooks/recall.js';
 import { handleRetain, resetRetainState } from './hooks/retain.js';
 import { stripMemoryTags } from './utils.js';
 import { prepareRetentionTranscript } from './hooks/retain.js';
-import { resetBootstrapState } from './sync/bootstrap.js';
 import { handleSessionStart } from './hooks/session-start.js';
 import { deriveBankId } from './derive-bank-id.js';
 import { formatMemories } from './format.js';
-import { bootstrapBank } from './sync/bootstrap.js';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { homedir } from 'os';
-import {
-  scanConfigPath, buildChannelIndex, buildMembershipIndex,
-  buildStrategyIndex, validateDiscovery,
-} from './permissions/index.js';
-import type { DiscoveryResult } from './permissions/index.js';
 
 // ── Re-exports for backward compatibility ───────────────────────────────
 export { stripMemoryTags, stripMetadataEnvelopes, sliceLastTurnsByUserBoundary } from './utils.js';
@@ -45,7 +38,6 @@ let usingExternalApi = false;
 
 let currentPluginConfig: PluginConfig | null = null;
 let bankConfigs: Map<string, BankConfig> = new Map();
-let discovery: DiscoveryResult | null = null;
 
 // Cache sender IDs discovered in before_prompt_build for agent_end
 const senderIdBySession = new Map<string, string>();
@@ -159,28 +151,27 @@ function detectLLMConfig(pluginConfig?: PluginConfig): {
 
 function detectExternalApi(pluginConfig?: PluginConfig): {
   apiUrl: string | null;
-  apiToken: string | null;
 } {
   const apiUrl = process.env.HINDSIGHT_EMBED_API_URL || pluginConfig?.hindsightApiUrl || null;
-  const apiToken = process.env.HINDSIGHT_EMBED_API_TOKEN || pluginConfig?.hindsightApiToken || null;
-  return { apiUrl, apiToken };
+  return { apiUrl };
 }
 
 function buildClientOptions(
   llmConfig: { provider?: string; apiKey?: string; model?: string },
   pluginCfg: PluginConfig,
-  externalApi: { apiUrl: string | null; apiToken: string | null },
+  externalApi: { apiUrl: string | null },
 ): HindsightClientOptions {
   return {
     llmModel: llmConfig.model,
     embedVersion: pluginCfg.embedVersion,
     embedPackagePath: pluginCfg.embedPackagePath,
     apiUrl: externalApi.apiUrl ?? undefined,
-    apiToken: externalApi.apiToken ?? undefined,
+    jwtSecret: pluginCfg.jwtSecret,
+    clientId: pluginCfg.clientId,
   };
 }
 
-async function checkExternalApiHealth(apiUrl: string, apiToken?: string | null): Promise<void> {
+async function checkExternalApiHealth(apiUrl: string): Promise<void> {
   const healthUrl = `${apiUrl.replace(/\/$/, '')}/health`;
   const maxRetries = 3;
   const retryDelay = 2000;
@@ -188,9 +179,7 @@ async function checkExternalApiHealth(apiUrl: string, apiToken?: string | null):
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       debug(`[Hindsight] Checking external API health at ${healthUrl}... (attempt ${attempt}/${maxRetries})`);
-      const headers: Record<string, string> = {};
-      if (apiToken) headers['Authorization'] = `Bearer ${apiToken}`;
-      const response = await fetch(healthUrl, { signal: AbortSignal.timeout(10000), headers });
+      const response = await fetch(healthUrl, { signal: AbortSignal.timeout(10000) });
       if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       const data = await response.json() as { status?: string };
       debug(`[Hindsight] External API health: ${JSON.stringify(data)}`);
@@ -221,9 +210,8 @@ async function lazyReinit(): Promise<void> {
 
   debug('[Hindsight] Attempting lazy re-initialization...');
   try {
-    await checkExternalApiHealth(externalApi.apiUrl, externalApi.apiToken);
+    await checkExternalApiHealth(externalApi.apiUrl);
     process.env.HINDSIGHT_EMBED_API_URL = externalApi.apiUrl;
-    if (externalApi.apiToken) process.env.HINDSIGHT_EMBED_API_TOKEN = externalApi.apiToken;
 
     const llmConfig = detectLLMConfig(config);
     clientOptions = buildClientOptions(llmConfig, config, externalApi);
@@ -277,12 +265,10 @@ function extractSenderIdFromText(text: unknown): string | undefined {
 }
 
 // ── Plugin config reader ────────────────────────────────────────────────
-const DEFAULT_BANK_MISSION = 'You are an AI assistant helping users across multiple communication channels (Telegram, Slack, Discord, etc.). Remember user preferences, instructions, and important context from conversations to provide personalized assistance.';
 
 function getPluginConfig(api: MoltbotPluginAPI): PluginConfig {
   const config = api.config.plugins?.entries?.['hindclaw']?.config || {};
   return {
-    bankMission: config.bankMission || DEFAULT_BANK_MISSION,
     embedPort: config.embedPort || 0,
     daemonIdleTimeout: config.daemonIdleTimeout !== undefined ? config.daemonIdleTimeout : 0,
     embedVersion: config.embedVersion || 'latest',
@@ -291,7 +277,8 @@ function getPluginConfig(api: MoltbotPluginAPI): PluginConfig {
     llmModel: config.llmModel,
     llmApiKeyEnv: config.llmApiKeyEnv,
     hindsightApiUrl: config.hindsightApiUrl,
-    hindsightApiToken: config.hindsightApiToken,
+    jwtSecret: config.jwtSecret,
+    clientId: config.clientId,
     apiPort: config.apiPort || 9077,
     dynamicBankId: config.dynamicBankId !== false,
     bankIdPrefix: config.bankIdPrefix,
@@ -313,9 +300,7 @@ function getPluginConfig(api: MoltbotPluginAPI): PluginConfig {
     retainEveryNTurns: typeof config.retainEveryNTurns === 'number' && config.retainEveryNTurns >= 1 ? config.retainEveryNTurns : 1,
     retainOverlapTurns: typeof config.retainOverlapTurns === 'number' && config.retainOverlapTurns >= 0 ? config.retainOverlapTurns : 0,
     debug: config.debug ?? false,
-    configPath: config.configPath,
     agents: config.agents,
-    bootstrap: config.bootstrap,
   };
 }
 
@@ -339,25 +324,8 @@ export default function (api: MoltbotPluginAPI) {
     setDebugEnabled(pluginConfig.debug ?? false);
     currentPluginConfig = pluginConfig;
 
-    // Load bank configs — v2.0.0 (configPath) or v1.x (agents map)
-    const configPath = pluginConfig.configPath;
-    if (configPath) {
-      try {
-        const resolvedPath = join(openclawConfigDir, configPath);
-        discovery = scanConfigPath(resolvedPath);
-        discovery.channelIndex = buildChannelIndex(discovery.users);
-        discovery.membershipIndex = buildMembershipIndex(discovery.groups);
-        discovery.strategyIndex = buildStrategyIndex(discovery.banks);
-
-        const warnings = validateDiscovery(discovery, discovery.membershipIndex);
-        for (const w of warnings) console.warn(`[Hindsight] ⚠ ${w}`);
-
-        bankConfigs = discovery.banks;
-      } catch (error) {
-        console.error('[Hindsight] Failed to load config from configPath:', error instanceof Error ? error.message : error);
-        throw error;
-      }
-    } else if (pluginConfig.agents) {
+    // Load bank configs from agents map
+    if (pluginConfig.agents) {
       try {
         bankConfigs = loadBankConfigFiles(pluginConfig.agents, openclawConfigDir);
         debug(`[Hindsight] Loaded bank configs for ${bankConfigs.size} agents`);
@@ -372,9 +340,6 @@ export default function (api: MoltbotPluginAPI) {
     const modelInfo = llmConfig.model || 'default';
     const baseUrlInfo = llmConfig.baseUrl ? `, base URL: ${llmConfig.baseUrl}` : '';
     debug(`[Hindsight] Using provider: ${llmConfig.provider}, model: ${modelInfo} (${llmConfig.source}${baseUrlInfo})`);
-    if (pluginConfig.bankMission) {
-      debug(`[Hindsight] Bank mission configured: "${pluginConfig.bankMission.substring(0, 50)}..."`);
-    }
     if (pluginConfig.dynamicBankId) {
       const prefixInfo = pluginConfig.bankIdPrefix ? ` (prefix: ${pluginConfig.bankIdPrefix})` : '';
       debug(`[Hindsight] Dynamic bank IDs enabled${prefixInfo} — each channel gets isolated memory`);
@@ -390,10 +355,6 @@ export default function (api: MoltbotPluginAPI) {
       usingExternalApi = true;
       debug(`[Hindsight] Using external API: ${externalApi.apiUrl}`);
       process.env.HINDSIGHT_EMBED_API_URL = externalApi.apiUrl;
-      if (externalApi.apiToken) {
-        process.env.HINDSIGHT_EMBED_API_TOKEN = externalApi.apiToken;
-        debug('[Hindsight] API token configured');
-      }
     } else {
       debug(`[Hindsight] Daemon idle timeout: ${pluginConfig.daemonIdleTimeout}s (0 = never timeout)`);
       debug(`[Hindsight] API Port: ${apiPort}`);
@@ -411,7 +372,7 @@ export default function (api: MoltbotPluginAPI) {
       try {
         if (usingExternalApi && externalApi.apiUrl) {
           debug('[Hindsight] External API mode — skipping local daemon...');
-          await checkExternalApiHealth(externalApi.apiUrl, externalApi.apiToken);
+          await checkExternalApiHealth(externalApi.apiUrl);
           debug('[Hindsight] Creating HindsightClient (HTTP mode)...');
           clientOptions = buildClientOptions(llmConfig, pluginConfig, externalApi);
           client = new HindsightClient(clientOptions);
@@ -432,22 +393,10 @@ export default function (api: MoltbotPluginAPI) {
           debug('[Hindsight] Starting embedded server...');
           await embedManager.start();
           debug('[Hindsight] Creating HindsightClient (subprocess mode)...');
-          clientOptions = buildClientOptions(llmConfig, pluginConfig, { apiUrl: null, apiToken: null });
+          clientOptions = buildClientOptions(llmConfig, pluginConfig, { apiUrl: null });
           client = new HindsightClient(clientOptions);
           isInitialized = true;
           debug('[Hindsight] Ready');
-        }
-
-        // Bootstrap bank configs in background (non-blocking)
-        // Bootstrap needs HTTP mode — create a temporary HTTP client for it
-        const bootstrapApiUrl = usingExternalApi ? null : `http://127.0.0.1:${apiPort}`;
-        const bootstrapClient = bootstrapApiUrl
-          ? new HindsightClient({ ...clientOptions!, apiUrl: bootstrapApiUrl })
-          : client;
-        if (bootstrapClient && bankConfigs.size > 0 && bootstrapClient.httpMode) {
-          runBootstrap(bootstrapClient, pluginConfig, bankConfigs).catch(err => {
-            console.warn('[Hindsight] Bootstrap error:', err instanceof Error ? err.message : err);
-          });
         }
       } catch (error) {
         console.error('[Hindsight] Initialization error:', error);
@@ -474,7 +423,7 @@ export default function (api: MoltbotPluginAPI) {
           const ea = detectExternalApi(pluginConfig);
           if (ea.apiUrl && isInitialized) {
             try {
-              await checkExternalApiHealth(ea.apiUrl, ea.apiToken);
+              await checkExternalApiHealth(ea.apiUrl);
               debug('[Hindsight] External API is healthy');
               return;
             } catch (error) {
@@ -500,15 +449,14 @@ export default function (api: MoltbotPluginAPI) {
           if (ea.apiUrl) {
             usingExternalApi = true;
             process.env.HINDSIGHT_EMBED_API_URL = ea.apiUrl;
-            if (ea.apiToken) process.env.HINDSIGHT_EMBED_API_TOKEN = ea.apiToken;
-            await checkExternalApiHealth(ea.apiUrl, ea.apiToken);
+            await checkExternalApiHealth(ea.apiUrl);
             clientOptions = buildClientOptions(lc, rc, ea);
             client = new HindsightClient(clientOptions);
           } else {
             const p = rc.apiPort || 9077;
             embedManager = new HindsightEmbedManager(p, lc.provider || '', lc.apiKey || '', lc.model, lc.baseUrl, rc.daemonIdleTimeout, rc.embedVersion, rc.embedPackagePath);
             await embedManager.start();
-            clientOptions = buildClientOptions(lc, rc, { apiUrl: null, apiToken: null });
+            clientOptions = buildClientOptions(lc, rc, { apiUrl: null });
             client = new HindsightClient(clientOptions);
           }
           isInitialized = true;
@@ -528,10 +476,8 @@ export default function (api: MoltbotPluginAPI) {
           isInitialized = false;
           // Clear stale state from hooks to prevent misattribution after reinit
           senderIdBySession.clear();
-          discovery = null;
           resetRetainState();
           resetRecallState();
-          resetBootstrapState();
           debug('[Hindsight] Service stopped');
         } catch (error) {
           console.error('[Hindsight] Service stop error:', error);
@@ -586,7 +532,7 @@ export default function (api: MoltbotPluginAPI) {
         await waitForClient();
         if (!client) { debug('[Hindsight] Client not ready, skipping recall'); return; }
 
-        const result = await handleRecall(event, effectiveCtx, agentConfig, client, pluginConfig, discovery);
+        const result = await handleRecall(event, effectiveCtx, agentConfig, client, pluginConfig);
         if (result) {
           return { prependSystemContext: result };
         }
@@ -643,7 +589,7 @@ export default function (api: MoltbotPluginAPI) {
         await waitForClient();
         if (!client) { console.warn('[Hindsight] Client not ready, skipping retain'); return; }
 
-        await handleRetain(event, effectiveCtxForRetain, agentConfig, client, pluginConfig, discovery);
+        await handleRetain(event, effectiveCtxForRetain, agentConfig, client, pluginConfig);
       } catch (error) {
         console.error('[Hindsight] Error retaining messages:', error);
       }
@@ -662,26 +608,6 @@ export default function (api: MoltbotPluginAPI) {
 async function waitForClient(): Promise<void> {
   const clientGlobal = (global as any).__hindsightClient;
   if (clientGlobal) await clientGlobal.waitForReady();
-}
-
-async function runBootstrap(
-  client: HindsightClient,
-  pluginConfig: PluginConfig,
-  bankConfigs: Map<string, BankConfig>,
-): Promise<void> {
-  for (const [agentId, bankConfig] of bankConfigs) {
-    const bankId = deriveBankId({ agentId } as PluginHookAgentContext, pluginConfig);
-    try {
-      const result = await bootstrapBank(bankId, bankConfig, client, pluginConfig.bankMission);
-      if (result.applied) {
-        debug(`[Hindsight] Bootstrapped bank ${bankId} for agent ${agentId}`);
-      } else if (result.error) {
-        console.warn(`[Hindsight] Bootstrap error for bank ${bankId}:`, result.error);
-      }
-    } catch (error) {
-      console.warn(`[Hindsight] Bootstrap failed for bank ${bankId}:`, error instanceof Error ? error.message : error);
-    }
-  }
 }
 
 // Export client getter for tools

@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll } from 'vitest';
 import { HindsightClient } from '../../src/client.js';
 
 const API_URL = process.env.HINDSIGHT_API_URL || 'http://localhost:8888';
-const API_TOKEN = process.env.HINDSIGHT_API_TOKEN;
+const JWT_SECRET = process.env.HINDCLAW_JWT_SECRET || 'test-secret';
 
 describe('Multi-Bank Recall Integration', () => {
   let client: HindsightClient;
@@ -10,7 +10,7 @@ describe('Multi-Bank Recall Integration', () => {
   const BANK_B = `test-multi-b-${Date.now()}`;
 
   beforeAll(async () => {
-    client = new HindsightClient({ apiUrl: API_URL, apiToken: API_TOKEN });
+    client = new HindsightClient({ apiUrl: API_URL, jwtSecret: JWT_SECRET, clientId: 'test' });
 
     // Seed banks with different content
     await client.retain(BANK_A, {
