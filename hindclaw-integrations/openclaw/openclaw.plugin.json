@@ -15,11 +15,6 @@
         "description": "Port for hindsight-embed server (auto-assigned if not specified)",
         "default": 0
       },
-      "bankMission": {
-        "type": "string",
-        "description": "Agent identity/purpose stored on the memory bank. Helps the memory engine understand context for better fact extraction during retain. Set once per bank on first use — this is not a recall prompt.",
-        "default": "You are an AI assistant helping users across multiple communication channels (Telegram, Slack, Discord, etc.). Remember user preferences, instructions, and important context from conversations to provide personalized assistance."
-      },
       "embedVersion": {
         "type": "string",
         "description": "hindsight-embed version to use (e.g. 'latest', '0.4.2', or empty for latest)",
@@ -59,9 +54,14 @@
         "type": "string",
         "description": "External Hindsight API URL (e.g. 'https://mcp.hindsight.devcraft.team'). When set, skips local daemon and connects directly to this API."
       },
-      "hindsightApiToken": {
+      "jwtSecret": {
         "type": "string",
-        "description": "API token for external Hindsight API authentication. Required if the external API has authentication enabled."
+        "description": "HMAC-SHA256 secret for signing JWT tokens sent to the Hindsight API. Must match HINDCLAW_JWT_SECRET on the server."
+      },
+      "clientId": {
+        "type": "string",
+        "description": "Client identifier included in JWT claims. Defaults to 'openclaw'.",
+        "default": "openclaw"
       },
       "dynamicBankId": {
         "type": "boolean",
@@ -193,11 +193,6 @@
         "description": "Enable debug logging for Hindsight plugin operations.",
         "default": false
       },
-      "bootstrap": {
-        "type": "boolean",
-        "description": "Apply bank configs on first run if bank is empty on server.",
-        "default": false
-      },
       "agents": {
         "type": "object",
         "description": "Per-agent bank config registration. Keys are agent IDs.",
@@ -212,11 +207,6 @@
           "required": ["bankConfig"]
         }
       },
-      "retainTags": {
-        "type": "array",
-        "items": { "type": "string" },
-        "description": "Tags added to every retained fact. Used for recall filtering."
-      },
       "retainContext": {
         "type": "string",
         "description": "Short label describing the source context for retained facts."
@@ -227,17 +217,6 @@
           { "type": "string", "enum": ["combined", "per_tag", "all_combinations"] },
           { "type": "array", "items": { "type": "array", "items": { "type": "string" } } }
         ]
-      },
-      "recallTags": {
-        "type": "array",
-        "items": { "type": "string" },
-        "description": "Static tags to filter recall results."
-      },
-      "recallTagsMatch": {
-        "type": "string",
-        "enum": ["any", "all", "any_strict", "all_strict"],
-        "description": "Tag matching mode for recall filtering.",
-        "default": "any"
       }
     },
     "additionalProperties": false
@@ -250,10 +229,6 @@
     "embedPort": {
       "label": "Embed Server Port",
       "placeholder": "0 (auto-assign)"
-    },
-    "bankMission": {
-      "label": "Bank Mission",
-      "placeholder": "Custom context for what this agent does..."
     },
     "embedVersion": {
       "label": "Hindsight Embed Version",
@@ -283,9 +258,13 @@
       "label": "External Hindsight API URL",
       "placeholder": "e.g. https://mcp.hindsight.devcraft.team (leave empty for local daemon)"
     },
-    "hindsightApiToken": {
-      "label": "External API Token",
-      "placeholder": "API token if external API requires authentication"
+    "jwtSecret": {
+      "label": "JWT Secret",
+      "placeholder": "HMAC-SHA256 secret (must match server)"
+    },
+    "clientId": {
+      "label": "Client ID",
+      "placeholder": "openclaw (default)"
     },
     "dynamicBankId": {
       "label": "Dynamic Bank IDs",
@@ -358,11 +337,8 @@
     "debug": {
       "label": "Debug"
     },
-    "bootstrap": { "label": "Bootstrap", "placeholder": "false (apply bank configs on first run)" },
     "agents": { "label": "Agent Bank Configs", "placeholder": "Map of agentId → { bankConfig: path }" },
-    "retainTags": { "label": "Retain Tags", "placeholder": "e.g. ['domain:finance']" },
     "retainContext": { "label": "Retain Context", "placeholder": "e.g. 'telegram conversation'" },
-    "recallTags": { "label": "Recall Tags", "placeholder": "e.g. ['domain:finance']" },
-    "recallTagsMatch": { "label": "Recall Tags Match", "placeholder": "any, all, any_strict, all_strict" }
+    "retainObservationScopes": { "label": "Observation Scopes", "placeholder": "e.g. 'combined' or [['health','fitness']]" }
   }
 }

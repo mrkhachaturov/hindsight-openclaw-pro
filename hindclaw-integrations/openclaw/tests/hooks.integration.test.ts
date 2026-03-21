@@ -145,7 +145,6 @@ beforeAll(async () => {
     recallContextTurns: 3,
     recallMaxQueryChars: 180,
     recallRoles: ['user'],
-    // No bankMission — keeps init lean
   });
   triggerHook = handle.trigger;
   stopServicesFn = handle.stopServices;

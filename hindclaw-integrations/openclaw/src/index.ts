@@ -550,7 +550,7 @@ export default function (api: MoltbotPluginAPI) {
         await waitForClient();
         if (!client) return;
 
-        const result = await handleSessionStart(agentConfig, client);
+        const result = await handleSessionStart(agentConfig, client, ctx);
         if (result) {
           return { prependSystemContext: result };
         }

@@ -29,6 +29,7 @@ const HINDSIGHT_API_URL = process.env.HINDSIGHT_API_URL || 'http://localhost:888
 const LLM_PROVIDER = process.env.HINDSIGHT_API_LLM_PROVIDER || '';
 const LLM_API_KEY = process.env.HINDSIGHT_API_LLM_API_KEY || '';
 const LLM_MODEL = process.env.HINDSIGHT_API_LLM_MODEL || '';
+const JWT_SECRET = process.env.HINDCLAW_JWT_SECRET || 'integration-test-secret';
 
 // Embed package path – defaults to the sibling hindsight-embed directory in the repo
 const EMBED_PACKAGE_PATH =
@@ -77,23 +78,24 @@ describe('HindsightClient – HTTP Mode', () => {
     }
 
     client = new HindsightClient({
-      llmProvider: LLM_PROVIDER || 'openai',
-      llmApiKey: LLM_API_KEY || 'test-key',
       llmModel: LLM_MODEL || undefined,
       apiUrl: HINDSIGHT_API_URL,
+      jwtSecret: JWT_SECRET,
+      clientId: 'integration-test',
     });
   });
 
   it('should retain a conversation', async () => {
     const bankId = randomBankId();
-    client.setBankId(bankId);
 
-    const response = await client.retain({
-      content:
-        '[role: user]\nMy name is Alice and I love hiking.\n[user:end]\n\n' +
-        '[role: assistant]\nNice to meet you, Alice!\n[assistant:end]',
-      document_id: 'http-retain-test-1',
-      metadata: { channel_type: 'slack', sender_id: 'U001' },
+    const response = await client.retain(bankId, {
+      items: [{
+        content:
+          '[role: user]\nMy name is Alice and I love hiking.\n[user:end]\n\n' +
+          '[role: assistant]\nNice to meet you, Alice!\n[assistant:end]',
+        document_id: 'http-retain-test-1',
+      }],
+      async: true,
     });
 
     expect(response).toBeDefined();
@@ -101,63 +103,29 @@ describe('HindsightClient – HTTP Mode', () => {
     expect(response.document_id).toBe('http-retain-test-1');
   });
 
-  it('should retain with auto-generated document id', async () => {
-    const bankId = randomBankId();
-    client.setBankId(bankId);
-
-    const response = await client.retain({
-      content: '[role: user]\nI work at TechCorp as a software engineer.\n[user:end]',
-    });
-
-    expect(response).toBeDefined();
-    expect(response.document_id).toBe('conversation');
-  });
-
   it('should recall from an empty bank without error', async () => {
     const bankId = randomBankId();
-    client.setBankId(bankId);
 
-    const response = await client.recall({ query: 'What do I like?', max_tokens: 512 });
+    const response = await client.recall(bankId, { query: 'What do I like?', max_tokens: 512 });
 
     expect(response).toBeDefined();
     expect(Array.isArray(response.results)).toBe(true);
   });
 
-  it('should set bank mission without throwing', async () => {
-    const bankId = randomBankId();
-    client.setBankId(bankId);
-
-    // setBankMission on a non-existent bank logs a warning but does not throw
-    await expect(
-      client.setBankMission('You are an assistant helping users via Slack.'),
-    ).resolves.not.toThrow();
-  });
-
-  it('should set bank mission after retain creates the bank', async () => {
-    const bankId = randomBankId();
-    client.setBankId(bankId);
-
-    // Create the bank by retaining something first
-    await client.retain({ content: '[role: user]\nHello\n[user:end]' });
-
-    // Now set the mission – bank exists so this should succeed
-    await expect(
-      client.setBankMission('You are a helpful AI assistant.'),
-    ).resolves.not.toThrow();
-  });
-
   it('should retain and then recall relevant memories', async () => {
     const bankId = randomBankId();
-    client.setBankId(bankId);
 
-    await client.retain({
-      content:
-        '[role: user]\nMy favorite programming language is Python.\n[user:end]\n\n' +
-        '[role: assistant]\nPython is a great choice!\n[assistant:end]',
-      document_id: `session-${Date.now()}`,
+    await client.retain(bankId, {
+      items: [{
+        content:
+          '[role: user]\nMy favorite programming language is Python.\n[user:end]\n\n' +
+          '[role: assistant]\nPython is a great choice!\n[assistant:end]',
+        document_id: `session-${Date.now()}`,
+      }],
+      async: true,
     });
 
-    const response = await client.recall({
+    const response = await client.recall(bankId, {
       query: 'What programming language do I like?',
       max_tokens: 1024,
     });
@@ -168,20 +136,9 @@ describe('HindsightClient – HTTP Mode', () => {
 
   it('should silently truncate recall queries over 800 chars', async () => {
     const bankId = randomBankId();
-    client.setBankId(bankId);
 
     const longQuery = 'Tell me about my interests. '.repeat(50); // > 800 chars
-    const response = await client.recall({ query: longQuery, max_tokens: 512 });
-
-    expect(response).toBeDefined();
-    expect(Array.isArray(response.results)).toBe(true);
-  });
-
-  it('should use custom max_tokens in recall request', async () => {
-    const bankId = randomBankId();
-    client.setBankId(bankId);
-
-    const response = await client.recall({ query: 'anything', max_tokens: 256 });
+    const response = await client.recall(bankId, { query: longQuery, max_tokens: 512 });
 
     expect(response).toBeDefined();
     expect(Array.isArray(response.results)).toBe(true);
@@ -189,16 +146,18 @@ describe('HindsightClient – HTTP Mode', () => {
 
   it('should map recall results to MemoryResult shape', async () => {
     const bankId = randomBankId();
-    client.setBankId(bankId);
 
-    await client.retain({
-      content:
-        '[role: user]\nI enjoy reading science fiction books.\n[user:end]\n\n' +
-        '[role: assistant]\nSounds like a great hobby!\n[assistant:end]',
-      document_id: 'mapping-test',
+    await client.retain(bankId, {
+      items: [{
+        content:
+          '[role: user]\nI enjoy reading science fiction books.\n[user:end]\n\n' +
+          '[role: assistant]\nSounds like a great hobby!\n[assistant:end]',
+        document_id: 'mapping-test',
+      }],
+      async: true,
     });
 
-    const response = await client.recall({ query: 'What are my hobbies?', max_tokens: 1024 });
+    const response = await client.recall(bankId, { query: 'What are my hobbies?', max_tokens: 1024 });
 
     for (const result of response.results) {
       expect(typeof result.id).toBe('string');
@@ -242,8 +201,6 @@ describe('HindsightClient – Embed Mode (Subprocess)', () => {
     await embedManager.start();
 
     client = new HindsightClient({
-      llmProvider: LLM_PROVIDER,
-      llmApiKey: LLM_API_KEY,
       llmModel: LLM_MODEL || undefined,
       embedPackagePath: EMBED_PACKAGE_PATH,
     });
@@ -259,13 +216,15 @@ describe('HindsightClient – Embed Mode (Subprocess)', () => {
     if (!hasEmbedCredentials) return;
 
     const bankId = randomBankId();
-    client.setBankId(bankId);
 
-    const response = await client.retain({
-      content:
-        '[role: user]\nI love hiking in the mountains.\n[user:end]\n\n' +
-        '[role: assistant]\nSounds adventurous!\n[assistant:end]',
-      document_id: 'embed-retain-test-1',
+    const response = await client.retain(bankId, {
+      items: [{
+        content:
+          '[role: user]\nI love hiking in the mountains.\n[user:end]\n\n' +
+          '[role: assistant]\nSounds adventurous!\n[assistant:end]',
+        document_id: 'embed-retain-test-1',
+      }],
+      async: true,
     });
 
     expect(response).toBeDefined();
@@ -273,113 +232,38 @@ describe('HindsightClient – Embed Mode (Subprocess)', () => {
     expect(response.document_id).toBe('embed-retain-test-1');
   }, 60_000);
 
-  it('should retain with auto-generated document id via subprocess', async () => {
-    if (!hasEmbedCredentials) return;
-
-    const bankId = randomBankId();
-    client.setBankId(bankId);
-
-    const response = await client.retain({
-      content: '[role: user]\nI am a TypeScript developer.\n[user:end]',
-    });
-
-    expect(response).toBeDefined();
-    expect(response.document_id).toBe('conversation');
-  }, 60_000);
-
   it('should recall from an empty bank without error via subprocess', async () => {
     if (!hasEmbedCredentials) return;
 
     const bankId = randomBankId();
-    client.setBankId(bankId);
 
-    const response = await client.recall({ query: 'What do I like?', max_tokens: 512 });
+    const response = await client.recall(bankId, { query: 'What do I like?', max_tokens: 512 });
 
     expect(response).toBeDefined();
     expect(Array.isArray(response.results)).toBe(true);
-  }, 60_000);
-
-  it('should set bank mission via subprocess without throwing', async () => {
-    if (!hasEmbedCredentials) return;
-
-    const bankId = randomBankId();
-    client.setBankId(bankId);
-
-    // Create bank by retaining first, then set mission
-    await client.retain({ content: '[role: user]\nHello\n[user:end]' });
-
-    await expect(
-      client.setBankMission('Test mission for embed integration tests.'),
-    ).resolves.not.toThrow();
   }, 60_000);
 
   it('should retain and then recall relevant memories via subprocess', async () => {
     if (!hasEmbedCredentials) return;
 
     const bankId = randomBankId();
-    client.setBankId(bankId);
 
-    await client.retain({
-      content:
-        '[role: user]\nMy cat is named Whiskers and she is 3 years old.\n[user:end]\n\n' +
-        '[role: assistant]\nWhat a lovely name!\n[assistant:end]',
-      document_id: `embed-e2e-${Date.now()}`,
+    await client.retain(bankId, {
+      items: [{
+        content:
+          '[role: user]\nMy cat is named Whiskers and she is 3 years old.\n[user:end]\n\n' +
+          '[role: assistant]\nWhat a lovely name!\n[assistant:end]',
+        document_id: `embed-e2e-${Date.now()}`,
+      }],
+      async: true,
     });
 
-    const response = await client.recall({
+    const response = await client.recall(bankId, {
       query: "What is my cat's name?",
       max_tokens: 1024,
     });
 
     expect(response).toBeDefined();
     expect(Array.isArray(response.results)).toBe(true);
-  }, 60_000);
-
-  it('should map recall results to MemoryResult shape via subprocess', async () => {
-    if (!hasEmbedCredentials) return;
-
-    const bankId = randomBankId();
-    client.setBankId(bankId);
-
-    await client.retain({
-      content:
-        '[role: user]\nI enjoy cooking Italian food.\n[user:end]\n\n' +
-        '[role: assistant]\nItalian cuisine is delicious!\n[assistant:end]',
-      document_id: 'embed-shape-test',
-    });
-
-    const response = await client.recall({ query: 'What food do I like?', max_tokens: 1024 });
-
-    for (const result of response.results) {
-      expect(typeof result.id).toBe('string');
-      expect(typeof result.text).toBe('string');
-      expect(typeof result.type).toBe('string');
-      expect(Array.isArray(result.entities)).toBe(true);
-    }
-  }, 60_000);
-
-  it('should handle full end-to-end workflow via subprocess', async () => {
-    if (!hasEmbedCredentials) return;
-
-    const bankId = randomBankId();
-    client.setBankId(bankId);
-
-    // Step 1: Retain
-    const retainResp = await client.retain({
-      content:
-        '[role: user]\nI am learning Rust programming.\n[user:end]\n\n' +
-        '[role: assistant]\nRust is a powerful systems language!\n[assistant:end]',
-      document_id: `embed-workflow-${Date.now()}`,
-      metadata: { channel_type: 'telegram', sender_id: '999' },
-    });
-    expect(retainResp).toBeDefined();
-
-    // Step 2: Recall
-    const recallResp = await client.recall({
-      query: 'What am I learning?',
-      max_tokens: 1024,
-    });
-    expect(recallResp).toBeDefined();
-    expect(Array.isArray(recallResp.results)).toBe(true);
   }, 60_000);
 });
