@@ -1,0 +1,1742 @@
+openapi: 3.1.0
+info:
+  description: Access control API for Hindsight memory server
+  title: Hindclaw API
+  version: 0.1.0
+servers:
+- url: /
+paths:
+  /ext/hindclaw/users:
+    get:
+      operationId: list_users_ext_hindclaw_users_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserResponse'
+                type: array
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: List Users
+    post:
+      operationId: create_user_ext_hindclaw_users_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Create User
+  /ext/hindclaw/users/{user_id}:
+    delete:
+      operationId: delete_user_ext_hindclaw_users__user_id__delete
+      parameters:
+      - explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete User
+    get:
+      operationId: get_user_ext_hindclaw_users__user_id__get
+      parameters:
+      - explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get User
+    put:
+      operationId: update_user_ext_hindclaw_users__user_id__put
+      parameters:
+      - explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Update User
+  /ext/hindclaw/users/{user_id}/channels:
+    get:
+      operationId: list_user_channels_ext_hindclaw_users__user_id__channels_get
+      parameters:
+      - explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ChannelResponse'
+                type: array
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: List User Channels
+    post:
+      operationId: add_user_channel_ext_hindclaw_users__user_id__channels_post
+      parameters:
+      - explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddChannelRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Add User Channel
+  /ext/hindclaw/users/{user_id}/channels/{provider}/{sender_id}:
+    delete:
+      operationId: remove_user_channel_ext_hindclaw_users__user_id__channels__provider___sender_id__delete
+      parameters:
+      - explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: provider
+        required: true
+        schema:
+          title: Provider
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: sender_id
+        required: true
+        schema:
+          title: Sender Id
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Remove User Channel
+  /ext/hindclaw/groups:
+    get:
+      operationId: list_groups_ext_hindclaw_groups_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/GroupSummaryResponse'
+                type: array
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: List Groups
+    post:
+      operationId: create_group_ext_hindclaw_groups_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGroupRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupSummaryResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Create Group
+  /ext/hindclaw/groups/{group_id}:
+    delete:
+      operationId: delete_group_ext_hindclaw_groups__group_id__delete
+      parameters:
+      - explode: false
+        in: path
+        name: group_id
+        required: true
+        schema:
+          title: Group Id
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Group
+    get:
+      operationId: get_group_ext_hindclaw_groups__group_id__get
+      parameters:
+      - explode: false
+        in: path
+        name: group_id
+        required: true
+        schema:
+          title: Group Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Group
+    put:
+      operationId: update_group_ext_hindclaw_groups__group_id__put
+      parameters:
+      - explode: false
+        in: path
+        name: group_id
+        required: true
+        schema:
+          title: Group Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Update Group
+  /ext/hindclaw/groups/{group_id}/members:
+    get:
+      operationId: list_group_members_ext_hindclaw_groups__group_id__members_get
+      parameters:
+      - explode: false
+        in: path
+        name: group_id
+        required: true
+        schema:
+          title: Group Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/GroupMemberResponse'
+                type: array
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: List Group Members
+    post:
+      operationId: add_group_member_ext_hindclaw_groups__group_id__members_post
+      parameters:
+      - explode: false
+        in: path
+        name: group_id
+        required: true
+        schema:
+          title: Group Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMemberRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupMembershipConfirmation'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Add Group Member
+  /ext/hindclaw/groups/{group_id}/members/{user_id}:
+    delete:
+      operationId: remove_group_member_ext_hindclaw_groups__group_id__members__user_id__delete
+      parameters:
+      - explode: false
+        in: path
+        name: group_id
+        required: true
+        schema:
+          title: Group Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Remove Group Member
+  /ext/hindclaw/banks/{bank_id}/permissions:
+    get:
+      operationId: list_bank_permissions_ext_hindclaw_banks__bank_id__permissions_get
+      parameters:
+      - explode: false
+        in: path
+        name: bank_id
+        required: true
+        schema:
+          title: Bank Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BankPermissionResponse'
+                type: array
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: List Bank Permissions
+  /ext/hindclaw/banks/{bank_id}/permissions/{scope_type}/{scope_id}:
+    delete:
+      operationId: delete_bank_permission_ext_hindclaw_banks__bank_id__permissions__scope_type___scope_id__delete
+      parameters:
+      - explode: false
+        in: path
+        name: bank_id
+        required: true
+        schema:
+          title: Bank Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: scope_type
+        required: true
+        schema:
+          title: Scope Type
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: scope_id
+        required: true
+        schema:
+          title: Scope Id
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Bank Permission
+    get:
+      operationId: get_bank_permission_ext_hindclaw_banks__bank_id__permissions__scope_type___scope_id__get
+      parameters:
+      - explode: false
+        in: path
+        name: bank_id
+        required: true
+        schema:
+          title: Bank Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: scope_type
+        required: true
+        schema:
+          title: Scope Type
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: scope_id
+        required: true
+        schema:
+          title: Scope Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankPermissionResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Bank Permission
+  /ext/hindclaw/banks/{bank_id}/permissions/groups/{group_id}:
+    put:
+      operationId: upsert_group_bank_permission_ext_hindclaw_banks__bank_id__permissions_groups__group_id__put
+      parameters:
+      - explode: false
+        in: path
+        name: bank_id
+        required: true
+        schema:
+          title: Bank Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: group_id
+        required: true
+        schema:
+          title: Group Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankPermissionRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpsertConfirmation'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Upsert Group Bank Permission
+  /ext/hindclaw/banks/{bank_id}/permissions/users/{user_id}:
+    put:
+      operationId: upsert_user_bank_permission_ext_hindclaw_banks__bank_id__permissions_users__user_id__put
+      parameters:
+      - explode: false
+        in: path
+        name: bank_id
+        required: true
+        schema:
+          title: Bank Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankPermissionRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpsertConfirmation'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Upsert User Bank Permission
+  /ext/hindclaw/banks/{bank_id}/strategies:
+    get:
+      operationId: list_strategies_ext_hindclaw_banks__bank_id__strategies_get
+      parameters:
+      - explode: false
+        in: path
+        name: bank_id
+        required: true
+        schema:
+          title: Bank Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/StrategyScopeResponse'
+                type: array
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: List Strategies
+  /ext/hindclaw/banks/{bank_id}/strategies/{scope_type}/{scope_value}:
+    delete:
+      operationId: delete_strategy_ext_hindclaw_banks__bank_id__strategies__scope_type___scope_value__delete
+      parameters:
+      - explode: false
+        in: path
+        name: bank_id
+        required: true
+        schema:
+          title: Bank Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: scope_type
+        required: true
+        schema:
+          title: Scope Type
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: scope_value
+        required: true
+        schema:
+          title: Scope Value
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Strategy
+    put:
+      operationId: upsert_strategy_ext_hindclaw_banks__bank_id__strategies__scope_type___scope_value__put
+      parameters:
+      - explode: false
+        in: path
+        name: bank_id
+        required: true
+        schema:
+          title: Bank Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: scope_type
+        required: true
+        schema:
+          title: Scope Type
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: scope_value
+        required: true
+        schema:
+          title: Scope Value
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StrategyRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrategyUpsertConfirmation'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Upsert Strategy
+  /ext/hindclaw/users/{user_id}/api-keys:
+    get:
+      description: List API keys for a user. Keys are masked after creation.
+      operationId: list_api_keys_ext_hindclaw_users__user_id__api_keys_get
+      parameters:
+      - explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ApiKeyResponse'
+                type: array
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: List Api Keys
+    post:
+      operationId: create_api_key_ext_hindclaw_users__user_id__api_keys_post
+      parameters:
+      - explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateApiKeyRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKeyCreateResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Create Api Key
+  /ext/hindclaw/users/{user_id}/api-keys/{key_id}:
+    delete:
+      operationId: delete_api_key_ext_hindclaw_users__user_id__api_keys__key_id__delete
+      parameters:
+      - explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          title: User Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: key_id
+        required: true
+        schema:
+          title: Key Id
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Api Key
+  /ext/hindclaw/debug/resolve:
+    get:
+      description: Resolve and return full permissions for a given context.
+      operationId: debug_resolve_ext_hindclaw_debug_resolve_get
+      parameters:
+      - explode: true
+        in: query
+        name: bank
+        required: true
+        schema:
+          title: Bank
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: sender
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: agent
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: channel
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: topic
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResolvedPermissionsResponse'
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Debug Resolve
+components:
+  schemas:
+    AddChannelRequest:
+      example:
+        provider: provider
+        sender_id: sender_id
+      properties:
+        provider:
+          title: Provider
+          type: string
+        sender_id:
+          title: Sender Id
+          type: string
+      required:
+      - provider
+      - sender_id
+      title: AddChannelRequest
+    AddMemberRequest:
+      example:
+        user_id: user_id
+      properties:
+        user_id:
+          title: User Id
+          type: string
+      required:
+      - user_id
+      title: AddMemberRequest
+    ApiKeyCreateResponse:
+      description: API key at creation time — full key shown once.
+      example:
+        api_key: api_key
+        description: description
+        id: id
+      properties:
+        id:
+          title: Id
+          type: string
+        api_key:
+          title: Api Key
+          type: string
+        description:
+          nullable: true
+          type: string
+      required:
+      - api_key
+      - id
+      title: ApiKeyCreateResponse
+    ApiKeyResponse:
+      description: API key in list view — key is masked after creation.
+      example:
+        description: description
+        id: id
+        api_key_prefix: api_key_prefix
+      properties:
+        id:
+          title: Id
+          type: string
+        api_key_prefix:
+          title: Api Key Prefix
+          type: string
+        description:
+          nullable: true
+          type: string
+      required:
+      - api_key_prefix
+      - id
+      title: ApiKeyResponse
+    BankPermissionRequest:
+      example:
+        recall_tag_groups:
+        - key: ""
+        - key: ""
+        llm_model: llm_model
+        exclude_providers:
+        - exclude_providers
+        - exclude_providers
+        recall: true
+        retain: true
+        retain_roles:
+        - retain_roles
+        - retain_roles
+        llm_provider: llm_provider
+        retain_strategy: retain_strategy
+        retain_tags:
+        - retain_tags
+        - retain_tags
+        retain_every_n_turns: 0
+        recall_budget: recall_budget
+        recall_max_tokens: 6
+      properties:
+        recall:
+          nullable: true
+          type: boolean
+        retain:
+          nullable: true
+          type: boolean
+        retain_roles:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_tags:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_every_n_turns:
+          nullable: true
+          type: integer
+        recall_budget:
+          nullable: true
+          type: string
+        recall_max_tokens:
+          nullable: true
+          type: integer
+        recall_tag_groups:
+          items:
+            additionalProperties: true
+            type: object
+          nullable: true
+          type: array
+        llm_model:
+          nullable: true
+          type: string
+        llm_provider:
+          nullable: true
+          type: string
+        exclude_providers:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_strategy:
+          nullable: true
+          type: string
+      title: BankPermissionRequest
+    BankPermissionResponse:
+      description: |-
+        Bank-level permission entry with scope identifiers.
+
+        Returned by GET /banks/:bank/permissions endpoints.
+      example:
+        recall_tag_groups:
+        - key: ""
+        - key: ""
+        llm_model: llm_model
+        retain: true
+        retain_roles:
+        - retain_roles
+        - retain_roles
+        retain_tags:
+        - retain_tags
+        - retain_tags
+        recall_budget: recall_budget
+        exclude_providers:
+        - exclude_providers
+        - exclude_providers
+        scope_id: scope_id
+        bank_id: bank_id
+        recall: true
+        llm_provider: llm_provider
+        retain_strategy: retain_strategy
+        scope_type: scope_type
+        retain_every_n_turns: 0
+        recall_max_tokens: 6
+      properties:
+        bank_id:
+          title: Bank Id
+          type: string
+        scope_type:
+          title: Scope Type
+          type: string
+        scope_id:
+          title: Scope Id
+          type: string
+        recall:
+          nullable: true
+          type: boolean
+        retain:
+          nullable: true
+          type: boolean
+        retain_roles:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_tags:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_every_n_turns:
+          nullable: true
+          type: integer
+        recall_budget:
+          nullable: true
+          type: string
+        recall_max_tokens:
+          nullable: true
+          type: integer
+        recall_tag_groups:
+          items:
+            additionalProperties: true
+            type: object
+          nullable: true
+          type: array
+        llm_model:
+          nullable: true
+          type: string
+        llm_provider:
+          nullable: true
+          type: string
+        exclude_providers:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_strategy:
+          nullable: true
+          type: string
+      required:
+      - bank_id
+      - scope_id
+      - scope_type
+      title: BankPermissionResponse
+    ChannelResponse:
+      description: Channel mapping returned by GET/POST endpoints.
+      example:
+        provider: provider
+        sender_id: sender_id
+      properties:
+        provider:
+          title: Provider
+          type: string
+        sender_id:
+          title: Sender Id
+          type: string
+      required:
+      - provider
+      - sender_id
+      title: ChannelResponse
+    CreateApiKeyRequest:
+      example:
+        description: description
+      properties:
+        description:
+          nullable: true
+          type: string
+      title: CreateApiKeyRequest
+    CreateGroupRequest:
+      example:
+        recall_tag_groups:
+        - key: ""
+        - key: ""
+        llm_model: llm_model
+        retain: true
+        retain_roles:
+        - retain_roles
+        - retain_roles
+        retain_tags:
+        - retain_tags
+        - retain_tags
+        display_name: display_name
+        recall_budget: recall_budget
+        exclude_providers:
+        - exclude_providers
+        - exclude_providers
+        recall: true
+        llm_provider: llm_provider
+        retain_strategy: retain_strategy
+        id: id
+        retain_every_n_turns: 0
+        recall_max_tokens: 6
+      properties:
+        id:
+          title: Id
+          type: string
+        display_name:
+          title: Display Name
+          type: string
+        recall:
+          nullable: true
+          type: boolean
+        retain:
+          nullable: true
+          type: boolean
+        retain_roles:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_tags:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_every_n_turns:
+          nullable: true
+          type: integer
+        recall_budget:
+          nullable: true
+          type: string
+        recall_max_tokens:
+          nullable: true
+          type: integer
+        recall_tag_groups:
+          items:
+            additionalProperties: true
+            type: object
+          nullable: true
+          type: array
+        llm_model:
+          nullable: true
+          type: string
+        llm_provider:
+          nullable: true
+          type: string
+        exclude_providers:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_strategy:
+          nullable: true
+          type: string
+      required:
+      - display_name
+      - id
+      title: CreateGroupRequest
+    CreateUserRequest:
+      example:
+        id: id
+        display_name: display_name
+        email: email
+      properties:
+        id:
+          title: Id
+          type: string
+        display_name:
+          title: Display Name
+          type: string
+        email:
+          nullable: true
+          type: string
+      required:
+      - display_name
+      - id
+      title: CreateUserRequest
+    GroupMemberResponse:
+      description: Group membership entry.
+      example:
+        user_id: user_id
+      properties:
+        user_id:
+          title: User Id
+          type: string
+      required:
+      - user_id
+      title: GroupMemberResponse
+    GroupMembershipConfirmation:
+      description: Confirmation returned by POST /groups/:id/members.
+      example:
+        group_id: group_id
+        user_id: user_id
+      properties:
+        group_id:
+          title: Group Id
+          type: string
+        user_id:
+          title: User Id
+          type: string
+      required:
+      - group_id
+      - user_id
+      title: GroupMembershipConfirmation
+    GroupResponse:
+      description: |-
+        Group resource with all permission fields.
+
+        Returned by GET /groups/:id and POST /groups.
+        Permission fields are nullable — None means "not set (inherit from global)."
+      example:
+        recall_tag_groups:
+        - key: ""
+        - key: ""
+        llm_model: llm_model
+        retain: true
+        retain_roles:
+        - retain_roles
+        - retain_roles
+        retain_tags:
+        - retain_tags
+        - retain_tags
+        display_name: display_name
+        recall_budget: recall_budget
+        exclude_providers:
+        - exclude_providers
+        - exclude_providers
+        recall: true
+        llm_provider: llm_provider
+        retain_strategy: retain_strategy
+        id: id
+        retain_every_n_turns: 0
+        recall_max_tokens: 6
+      properties:
+        id:
+          title: Id
+          type: string
+        display_name:
+          title: Display Name
+          type: string
+        recall:
+          nullable: true
+          type: boolean
+        retain:
+          nullable: true
+          type: boolean
+        retain_roles:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_tags:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_every_n_turns:
+          nullable: true
+          type: integer
+        recall_budget:
+          nullable: true
+          type: string
+        recall_max_tokens:
+          nullable: true
+          type: integer
+        recall_tag_groups:
+          items:
+            additionalProperties: true
+            type: object
+          nullable: true
+          type: array
+        llm_model:
+          nullable: true
+          type: string
+        llm_provider:
+          nullable: true
+          type: string
+        exclude_providers:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_strategy:
+          nullable: true
+          type: string
+      required:
+      - display_name
+      - id
+      title: GroupResponse
+    GroupSummaryResponse:
+      description: Group summary returned by GET /groups (list view).
+      example:
+        id: id
+        display_name: display_name
+      properties:
+        id:
+          title: Id
+          type: string
+        display_name:
+          title: Display Name
+          type: string
+      required:
+      - display_name
+      - id
+      title: GroupSummaryResponse
+    HTTPValidationError:
+      example:
+        detail:
+        - msg: msg
+          loc:
+          - ValidationError_loc_inner
+          - ValidationError_loc_inner
+          input: ""
+          ctx: "{}"
+          type: type
+        - msg: msg
+          loc:
+          - ValidationError_loc_inner
+          - ValidationError_loc_inner
+          input: ""
+          ctx: "{}"
+          type: type
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+      title: HTTPValidationError
+    ResolvedPermissionsResponse:
+      description: |-
+        Full resolved permissions returned by GET /debug/resolve.
+
+        Mirrors hindclaw_ext.models.ResolvedPermissions but as an HTTP response model.
+      example:
+        recall_tag_groups:
+        - key: ""
+        - key: ""
+        llm_model: llm_model
+        retain: true
+        retain_roles:
+        - retain_roles
+        - retain_roles
+        retain_tags:
+        - retain_tags
+        - retain_tags
+        recall_budget: recall_budget
+        exclude_providers:
+        - exclude_providers
+        - exclude_providers
+        user_id: user_id
+        is_anonymous: true
+        recall: true
+        retain_strategy: retain_strategy
+        llm_provider: llm_provider
+        retain_every_n_turns: 0
+        recall_max_tokens: 6
+      properties:
+        user_id:
+          title: User Id
+          type: string
+        is_anonymous:
+          title: Is Anonymous
+          type: boolean
+        recall:
+          title: Recall
+          type: boolean
+        retain:
+          title: Retain
+          type: boolean
+        retain_roles:
+          items:
+            type: string
+          type: array
+        retain_tags:
+          items:
+            type: string
+          type: array
+        retain_every_n_turns:
+          title: Retain Every N Turns
+          type: integer
+        retain_strategy:
+          nullable: true
+          type: string
+        recall_budget:
+          title: Recall Budget
+          type: string
+        recall_max_tokens:
+          title: Recall Max Tokens
+          type: integer
+        recall_tag_groups:
+          items:
+            additionalProperties: true
+            type: object
+          nullable: true
+          type: array
+        llm_model:
+          nullable: true
+          type: string
+        llm_provider:
+          nullable: true
+          type: string
+        exclude_providers:
+          items:
+            type: string
+          type: array
+      required:
+      - exclude_providers
+      - is_anonymous
+      - llm_model
+      - llm_provider
+      - recall
+      - recall_budget
+      - recall_max_tokens
+      - recall_tag_groups
+      - retain
+      - retain_every_n_turns
+      - retain_roles
+      - retain_strategy
+      - retain_tags
+      - user_id
+      title: ResolvedPermissionsResponse
+    StrategyRequest:
+      example:
+        strategy: strategy
+      properties:
+        strategy:
+          title: Strategy
+          type: string
+      required:
+      - strategy
+      title: StrategyRequest
+    StrategyScopeResponse:
+      description: Strategy scope entry returned by GET /banks/:bank/strategies.
+      example:
+        bank_id: bank_id
+        scope_value: scope_value
+        strategy: strategy
+        scope_type: scope_type
+      properties:
+        bank_id:
+          title: Bank Id
+          type: string
+        scope_type:
+          title: Scope Type
+          type: string
+        scope_value:
+          title: Scope Value
+          type: string
+        strategy:
+          title: Strategy
+          type: string
+      required:
+      - bank_id
+      - scope_type
+      - scope_value
+      - strategy
+      title: StrategyScopeResponse
+    StrategyUpsertConfirmation:
+      description: Confirmation returned by PUT /banks/:bank/strategies/:type/:value.
+      example:
+        bank_id: bank_id
+        scope_value: scope_value
+        strategy: strategy
+        scope_type: scope_type
+      properties:
+        bank_id:
+          title: Bank Id
+          type: string
+        scope_type:
+          title: Scope Type
+          type: string
+        scope_value:
+          title: Scope Value
+          type: string
+        strategy:
+          title: Strategy
+          type: string
+      required:
+      - bank_id
+      - scope_type
+      - scope_value
+      - strategy
+      title: StrategyUpsertConfirmation
+    UpdateGroupRequest:
+      example:
+        recall_tag_groups:
+        - key: ""
+        - key: ""
+        llm_model: llm_model
+        retain: true
+        retain_roles:
+        - retain_roles
+        - retain_roles
+        retain_tags:
+        - retain_tags
+        - retain_tags
+        display_name: display_name
+        recall_budget: recall_budget
+        exclude_providers:
+        - exclude_providers
+        - exclude_providers
+        recall: true
+        llm_provider: llm_provider
+        retain_strategy: retain_strategy
+        retain_every_n_turns: 0
+        recall_max_tokens: 6
+      properties:
+        display_name:
+          nullable: true
+          type: string
+        recall:
+          nullable: true
+          type: boolean
+        retain:
+          nullable: true
+          type: boolean
+        retain_roles:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_tags:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_every_n_turns:
+          nullable: true
+          type: integer
+        recall_budget:
+          nullable: true
+          type: string
+        recall_max_tokens:
+          nullable: true
+          type: integer
+        recall_tag_groups:
+          items:
+            additionalProperties: true
+            type: object
+          nullable: true
+          type: array
+        llm_model:
+          nullable: true
+          type: string
+        llm_provider:
+          nullable: true
+          type: string
+        exclude_providers:
+          items:
+            type: string
+          nullable: true
+          type: array
+        retain_strategy:
+          nullable: true
+          type: string
+      title: UpdateGroupRequest
+    UpdateUserRequest:
+      example:
+        display_name: display_name
+        email: email
+      properties:
+        display_name:
+          nullable: true
+          type: string
+        email:
+          nullable: true
+          type: string
+      title: UpdateUserRequest
+    UpsertConfirmation:
+      description: Confirmation returned by PUT (upsert) endpoints.
+      example:
+        scope_id: scope_id
+        bank_id: bank_id
+        scope_type: scope_type
+      properties:
+        bank_id:
+          title: Bank Id
+          type: string
+        scope_type:
+          title: Scope Type
+          type: string
+        scope_id:
+          title: Scope Id
+          type: string
+      required:
+      - bank_id
+      - scope_id
+      - scope_type
+      title: UpsertConfirmation
+    UserResponse:
+      description: User resource returned by GET/POST/PUT endpoints.
+      example:
+        id: id
+        display_name: display_name
+        email: email
+      properties:
+        id:
+          title: Id
+          type: string
+        display_name:
+          title: Display Name
+          type: string
+        email:
+          nullable: true
+          type: string
+      required:
+      - display_name
+      - id
+      title: UserResponse
+    ValidationError:
+      example:
+        msg: msg
+        loc:
+        - ValidationError_loc_inner
+        - ValidationError_loc_inner
+        input: ""
+        ctx: "{}"
+        type: type
+      properties:
+        loc:
+          items:
+            $ref: '#/components/schemas/ValidationError_loc_inner'
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+        input: {}
+        ctx:
+          title: Context
+          type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ValidationError_loc_inner:
+      anyOf:
+      - type: string
+      - type: integer
+  securitySchemes:
+    HTTPBearer:
+      scheme: bearer
+      type: http

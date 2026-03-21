@@ -7,7 +7,7 @@ Usage:
     users = await client.list_users()
 """
 from hindclaw_client_api import ApiClient, Configuration
-from hindclaw_client_api.api import ExtensionApi
+from hindclaw_client_api.api import DefaultApi
 
 
 class HindclawClient:
@@ -22,7 +22,7 @@ class HindclawClient:
         config = Configuration(host=base_url)
         config.api_key["HTTPBearer"] = api_key
         self._client = ApiClient(config)
-        self.api = ExtensionApi(self._client)
+        self.api = DefaultApi(self._client)
 
     async def close(self):
         """Close the underlying HTTP client."""

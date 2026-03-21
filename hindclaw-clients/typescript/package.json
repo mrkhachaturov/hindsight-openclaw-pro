@@ -13,7 +13,7 @@
     }
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
     "clean": "rm -rf dist",
     "generate": "npx @hey-api/openapi-ts --input ../openapi.json --output generated"
   },
