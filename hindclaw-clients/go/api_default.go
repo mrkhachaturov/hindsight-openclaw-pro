@@ -23,404 +23,404 @@ import (
 type DefaultAPI interface {
 
 	/*
-	AddGroupMemberExtHindclawGroupsGroupIdMembersPost Add Group Member
+	AddGroupMember Add Group Member
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId
-	@return DefaultAPIAddGroupMemberExtHindclawGroupsGroupIdMembersPostRequest
+	@return DefaultAPIAddGroupMemberRequest
 	*/
-	AddGroupMemberExtHindclawGroupsGroupIdMembersPost(ctx context.Context, groupId string) DefaultAPIAddGroupMemberExtHindclawGroupsGroupIdMembersPostRequest
+	AddGroupMember(ctx context.Context, groupId string) DefaultAPIAddGroupMemberRequest
 
-	// AddGroupMemberExtHindclawGroupsGroupIdMembersPostExecute executes the request
+	// AddGroupMemberExecute executes the request
 	//  @return GroupMembershipConfirmation
-	AddGroupMemberExtHindclawGroupsGroupIdMembersPostExecute(r DefaultAPIAddGroupMemberExtHindclawGroupsGroupIdMembersPostRequest) (*GroupMembershipConfirmation, *http.Response, error)
+	AddGroupMemberExecute(r DefaultAPIAddGroupMemberRequest) (*GroupMembershipConfirmation, *http.Response, error)
 
 	/*
-	AddUserChannelExtHindclawUsersUserIdChannelsPost Add User Channel
+	AddUserChannel Add User Channel
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
-	@return DefaultAPIAddUserChannelExtHindclawUsersUserIdChannelsPostRequest
+	@return DefaultAPIAddUserChannelRequest
 	*/
-	AddUserChannelExtHindclawUsersUserIdChannelsPost(ctx context.Context, userId string) DefaultAPIAddUserChannelExtHindclawUsersUserIdChannelsPostRequest
+	AddUserChannel(ctx context.Context, userId string) DefaultAPIAddUserChannelRequest
 
-	// AddUserChannelExtHindclawUsersUserIdChannelsPostExecute executes the request
+	// AddUserChannelExecute executes the request
 	//  @return ChannelResponse
-	AddUserChannelExtHindclawUsersUserIdChannelsPostExecute(r DefaultAPIAddUserChannelExtHindclawUsersUserIdChannelsPostRequest) (*ChannelResponse, *http.Response, error)
+	AddUserChannelExecute(r DefaultAPIAddUserChannelRequest) (*ChannelResponse, *http.Response, error)
 
 	/*
-	CreateApiKeyExtHindclawUsersUserIdApiKeysPost Create Api Key
+	CreateApiKey Create Api Key
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
-	@return DefaultAPICreateApiKeyExtHindclawUsersUserIdApiKeysPostRequest
+	@return DefaultAPICreateApiKeyRequest
 	*/
-	CreateApiKeyExtHindclawUsersUserIdApiKeysPost(ctx context.Context, userId string) DefaultAPICreateApiKeyExtHindclawUsersUserIdApiKeysPostRequest
+	CreateApiKey(ctx context.Context, userId string) DefaultAPICreateApiKeyRequest
 
-	// CreateApiKeyExtHindclawUsersUserIdApiKeysPostExecute executes the request
+	// CreateApiKeyExecute executes the request
 	//  @return ApiKeyCreateResponse
-	CreateApiKeyExtHindclawUsersUserIdApiKeysPostExecute(r DefaultAPICreateApiKeyExtHindclawUsersUserIdApiKeysPostRequest) (*ApiKeyCreateResponse, *http.Response, error)
+	CreateApiKeyExecute(r DefaultAPICreateApiKeyRequest) (*ApiKeyCreateResponse, *http.Response, error)
 
 	/*
-	CreateGroupExtHindclawGroupsPost Create Group
+	CreateGroup Create Group
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return DefaultAPICreateGroupExtHindclawGroupsPostRequest
+	@return DefaultAPICreateGroupRequest
 	*/
-	CreateGroupExtHindclawGroupsPost(ctx context.Context) DefaultAPICreateGroupExtHindclawGroupsPostRequest
+	CreateGroup(ctx context.Context) DefaultAPICreateGroupRequest
 
-	// CreateGroupExtHindclawGroupsPostExecute executes the request
+	// CreateGroupExecute executes the request
 	//  @return GroupSummaryResponse
-	CreateGroupExtHindclawGroupsPostExecute(r DefaultAPICreateGroupExtHindclawGroupsPostRequest) (*GroupSummaryResponse, *http.Response, error)
+	CreateGroupExecute(r DefaultAPICreateGroupRequest) (*GroupSummaryResponse, *http.Response, error)
 
 	/*
-	CreateUserExtHindclawUsersPost Create User
+	CreateUser Create User
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return DefaultAPICreateUserExtHindclawUsersPostRequest
+	@return DefaultAPICreateUserRequest
 	*/
-	CreateUserExtHindclawUsersPost(ctx context.Context) DefaultAPICreateUserExtHindclawUsersPostRequest
+	CreateUser(ctx context.Context) DefaultAPICreateUserRequest
 
-	// CreateUserExtHindclawUsersPostExecute executes the request
+	// CreateUserExecute executes the request
 	//  @return UserResponse
-	CreateUserExtHindclawUsersPostExecute(r DefaultAPICreateUserExtHindclawUsersPostRequest) (*UserResponse, *http.Response, error)
+	CreateUserExecute(r DefaultAPICreateUserRequest) (*UserResponse, *http.Response, error)
 
 	/*
-	DebugResolveExtHindclawDebugResolveGet Debug Resolve
+	DebugResolve Debug Resolve
 
 	Resolve and return full permissions for a given context.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest
+	@return DefaultAPIDebugResolveRequest
 	*/
-	DebugResolveExtHindclawDebugResolveGet(ctx context.Context) DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest
+	DebugResolve(ctx context.Context) DefaultAPIDebugResolveRequest
 
-	// DebugResolveExtHindclawDebugResolveGetExecute executes the request
+	// DebugResolveExecute executes the request
 	//  @return ResolvedPermissionsResponse
-	DebugResolveExtHindclawDebugResolveGetExecute(r DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest) (*ResolvedPermissionsResponse, *http.Response, error)
+	DebugResolveExecute(r DefaultAPIDebugResolveRequest) (*ResolvedPermissionsResponse, *http.Response, error)
 
 	/*
-	DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDelete Delete Api Key
+	DeleteApiKey Delete Api Key
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
 	@param keyId
-	@return DefaultAPIDeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteRequest
+	@return DefaultAPIDeleteApiKeyRequest
 	*/
-	DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDelete(ctx context.Context, userId string, keyId string) DefaultAPIDeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteRequest
+	DeleteApiKey(ctx context.Context, userId string, keyId string) DefaultAPIDeleteApiKeyRequest
 
-	// DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteExecute executes the request
-	DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteExecute(r DefaultAPIDeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteRequest) (*http.Response, error)
+	// DeleteApiKeyExecute executes the request
+	DeleteApiKeyExecute(r DefaultAPIDeleteApiKeyRequest) (*http.Response, error)
 
 	/*
-	DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDelete Delete Bank Permission
+	DeleteBankPermission Delete Bank Permission
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param bankId
 	@param scopeType
 	@param scopeId
-	@return DefaultAPIDeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteRequest
+	@return DefaultAPIDeleteBankPermissionRequest
 	*/
-	DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDelete(ctx context.Context, bankId string, scopeType string, scopeId string) DefaultAPIDeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteRequest
+	DeleteBankPermission(ctx context.Context, bankId string, scopeType string, scopeId string) DefaultAPIDeleteBankPermissionRequest
 
-	// DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteExecute executes the request
-	DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteExecute(r DefaultAPIDeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteRequest) (*http.Response, error)
+	// DeleteBankPermissionExecute executes the request
+	DeleteBankPermissionExecute(r DefaultAPIDeleteBankPermissionRequest) (*http.Response, error)
 
 	/*
-	DeleteGroupExtHindclawGroupsGroupIdDelete Delete Group
+	DeleteGroup Delete Group
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId
-	@return DefaultAPIDeleteGroupExtHindclawGroupsGroupIdDeleteRequest
+	@return DefaultAPIDeleteGroupRequest
 	*/
-	DeleteGroupExtHindclawGroupsGroupIdDelete(ctx context.Context, groupId string) DefaultAPIDeleteGroupExtHindclawGroupsGroupIdDeleteRequest
+	DeleteGroup(ctx context.Context, groupId string) DefaultAPIDeleteGroupRequest
 
-	// DeleteGroupExtHindclawGroupsGroupIdDeleteExecute executes the request
-	DeleteGroupExtHindclawGroupsGroupIdDeleteExecute(r DefaultAPIDeleteGroupExtHindclawGroupsGroupIdDeleteRequest) (*http.Response, error)
+	// DeleteGroupExecute executes the request
+	DeleteGroupExecute(r DefaultAPIDeleteGroupRequest) (*http.Response, error)
 
 	/*
-	DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDelete Delete Strategy
+	DeleteStrategy Delete Strategy
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param bankId
 	@param scopeType
 	@param scopeValue
-	@return DefaultAPIDeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteRequest
+	@return DefaultAPIDeleteStrategyRequest
 	*/
-	DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDelete(ctx context.Context, bankId string, scopeType string, scopeValue string) DefaultAPIDeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteRequest
+	DeleteStrategy(ctx context.Context, bankId string, scopeType string, scopeValue string) DefaultAPIDeleteStrategyRequest
 
-	// DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteExecute executes the request
-	DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteExecute(r DefaultAPIDeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteRequest) (*http.Response, error)
+	// DeleteStrategyExecute executes the request
+	DeleteStrategyExecute(r DefaultAPIDeleteStrategyRequest) (*http.Response, error)
 
 	/*
-	DeleteUserExtHindclawUsersUserIdDelete Delete User
+	DeleteUser Delete User
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
-	@return DefaultAPIDeleteUserExtHindclawUsersUserIdDeleteRequest
+	@return DefaultAPIDeleteUserRequest
 	*/
-	DeleteUserExtHindclawUsersUserIdDelete(ctx context.Context, userId string) DefaultAPIDeleteUserExtHindclawUsersUserIdDeleteRequest
+	DeleteUser(ctx context.Context, userId string) DefaultAPIDeleteUserRequest
 
-	// DeleteUserExtHindclawUsersUserIdDeleteExecute executes the request
-	DeleteUserExtHindclawUsersUserIdDeleteExecute(r DefaultAPIDeleteUserExtHindclawUsersUserIdDeleteRequest) (*http.Response, error)
+	// DeleteUserExecute executes the request
+	DeleteUserExecute(r DefaultAPIDeleteUserRequest) (*http.Response, error)
 
 	/*
-	GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGet Get Bank Permission
+	GetBankPermission Get Bank Permission
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param bankId
 	@param scopeType
 	@param scopeId
-	@return DefaultAPIGetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetRequest
+	@return DefaultAPIGetBankPermissionRequest
 	*/
-	GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGet(ctx context.Context, bankId string, scopeType string, scopeId string) DefaultAPIGetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetRequest
+	GetBankPermission(ctx context.Context, bankId string, scopeType string, scopeId string) DefaultAPIGetBankPermissionRequest
 
-	// GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetExecute executes the request
+	// GetBankPermissionExecute executes the request
 	//  @return BankPermissionResponse
-	GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetExecute(r DefaultAPIGetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetRequest) (*BankPermissionResponse, *http.Response, error)
+	GetBankPermissionExecute(r DefaultAPIGetBankPermissionRequest) (*BankPermissionResponse, *http.Response, error)
 
 	/*
-	GetGroupExtHindclawGroupsGroupIdGet Get Group
+	GetGroup Get Group
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId
-	@return DefaultAPIGetGroupExtHindclawGroupsGroupIdGetRequest
+	@return DefaultAPIGetGroupRequest
 	*/
-	GetGroupExtHindclawGroupsGroupIdGet(ctx context.Context, groupId string) DefaultAPIGetGroupExtHindclawGroupsGroupIdGetRequest
+	GetGroup(ctx context.Context, groupId string) DefaultAPIGetGroupRequest
 
-	// GetGroupExtHindclawGroupsGroupIdGetExecute executes the request
+	// GetGroupExecute executes the request
 	//  @return GroupResponse
-	GetGroupExtHindclawGroupsGroupIdGetExecute(r DefaultAPIGetGroupExtHindclawGroupsGroupIdGetRequest) (*GroupResponse, *http.Response, error)
+	GetGroupExecute(r DefaultAPIGetGroupRequest) (*GroupResponse, *http.Response, error)
 
 	/*
-	GetUserExtHindclawUsersUserIdGet Get User
+	GetUser Get User
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
-	@return DefaultAPIGetUserExtHindclawUsersUserIdGetRequest
+	@return DefaultAPIGetUserRequest
 	*/
-	GetUserExtHindclawUsersUserIdGet(ctx context.Context, userId string) DefaultAPIGetUserExtHindclawUsersUserIdGetRequest
+	GetUser(ctx context.Context, userId string) DefaultAPIGetUserRequest
 
-	// GetUserExtHindclawUsersUserIdGetExecute executes the request
+	// GetUserExecute executes the request
 	//  @return UserResponse
-	GetUserExtHindclawUsersUserIdGetExecute(r DefaultAPIGetUserExtHindclawUsersUserIdGetRequest) (*UserResponse, *http.Response, error)
+	GetUserExecute(r DefaultAPIGetUserRequest) (*UserResponse, *http.Response, error)
 
 	/*
-	ListApiKeysExtHindclawUsersUserIdApiKeysGet List Api Keys
+	ListApiKeys List Api Keys
 
 	List API keys for a user. Keys are masked after creation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
-	@return DefaultAPIListApiKeysExtHindclawUsersUserIdApiKeysGetRequest
+	@return DefaultAPIListApiKeysRequest
 	*/
-	ListApiKeysExtHindclawUsersUserIdApiKeysGet(ctx context.Context, userId string) DefaultAPIListApiKeysExtHindclawUsersUserIdApiKeysGetRequest
+	ListApiKeys(ctx context.Context, userId string) DefaultAPIListApiKeysRequest
 
-	// ListApiKeysExtHindclawUsersUserIdApiKeysGetExecute executes the request
+	// ListApiKeysExecute executes the request
 	//  @return []ApiKeyResponse
-	ListApiKeysExtHindclawUsersUserIdApiKeysGetExecute(r DefaultAPIListApiKeysExtHindclawUsersUserIdApiKeysGetRequest) ([]ApiKeyResponse, *http.Response, error)
+	ListApiKeysExecute(r DefaultAPIListApiKeysRequest) ([]ApiKeyResponse, *http.Response, error)
 
 	/*
-	ListBankPermissionsExtHindclawBanksBankIdPermissionsGet List Bank Permissions
+	ListBankPermissions List Bank Permissions
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param bankId
-	@return DefaultAPIListBankPermissionsExtHindclawBanksBankIdPermissionsGetRequest
+	@return DefaultAPIListBankPermissionsRequest
 	*/
-	ListBankPermissionsExtHindclawBanksBankIdPermissionsGet(ctx context.Context, bankId string) DefaultAPIListBankPermissionsExtHindclawBanksBankIdPermissionsGetRequest
+	ListBankPermissions(ctx context.Context, bankId string) DefaultAPIListBankPermissionsRequest
 
-	// ListBankPermissionsExtHindclawBanksBankIdPermissionsGetExecute executes the request
+	// ListBankPermissionsExecute executes the request
 	//  @return []BankPermissionResponse
-	ListBankPermissionsExtHindclawBanksBankIdPermissionsGetExecute(r DefaultAPIListBankPermissionsExtHindclawBanksBankIdPermissionsGetRequest) ([]BankPermissionResponse, *http.Response, error)
+	ListBankPermissionsExecute(r DefaultAPIListBankPermissionsRequest) ([]BankPermissionResponse, *http.Response, error)
 
 	/*
-	ListGroupMembersExtHindclawGroupsGroupIdMembersGet List Group Members
+	ListGroupMembers List Group Members
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId
-	@return DefaultAPIListGroupMembersExtHindclawGroupsGroupIdMembersGetRequest
+	@return DefaultAPIListGroupMembersRequest
 	*/
-	ListGroupMembersExtHindclawGroupsGroupIdMembersGet(ctx context.Context, groupId string) DefaultAPIListGroupMembersExtHindclawGroupsGroupIdMembersGetRequest
+	ListGroupMembers(ctx context.Context, groupId string) DefaultAPIListGroupMembersRequest
 
-	// ListGroupMembersExtHindclawGroupsGroupIdMembersGetExecute executes the request
+	// ListGroupMembersExecute executes the request
 	//  @return []GroupMemberResponse
-	ListGroupMembersExtHindclawGroupsGroupIdMembersGetExecute(r DefaultAPIListGroupMembersExtHindclawGroupsGroupIdMembersGetRequest) ([]GroupMemberResponse, *http.Response, error)
+	ListGroupMembersExecute(r DefaultAPIListGroupMembersRequest) ([]GroupMemberResponse, *http.Response, error)
 
 	/*
-	ListGroupsExtHindclawGroupsGet List Groups
+	ListGroups List Groups
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return DefaultAPIListGroupsExtHindclawGroupsGetRequest
+	@return DefaultAPIListGroupsRequest
 	*/
-	ListGroupsExtHindclawGroupsGet(ctx context.Context) DefaultAPIListGroupsExtHindclawGroupsGetRequest
+	ListGroups(ctx context.Context) DefaultAPIListGroupsRequest
 
-	// ListGroupsExtHindclawGroupsGetExecute executes the request
+	// ListGroupsExecute executes the request
 	//  @return []GroupSummaryResponse
-	ListGroupsExtHindclawGroupsGetExecute(r DefaultAPIListGroupsExtHindclawGroupsGetRequest) ([]GroupSummaryResponse, *http.Response, error)
+	ListGroupsExecute(r DefaultAPIListGroupsRequest) ([]GroupSummaryResponse, *http.Response, error)
 
 	/*
-	ListStrategiesExtHindclawBanksBankIdStrategiesGet List Strategies
+	ListStrategies List Strategies
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param bankId
-	@return DefaultAPIListStrategiesExtHindclawBanksBankIdStrategiesGetRequest
+	@return DefaultAPIListStrategiesRequest
 	*/
-	ListStrategiesExtHindclawBanksBankIdStrategiesGet(ctx context.Context, bankId string) DefaultAPIListStrategiesExtHindclawBanksBankIdStrategiesGetRequest
+	ListStrategies(ctx context.Context, bankId string) DefaultAPIListStrategiesRequest
 
-	// ListStrategiesExtHindclawBanksBankIdStrategiesGetExecute executes the request
+	// ListStrategiesExecute executes the request
 	//  @return []StrategyScopeResponse
-	ListStrategiesExtHindclawBanksBankIdStrategiesGetExecute(r DefaultAPIListStrategiesExtHindclawBanksBankIdStrategiesGetRequest) ([]StrategyScopeResponse, *http.Response, error)
+	ListStrategiesExecute(r DefaultAPIListStrategiesRequest) ([]StrategyScopeResponse, *http.Response, error)
 
 	/*
-	ListUserChannelsExtHindclawUsersUserIdChannelsGet List User Channels
+	ListUserChannels List User Channels
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
-	@return DefaultAPIListUserChannelsExtHindclawUsersUserIdChannelsGetRequest
+	@return DefaultAPIListUserChannelsRequest
 	*/
-	ListUserChannelsExtHindclawUsersUserIdChannelsGet(ctx context.Context, userId string) DefaultAPIListUserChannelsExtHindclawUsersUserIdChannelsGetRequest
+	ListUserChannels(ctx context.Context, userId string) DefaultAPIListUserChannelsRequest
 
-	// ListUserChannelsExtHindclawUsersUserIdChannelsGetExecute executes the request
+	// ListUserChannelsExecute executes the request
 	//  @return []ChannelResponse
-	ListUserChannelsExtHindclawUsersUserIdChannelsGetExecute(r DefaultAPIListUserChannelsExtHindclawUsersUserIdChannelsGetRequest) ([]ChannelResponse, *http.Response, error)
+	ListUserChannelsExecute(r DefaultAPIListUserChannelsRequest) ([]ChannelResponse, *http.Response, error)
 
 	/*
-	ListUsersExtHindclawUsersGet List Users
+	ListUsers List Users
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return DefaultAPIListUsersExtHindclawUsersGetRequest
+	@return DefaultAPIListUsersRequest
 	*/
-	ListUsersExtHindclawUsersGet(ctx context.Context) DefaultAPIListUsersExtHindclawUsersGetRequest
+	ListUsers(ctx context.Context) DefaultAPIListUsersRequest
 
-	// ListUsersExtHindclawUsersGetExecute executes the request
+	// ListUsersExecute executes the request
 	//  @return []UserResponse
-	ListUsersExtHindclawUsersGetExecute(r DefaultAPIListUsersExtHindclawUsersGetRequest) ([]UserResponse, *http.Response, error)
+	ListUsersExecute(r DefaultAPIListUsersRequest) ([]UserResponse, *http.Response, error)
 
 	/*
-	RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDelete Remove Group Member
+	RemoveGroupMember Remove Group Member
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId
 	@param userId
-	@return DefaultAPIRemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteRequest
+	@return DefaultAPIRemoveGroupMemberRequest
 	*/
-	RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDelete(ctx context.Context, groupId string, userId string) DefaultAPIRemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteRequest
+	RemoveGroupMember(ctx context.Context, groupId string, userId string) DefaultAPIRemoveGroupMemberRequest
 
-	// RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteExecute executes the request
-	RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteExecute(r DefaultAPIRemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteRequest) (*http.Response, error)
+	// RemoveGroupMemberExecute executes the request
+	RemoveGroupMemberExecute(r DefaultAPIRemoveGroupMemberRequest) (*http.Response, error)
 
 	/*
-	RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDelete Remove User Channel
+	RemoveUserChannel Remove User Channel
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
 	@param provider
 	@param senderId
-	@return DefaultAPIRemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteRequest
+	@return DefaultAPIRemoveUserChannelRequest
 	*/
-	RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDelete(ctx context.Context, userId string, provider string, senderId string) DefaultAPIRemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteRequest
+	RemoveUserChannel(ctx context.Context, userId string, provider string, senderId string) DefaultAPIRemoveUserChannelRequest
 
-	// RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteExecute executes the request
-	RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteExecute(r DefaultAPIRemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteRequest) (*http.Response, error)
+	// RemoveUserChannelExecute executes the request
+	RemoveUserChannelExecute(r DefaultAPIRemoveUserChannelRequest) (*http.Response, error)
 
 	/*
-	UpdateGroupExtHindclawGroupsGroupIdPut Update Group
+	UpdateGroup Update Group
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId
-	@return DefaultAPIUpdateGroupExtHindclawGroupsGroupIdPutRequest
+	@return DefaultAPIUpdateGroupRequest
 	*/
-	UpdateGroupExtHindclawGroupsGroupIdPut(ctx context.Context, groupId string) DefaultAPIUpdateGroupExtHindclawGroupsGroupIdPutRequest
+	UpdateGroup(ctx context.Context, groupId string) DefaultAPIUpdateGroupRequest
 
-	// UpdateGroupExtHindclawGroupsGroupIdPutExecute executes the request
+	// UpdateGroupExecute executes the request
 	//  @return GroupResponse
-	UpdateGroupExtHindclawGroupsGroupIdPutExecute(r DefaultAPIUpdateGroupExtHindclawGroupsGroupIdPutRequest) (*GroupResponse, *http.Response, error)
+	UpdateGroupExecute(r DefaultAPIUpdateGroupRequest) (*GroupResponse, *http.Response, error)
 
 	/*
-	UpdateUserExtHindclawUsersUserIdPut Update User
+	UpdateUser Update User
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
-	@return DefaultAPIUpdateUserExtHindclawUsersUserIdPutRequest
+	@return DefaultAPIUpdateUserRequest
 	*/
-	UpdateUserExtHindclawUsersUserIdPut(ctx context.Context, userId string) DefaultAPIUpdateUserExtHindclawUsersUserIdPutRequest
+	UpdateUser(ctx context.Context, userId string) DefaultAPIUpdateUserRequest
 
-	// UpdateUserExtHindclawUsersUserIdPutExecute executes the request
+	// UpdateUserExecute executes the request
 	//  @return UserResponse
-	UpdateUserExtHindclawUsersUserIdPutExecute(r DefaultAPIUpdateUserExtHindclawUsersUserIdPutRequest) (*UserResponse, *http.Response, error)
+	UpdateUserExecute(r DefaultAPIUpdateUserRequest) (*UserResponse, *http.Response, error)
 
 	/*
-	UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPut Upsert Group Bank Permission
+	UpsertGroupPermission Upsert Group Bank Permission
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param bankId
 	@param groupId
-	@return DefaultAPIUpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutRequest
+	@return DefaultAPIUpsertGroupPermissionRequest
 	*/
-	UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPut(ctx context.Context, bankId string, groupId string) DefaultAPIUpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutRequest
+	UpsertGroupPermission(ctx context.Context, bankId string, groupId string) DefaultAPIUpsertGroupPermissionRequest
 
-	// UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutExecute executes the request
+	// UpsertGroupPermissionExecute executes the request
 	//  @return UpsertConfirmation
-	UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutExecute(r DefaultAPIUpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutRequest) (*UpsertConfirmation, *http.Response, error)
+	UpsertGroupPermissionExecute(r DefaultAPIUpsertGroupPermissionRequest) (*UpsertConfirmation, *http.Response, error)
 
 	/*
-	UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePut Upsert Strategy
+	UpsertStrategy Upsert Strategy
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param bankId
 	@param scopeType
 	@param scopeValue
-	@return DefaultAPIUpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutRequest
+	@return DefaultAPIUpsertStrategyRequest
 	*/
-	UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePut(ctx context.Context, bankId string, scopeType string, scopeValue string) DefaultAPIUpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutRequest
+	UpsertStrategy(ctx context.Context, bankId string, scopeType string, scopeValue string) DefaultAPIUpsertStrategyRequest
 
-	// UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutExecute executes the request
+	// UpsertStrategyExecute executes the request
 	//  @return StrategyUpsertConfirmation
-	UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutExecute(r DefaultAPIUpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutRequest) (*StrategyUpsertConfirmation, *http.Response, error)
+	UpsertStrategyExecute(r DefaultAPIUpsertStrategyRequest) (*StrategyUpsertConfirmation, *http.Response, error)
 
 	/*
-	UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPut Upsert User Bank Permission
+	UpsertUserPermission Upsert User Bank Permission
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param bankId
 	@param userId
-	@return DefaultAPIUpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutRequest
+	@return DefaultAPIUpsertUserPermissionRequest
 	*/
-	UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPut(ctx context.Context, bankId string, userId string) DefaultAPIUpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutRequest
+	UpsertUserPermission(ctx context.Context, bankId string, userId string) DefaultAPIUpsertUserPermissionRequest
 
-	// UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutExecute executes the request
+	// UpsertUserPermissionExecute executes the request
 	//  @return UpsertConfirmation
-	UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutExecute(r DefaultAPIUpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutRequest) (*UpsertConfirmation, *http.Response, error)
+	UpsertUserPermissionExecute(r DefaultAPIUpsertUserPermissionRequest) (*UpsertConfirmation, *http.Response, error)
 }
 
 // DefaultAPIService DefaultAPI service
 type DefaultAPIService service
 
-type DefaultAPIAddGroupMemberExtHindclawGroupsGroupIdMembersPostRequest struct {
+type DefaultAPIAddGroupMemberRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	groupId string
 	addMemberRequest *AddMemberRequest
 }
 
-func (r DefaultAPIAddGroupMemberExtHindclawGroupsGroupIdMembersPostRequest) AddMemberRequest(addMemberRequest AddMemberRequest) DefaultAPIAddGroupMemberExtHindclawGroupsGroupIdMembersPostRequest {
+func (r DefaultAPIAddGroupMemberRequest) AddMemberRequest(addMemberRequest AddMemberRequest) DefaultAPIAddGroupMemberRequest {
 	r.addMemberRequest = &addMemberRequest
 	return r
 }
 
-func (r DefaultAPIAddGroupMemberExtHindclawGroupsGroupIdMembersPostRequest) Execute() (*GroupMembershipConfirmation, *http.Response, error) {
-	return r.ApiService.AddGroupMemberExtHindclawGroupsGroupIdMembersPostExecute(r)
+func (r DefaultAPIAddGroupMemberRequest) Execute() (*GroupMembershipConfirmation, *http.Response, error) {
+	return r.ApiService.AddGroupMemberExecute(r)
 }
 
 /*
-AddGroupMemberExtHindclawGroupsGroupIdMembersPost Add Group Member
+AddGroupMember Add Group Member
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param groupId
- @return DefaultAPIAddGroupMemberExtHindclawGroupsGroupIdMembersPostRequest
+ @return DefaultAPIAddGroupMemberRequest
 */
-func (a *DefaultAPIService) AddGroupMemberExtHindclawGroupsGroupIdMembersPost(ctx context.Context, groupId string) DefaultAPIAddGroupMemberExtHindclawGroupsGroupIdMembersPostRequest {
-	return DefaultAPIAddGroupMemberExtHindclawGroupsGroupIdMembersPostRequest{
+func (a *DefaultAPIService) AddGroupMember(ctx context.Context, groupId string) DefaultAPIAddGroupMemberRequest {
+	return DefaultAPIAddGroupMemberRequest{
 		ApiService: a,
 		ctx: ctx,
 		groupId: groupId,
@@ -429,7 +429,7 @@ func (a *DefaultAPIService) AddGroupMemberExtHindclawGroupsGroupIdMembersPost(ct
 
 // Execute executes the request
 //  @return GroupMembershipConfirmation
-func (a *DefaultAPIService) AddGroupMemberExtHindclawGroupsGroupIdMembersPostExecute(r DefaultAPIAddGroupMemberExtHindclawGroupsGroupIdMembersPostRequest) (*GroupMembershipConfirmation, *http.Response, error) {
+func (a *DefaultAPIService) AddGroupMemberExecute(r DefaultAPIAddGroupMemberRequest) (*GroupMembershipConfirmation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -437,7 +437,7 @@ func (a *DefaultAPIService) AddGroupMemberExtHindclawGroupsGroupIdMembersPostExe
 		localVarReturnValue  *GroupMembershipConfirmation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddGroupMemberExtHindclawGroupsGroupIdMembersPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddGroupMember")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -518,31 +518,31 @@ func (a *DefaultAPIService) AddGroupMemberExtHindclawGroupsGroupIdMembersPostExe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIAddUserChannelExtHindclawUsersUserIdChannelsPostRequest struct {
+type DefaultAPIAddUserChannelRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	userId string
 	addChannelRequest *AddChannelRequest
 }
 
-func (r DefaultAPIAddUserChannelExtHindclawUsersUserIdChannelsPostRequest) AddChannelRequest(addChannelRequest AddChannelRequest) DefaultAPIAddUserChannelExtHindclawUsersUserIdChannelsPostRequest {
+func (r DefaultAPIAddUserChannelRequest) AddChannelRequest(addChannelRequest AddChannelRequest) DefaultAPIAddUserChannelRequest {
 	r.addChannelRequest = &addChannelRequest
 	return r
 }
 
-func (r DefaultAPIAddUserChannelExtHindclawUsersUserIdChannelsPostRequest) Execute() (*ChannelResponse, *http.Response, error) {
-	return r.ApiService.AddUserChannelExtHindclawUsersUserIdChannelsPostExecute(r)
+func (r DefaultAPIAddUserChannelRequest) Execute() (*ChannelResponse, *http.Response, error) {
+	return r.ApiService.AddUserChannelExecute(r)
 }
 
 /*
-AddUserChannelExtHindclawUsersUserIdChannelsPost Add User Channel
+AddUserChannel Add User Channel
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param userId
- @return DefaultAPIAddUserChannelExtHindclawUsersUserIdChannelsPostRequest
+ @return DefaultAPIAddUserChannelRequest
 */
-func (a *DefaultAPIService) AddUserChannelExtHindclawUsersUserIdChannelsPost(ctx context.Context, userId string) DefaultAPIAddUserChannelExtHindclawUsersUserIdChannelsPostRequest {
-	return DefaultAPIAddUserChannelExtHindclawUsersUserIdChannelsPostRequest{
+func (a *DefaultAPIService) AddUserChannel(ctx context.Context, userId string) DefaultAPIAddUserChannelRequest {
+	return DefaultAPIAddUserChannelRequest{
 		ApiService: a,
 		ctx: ctx,
 		userId: userId,
@@ -551,7 +551,7 @@ func (a *DefaultAPIService) AddUserChannelExtHindclawUsersUserIdChannelsPost(ctx
 
 // Execute executes the request
 //  @return ChannelResponse
-func (a *DefaultAPIService) AddUserChannelExtHindclawUsersUserIdChannelsPostExecute(r DefaultAPIAddUserChannelExtHindclawUsersUserIdChannelsPostRequest) (*ChannelResponse, *http.Response, error) {
+func (a *DefaultAPIService) AddUserChannelExecute(r DefaultAPIAddUserChannelRequest) (*ChannelResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -559,7 +559,7 @@ func (a *DefaultAPIService) AddUserChannelExtHindclawUsersUserIdChannelsPostExec
 		localVarReturnValue  *ChannelResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddUserChannelExtHindclawUsersUserIdChannelsPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddUserChannel")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -640,31 +640,31 @@ func (a *DefaultAPIService) AddUserChannelExtHindclawUsersUserIdChannelsPostExec
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPICreateApiKeyExtHindclawUsersUserIdApiKeysPostRequest struct {
+type DefaultAPICreateApiKeyRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	userId string
 	createApiKeyRequest *CreateApiKeyRequest
 }
 
-func (r DefaultAPICreateApiKeyExtHindclawUsersUserIdApiKeysPostRequest) CreateApiKeyRequest(createApiKeyRequest CreateApiKeyRequest) DefaultAPICreateApiKeyExtHindclawUsersUserIdApiKeysPostRequest {
+func (r DefaultAPICreateApiKeyRequest) CreateApiKeyRequest(createApiKeyRequest CreateApiKeyRequest) DefaultAPICreateApiKeyRequest {
 	r.createApiKeyRequest = &createApiKeyRequest
 	return r
 }
 
-func (r DefaultAPICreateApiKeyExtHindclawUsersUserIdApiKeysPostRequest) Execute() (*ApiKeyCreateResponse, *http.Response, error) {
-	return r.ApiService.CreateApiKeyExtHindclawUsersUserIdApiKeysPostExecute(r)
+func (r DefaultAPICreateApiKeyRequest) Execute() (*ApiKeyCreateResponse, *http.Response, error) {
+	return r.ApiService.CreateApiKeyExecute(r)
 }
 
 /*
-CreateApiKeyExtHindclawUsersUserIdApiKeysPost Create Api Key
+CreateApiKey Create Api Key
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param userId
- @return DefaultAPICreateApiKeyExtHindclawUsersUserIdApiKeysPostRequest
+ @return DefaultAPICreateApiKeyRequest
 */
-func (a *DefaultAPIService) CreateApiKeyExtHindclawUsersUserIdApiKeysPost(ctx context.Context, userId string) DefaultAPICreateApiKeyExtHindclawUsersUserIdApiKeysPostRequest {
-	return DefaultAPICreateApiKeyExtHindclawUsersUserIdApiKeysPostRequest{
+func (a *DefaultAPIService) CreateApiKey(ctx context.Context, userId string) DefaultAPICreateApiKeyRequest {
+	return DefaultAPICreateApiKeyRequest{
 		ApiService: a,
 		ctx: ctx,
 		userId: userId,
@@ -673,7 +673,7 @@ func (a *DefaultAPIService) CreateApiKeyExtHindclawUsersUserIdApiKeysPost(ctx co
 
 // Execute executes the request
 //  @return ApiKeyCreateResponse
-func (a *DefaultAPIService) CreateApiKeyExtHindclawUsersUserIdApiKeysPostExecute(r DefaultAPICreateApiKeyExtHindclawUsersUserIdApiKeysPostRequest) (*ApiKeyCreateResponse, *http.Response, error) {
+func (a *DefaultAPIService) CreateApiKeyExecute(r DefaultAPICreateApiKeyRequest) (*ApiKeyCreateResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -681,7 +681,7 @@ func (a *DefaultAPIService) CreateApiKeyExtHindclawUsersUserIdApiKeysPostExecute
 		localVarReturnValue  *ApiKeyCreateResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CreateApiKeyExtHindclawUsersUserIdApiKeysPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CreateApiKey")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -762,29 +762,29 @@ func (a *DefaultAPIService) CreateApiKeyExtHindclawUsersUserIdApiKeysPostExecute
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPICreateGroupExtHindclawGroupsPostRequest struct {
+type DefaultAPICreateGroupRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	createGroupRequest *CreateGroupRequest
 }
 
-func (r DefaultAPICreateGroupExtHindclawGroupsPostRequest) CreateGroupRequest(createGroupRequest CreateGroupRequest) DefaultAPICreateGroupExtHindclawGroupsPostRequest {
+func (r DefaultAPICreateGroupRequest) CreateGroupRequest(createGroupRequest CreateGroupRequest) DefaultAPICreateGroupRequest {
 	r.createGroupRequest = &createGroupRequest
 	return r
 }
 
-func (r DefaultAPICreateGroupExtHindclawGroupsPostRequest) Execute() (*GroupSummaryResponse, *http.Response, error) {
-	return r.ApiService.CreateGroupExtHindclawGroupsPostExecute(r)
+func (r DefaultAPICreateGroupRequest) Execute() (*GroupSummaryResponse, *http.Response, error) {
+	return r.ApiService.CreateGroupExecute(r)
 }
 
 /*
-CreateGroupExtHindclawGroupsPost Create Group
+CreateGroup Create Group
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultAPICreateGroupExtHindclawGroupsPostRequest
+ @return DefaultAPICreateGroupRequest
 */
-func (a *DefaultAPIService) CreateGroupExtHindclawGroupsPost(ctx context.Context) DefaultAPICreateGroupExtHindclawGroupsPostRequest {
-	return DefaultAPICreateGroupExtHindclawGroupsPostRequest{
+func (a *DefaultAPIService) CreateGroup(ctx context.Context) DefaultAPICreateGroupRequest {
+	return DefaultAPICreateGroupRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -792,7 +792,7 @@ func (a *DefaultAPIService) CreateGroupExtHindclawGroupsPost(ctx context.Context
 
 // Execute executes the request
 //  @return GroupSummaryResponse
-func (a *DefaultAPIService) CreateGroupExtHindclawGroupsPostExecute(r DefaultAPICreateGroupExtHindclawGroupsPostRequest) (*GroupSummaryResponse, *http.Response, error) {
+func (a *DefaultAPIService) CreateGroupExecute(r DefaultAPICreateGroupRequest) (*GroupSummaryResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -800,7 +800,7 @@ func (a *DefaultAPIService) CreateGroupExtHindclawGroupsPostExecute(r DefaultAPI
 		localVarReturnValue  *GroupSummaryResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CreateGroupExtHindclawGroupsPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CreateGroup")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -880,29 +880,29 @@ func (a *DefaultAPIService) CreateGroupExtHindclawGroupsPostExecute(r DefaultAPI
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPICreateUserExtHindclawUsersPostRequest struct {
+type DefaultAPICreateUserRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	createUserRequest *CreateUserRequest
 }
 
-func (r DefaultAPICreateUserExtHindclawUsersPostRequest) CreateUserRequest(createUserRequest CreateUserRequest) DefaultAPICreateUserExtHindclawUsersPostRequest {
+func (r DefaultAPICreateUserRequest) CreateUserRequest(createUserRequest CreateUserRequest) DefaultAPICreateUserRequest {
 	r.createUserRequest = &createUserRequest
 	return r
 }
 
-func (r DefaultAPICreateUserExtHindclawUsersPostRequest) Execute() (*UserResponse, *http.Response, error) {
-	return r.ApiService.CreateUserExtHindclawUsersPostExecute(r)
+func (r DefaultAPICreateUserRequest) Execute() (*UserResponse, *http.Response, error) {
+	return r.ApiService.CreateUserExecute(r)
 }
 
 /*
-CreateUserExtHindclawUsersPost Create User
+CreateUser Create User
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultAPICreateUserExtHindclawUsersPostRequest
+ @return DefaultAPICreateUserRequest
 */
-func (a *DefaultAPIService) CreateUserExtHindclawUsersPost(ctx context.Context) DefaultAPICreateUserExtHindclawUsersPostRequest {
-	return DefaultAPICreateUserExtHindclawUsersPostRequest{
+func (a *DefaultAPIService) CreateUser(ctx context.Context) DefaultAPICreateUserRequest {
+	return DefaultAPICreateUserRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -910,7 +910,7 @@ func (a *DefaultAPIService) CreateUserExtHindclawUsersPost(ctx context.Context) 
 
 // Execute executes the request
 //  @return UserResponse
-func (a *DefaultAPIService) CreateUserExtHindclawUsersPostExecute(r DefaultAPICreateUserExtHindclawUsersPostRequest) (*UserResponse, *http.Response, error) {
+func (a *DefaultAPIService) CreateUserExecute(r DefaultAPICreateUserRequest) (*UserResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -918,7 +918,7 @@ func (a *DefaultAPIService) CreateUserExtHindclawUsersPostExecute(r DefaultAPICr
 		localVarReturnValue  *UserResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CreateUserExtHindclawUsersPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CreateUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -998,7 +998,7 @@ func (a *DefaultAPIService) CreateUserExtHindclawUsersPostExecute(r DefaultAPICr
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest struct {
+type DefaultAPIDebugResolveRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	bank *string
@@ -1008,45 +1008,45 @@ type DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest struct {
 	topic *string
 }
 
-func (r DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest) Bank(bank string) DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest {
+func (r DefaultAPIDebugResolveRequest) Bank(bank string) DefaultAPIDebugResolveRequest {
 	r.bank = &bank
 	return r
 }
 
-func (r DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest) Sender(sender string) DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest {
+func (r DefaultAPIDebugResolveRequest) Sender(sender string) DefaultAPIDebugResolveRequest {
 	r.sender = &sender
 	return r
 }
 
-func (r DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest) Agent(agent string) DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest {
+func (r DefaultAPIDebugResolveRequest) Agent(agent string) DefaultAPIDebugResolveRequest {
 	r.agent = &agent
 	return r
 }
 
-func (r DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest) Channel(channel string) DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest {
+func (r DefaultAPIDebugResolveRequest) Channel(channel string) DefaultAPIDebugResolveRequest {
 	r.channel = &channel
 	return r
 }
 
-func (r DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest) Topic(topic string) DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest {
+func (r DefaultAPIDebugResolveRequest) Topic(topic string) DefaultAPIDebugResolveRequest {
 	r.topic = &topic
 	return r
 }
 
-func (r DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest) Execute() (*ResolvedPermissionsResponse, *http.Response, error) {
-	return r.ApiService.DebugResolveExtHindclawDebugResolveGetExecute(r)
+func (r DefaultAPIDebugResolveRequest) Execute() (*ResolvedPermissionsResponse, *http.Response, error) {
+	return r.ApiService.DebugResolveExecute(r)
 }
 
 /*
-DebugResolveExtHindclawDebugResolveGet Debug Resolve
+DebugResolve Debug Resolve
 
 Resolve and return full permissions for a given context.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest
+ @return DefaultAPIDebugResolveRequest
 */
-func (a *DefaultAPIService) DebugResolveExtHindclawDebugResolveGet(ctx context.Context) DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest {
-	return DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest{
+func (a *DefaultAPIService) DebugResolve(ctx context.Context) DefaultAPIDebugResolveRequest {
+	return DefaultAPIDebugResolveRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -1054,7 +1054,7 @@ func (a *DefaultAPIService) DebugResolveExtHindclawDebugResolveGet(ctx context.C
 
 // Execute executes the request
 //  @return ResolvedPermissionsResponse
-func (a *DefaultAPIService) DebugResolveExtHindclawDebugResolveGetExecute(r DefaultAPIDebugResolveExtHindclawDebugResolveGetRequest) (*ResolvedPermissionsResponse, *http.Response, error) {
+func (a *DefaultAPIService) DebugResolveExecute(r DefaultAPIDebugResolveRequest) (*ResolvedPermissionsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -1062,7 +1062,7 @@ func (a *DefaultAPIService) DebugResolveExtHindclawDebugResolveGetExecute(r Defa
 		localVarReturnValue  *ResolvedPermissionsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DebugResolveExtHindclawDebugResolveGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DebugResolve")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1153,27 +1153,27 @@ func (a *DefaultAPIService) DebugResolveExtHindclawDebugResolveGetExecute(r Defa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIDeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteRequest struct {
+type DefaultAPIDeleteApiKeyRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	userId string
 	keyId string
 }
 
-func (r DefaultAPIDeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteExecute(r)
+func (r DefaultAPIDeleteApiKeyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteApiKeyExecute(r)
 }
 
 /*
-DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDelete Delete Api Key
+DeleteApiKey Delete Api Key
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param userId
  @param keyId
- @return DefaultAPIDeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteRequest
+ @return DefaultAPIDeleteApiKeyRequest
 */
-func (a *DefaultAPIService) DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDelete(ctx context.Context, userId string, keyId string) DefaultAPIDeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteRequest {
-	return DefaultAPIDeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteRequest{
+func (a *DefaultAPIService) DeleteApiKey(ctx context.Context, userId string, keyId string) DefaultAPIDeleteApiKeyRequest {
+	return DefaultAPIDeleteApiKeyRequest{
 		ApiService: a,
 		ctx: ctx,
 		userId: userId,
@@ -1182,14 +1182,14 @@ func (a *DefaultAPIService) DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDelete
 }
 
 // Execute executes the request
-func (a *DefaultAPIService) DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteExecute(r DefaultAPIDeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteRequest) (*http.Response, error) {
+func (a *DefaultAPIService) DeleteApiKeyExecute(r DefaultAPIDeleteApiKeyRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteApiKey")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1257,7 +1257,7 @@ func (a *DefaultAPIService) DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDelete
 	return localVarHTTPResponse, nil
 }
 
-type DefaultAPIDeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteRequest struct {
+type DefaultAPIDeleteBankPermissionRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	bankId string
@@ -1265,21 +1265,21 @@ type DefaultAPIDeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeSco
 	scopeId string
 }
 
-func (r DefaultAPIDeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteExecute(r)
+func (r DefaultAPIDeleteBankPermissionRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteBankPermissionExecute(r)
 }
 
 /*
-DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDelete Delete Bank Permission
+DeleteBankPermission Delete Bank Permission
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param bankId
  @param scopeType
  @param scopeId
- @return DefaultAPIDeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteRequest
+ @return DefaultAPIDeleteBankPermissionRequest
 */
-func (a *DefaultAPIService) DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDelete(ctx context.Context, bankId string, scopeType string, scopeId string) DefaultAPIDeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteRequest {
-	return DefaultAPIDeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteRequest{
+func (a *DefaultAPIService) DeleteBankPermission(ctx context.Context, bankId string, scopeType string, scopeId string) DefaultAPIDeleteBankPermissionRequest {
+	return DefaultAPIDeleteBankPermissionRequest{
 		ApiService: a,
 		ctx: ctx,
 		bankId: bankId,
@@ -1289,14 +1289,14 @@ func (a *DefaultAPIService) DeleteBankPermissionExtHindclawBanksBankIdPermission
 }
 
 // Execute executes the request
-func (a *DefaultAPIService) DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteExecute(r DefaultAPIDeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteRequest) (*http.Response, error) {
+func (a *DefaultAPIService) DeleteBankPermissionExecute(r DefaultAPIDeleteBankPermissionRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteBankPermission")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1365,25 +1365,25 @@ func (a *DefaultAPIService) DeleteBankPermissionExtHindclawBanksBankIdPermission
 	return localVarHTTPResponse, nil
 }
 
-type DefaultAPIDeleteGroupExtHindclawGroupsGroupIdDeleteRequest struct {
+type DefaultAPIDeleteGroupRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	groupId string
 }
 
-func (r DefaultAPIDeleteGroupExtHindclawGroupsGroupIdDeleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteGroupExtHindclawGroupsGroupIdDeleteExecute(r)
+func (r DefaultAPIDeleteGroupRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteGroupExecute(r)
 }
 
 /*
-DeleteGroupExtHindclawGroupsGroupIdDelete Delete Group
+DeleteGroup Delete Group
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param groupId
- @return DefaultAPIDeleteGroupExtHindclawGroupsGroupIdDeleteRequest
+ @return DefaultAPIDeleteGroupRequest
 */
-func (a *DefaultAPIService) DeleteGroupExtHindclawGroupsGroupIdDelete(ctx context.Context, groupId string) DefaultAPIDeleteGroupExtHindclawGroupsGroupIdDeleteRequest {
-	return DefaultAPIDeleteGroupExtHindclawGroupsGroupIdDeleteRequest{
+func (a *DefaultAPIService) DeleteGroup(ctx context.Context, groupId string) DefaultAPIDeleteGroupRequest {
+	return DefaultAPIDeleteGroupRequest{
 		ApiService: a,
 		ctx: ctx,
 		groupId: groupId,
@@ -1391,14 +1391,14 @@ func (a *DefaultAPIService) DeleteGroupExtHindclawGroupsGroupIdDelete(ctx contex
 }
 
 // Execute executes the request
-func (a *DefaultAPIService) DeleteGroupExtHindclawGroupsGroupIdDeleteExecute(r DefaultAPIDeleteGroupExtHindclawGroupsGroupIdDeleteRequest) (*http.Response, error) {
+func (a *DefaultAPIService) DeleteGroupExecute(r DefaultAPIDeleteGroupRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteGroupExtHindclawGroupsGroupIdDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteGroup")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1465,7 +1465,7 @@ func (a *DefaultAPIService) DeleteGroupExtHindclawGroupsGroupIdDeleteExecute(r D
 	return localVarHTTPResponse, nil
 }
 
-type DefaultAPIDeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteRequest struct {
+type DefaultAPIDeleteStrategyRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	bankId string
@@ -1473,21 +1473,21 @@ type DefaultAPIDeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValue
 	scopeValue string
 }
 
-func (r DefaultAPIDeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteExecute(r)
+func (r DefaultAPIDeleteStrategyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteStrategyExecute(r)
 }
 
 /*
-DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDelete Delete Strategy
+DeleteStrategy Delete Strategy
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param bankId
  @param scopeType
  @param scopeValue
- @return DefaultAPIDeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteRequest
+ @return DefaultAPIDeleteStrategyRequest
 */
-func (a *DefaultAPIService) DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDelete(ctx context.Context, bankId string, scopeType string, scopeValue string) DefaultAPIDeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteRequest {
-	return DefaultAPIDeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteRequest{
+func (a *DefaultAPIService) DeleteStrategy(ctx context.Context, bankId string, scopeType string, scopeValue string) DefaultAPIDeleteStrategyRequest {
+	return DefaultAPIDeleteStrategyRequest{
 		ApiService: a,
 		ctx: ctx,
 		bankId: bankId,
@@ -1497,14 +1497,14 @@ func (a *DefaultAPIService) DeleteStrategyExtHindclawBanksBankIdStrategiesScopeT
 }
 
 // Execute executes the request
-func (a *DefaultAPIService) DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteExecute(r DefaultAPIDeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteRequest) (*http.Response, error) {
+func (a *DefaultAPIService) DeleteStrategyExecute(r DefaultAPIDeleteStrategyRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteStrategy")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1573,25 +1573,25 @@ func (a *DefaultAPIService) DeleteStrategyExtHindclawBanksBankIdStrategiesScopeT
 	return localVarHTTPResponse, nil
 }
 
-type DefaultAPIDeleteUserExtHindclawUsersUserIdDeleteRequest struct {
+type DefaultAPIDeleteUserRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	userId string
 }
 
-func (r DefaultAPIDeleteUserExtHindclawUsersUserIdDeleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteUserExtHindclawUsersUserIdDeleteExecute(r)
+func (r DefaultAPIDeleteUserRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteUserExecute(r)
 }
 
 /*
-DeleteUserExtHindclawUsersUserIdDelete Delete User
+DeleteUser Delete User
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param userId
- @return DefaultAPIDeleteUserExtHindclawUsersUserIdDeleteRequest
+ @return DefaultAPIDeleteUserRequest
 */
-func (a *DefaultAPIService) DeleteUserExtHindclawUsersUserIdDelete(ctx context.Context, userId string) DefaultAPIDeleteUserExtHindclawUsersUserIdDeleteRequest {
-	return DefaultAPIDeleteUserExtHindclawUsersUserIdDeleteRequest{
+func (a *DefaultAPIService) DeleteUser(ctx context.Context, userId string) DefaultAPIDeleteUserRequest {
+	return DefaultAPIDeleteUserRequest{
 		ApiService: a,
 		ctx: ctx,
 		userId: userId,
@@ -1599,14 +1599,14 @@ func (a *DefaultAPIService) DeleteUserExtHindclawUsersUserIdDelete(ctx context.C
 }
 
 // Execute executes the request
-func (a *DefaultAPIService) DeleteUserExtHindclawUsersUserIdDeleteExecute(r DefaultAPIDeleteUserExtHindclawUsersUserIdDeleteRequest) (*http.Response, error) {
+func (a *DefaultAPIService) DeleteUserExecute(r DefaultAPIDeleteUserRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteUserExtHindclawUsersUserIdDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteUser")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1673,7 +1673,7 @@ func (a *DefaultAPIService) DeleteUserExtHindclawUsersUserIdDeleteExecute(r Defa
 	return localVarHTTPResponse, nil
 }
 
-type DefaultAPIGetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetRequest struct {
+type DefaultAPIGetBankPermissionRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	bankId string
@@ -1681,21 +1681,21 @@ type DefaultAPIGetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeI
 	scopeId string
 }
 
-func (r DefaultAPIGetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetRequest) Execute() (*BankPermissionResponse, *http.Response, error) {
-	return r.ApiService.GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetExecute(r)
+func (r DefaultAPIGetBankPermissionRequest) Execute() (*BankPermissionResponse, *http.Response, error) {
+	return r.ApiService.GetBankPermissionExecute(r)
 }
 
 /*
-GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGet Get Bank Permission
+GetBankPermission Get Bank Permission
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param bankId
  @param scopeType
  @param scopeId
- @return DefaultAPIGetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetRequest
+ @return DefaultAPIGetBankPermissionRequest
 */
-func (a *DefaultAPIService) GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGet(ctx context.Context, bankId string, scopeType string, scopeId string) DefaultAPIGetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetRequest {
-	return DefaultAPIGetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetRequest{
+func (a *DefaultAPIService) GetBankPermission(ctx context.Context, bankId string, scopeType string, scopeId string) DefaultAPIGetBankPermissionRequest {
+	return DefaultAPIGetBankPermissionRequest{
 		ApiService: a,
 		ctx: ctx,
 		bankId: bankId,
@@ -1706,7 +1706,7 @@ func (a *DefaultAPIService) GetBankPermissionExtHindclawBanksBankIdPermissionsSc
 
 // Execute executes the request
 //  @return BankPermissionResponse
-func (a *DefaultAPIService) GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetExecute(r DefaultAPIGetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetRequest) (*BankPermissionResponse, *http.Response, error) {
+func (a *DefaultAPIService) GetBankPermissionExecute(r DefaultAPIGetBankPermissionRequest) (*BankPermissionResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -1714,7 +1714,7 @@ func (a *DefaultAPIService) GetBankPermissionExtHindclawBanksBankIdPermissionsSc
 		localVarReturnValue  *BankPermissionResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetBankPermission")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1792,25 +1792,25 @@ func (a *DefaultAPIService) GetBankPermissionExtHindclawBanksBankIdPermissionsSc
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIGetGroupExtHindclawGroupsGroupIdGetRequest struct {
+type DefaultAPIGetGroupRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	groupId string
 }
 
-func (r DefaultAPIGetGroupExtHindclawGroupsGroupIdGetRequest) Execute() (*GroupResponse, *http.Response, error) {
-	return r.ApiService.GetGroupExtHindclawGroupsGroupIdGetExecute(r)
+func (r DefaultAPIGetGroupRequest) Execute() (*GroupResponse, *http.Response, error) {
+	return r.ApiService.GetGroupExecute(r)
 }
 
 /*
-GetGroupExtHindclawGroupsGroupIdGet Get Group
+GetGroup Get Group
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param groupId
- @return DefaultAPIGetGroupExtHindclawGroupsGroupIdGetRequest
+ @return DefaultAPIGetGroupRequest
 */
-func (a *DefaultAPIService) GetGroupExtHindclawGroupsGroupIdGet(ctx context.Context, groupId string) DefaultAPIGetGroupExtHindclawGroupsGroupIdGetRequest {
-	return DefaultAPIGetGroupExtHindclawGroupsGroupIdGetRequest{
+func (a *DefaultAPIService) GetGroup(ctx context.Context, groupId string) DefaultAPIGetGroupRequest {
+	return DefaultAPIGetGroupRequest{
 		ApiService: a,
 		ctx: ctx,
 		groupId: groupId,
@@ -1819,7 +1819,7 @@ func (a *DefaultAPIService) GetGroupExtHindclawGroupsGroupIdGet(ctx context.Cont
 
 // Execute executes the request
 //  @return GroupResponse
-func (a *DefaultAPIService) GetGroupExtHindclawGroupsGroupIdGetExecute(r DefaultAPIGetGroupExtHindclawGroupsGroupIdGetRequest) (*GroupResponse, *http.Response, error) {
+func (a *DefaultAPIService) GetGroupExecute(r DefaultAPIGetGroupRequest) (*GroupResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -1827,7 +1827,7 @@ func (a *DefaultAPIService) GetGroupExtHindclawGroupsGroupIdGetExecute(r Default
 		localVarReturnValue  *GroupResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetGroupExtHindclawGroupsGroupIdGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetGroup")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1903,25 +1903,25 @@ func (a *DefaultAPIService) GetGroupExtHindclawGroupsGroupIdGetExecute(r Default
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIGetUserExtHindclawUsersUserIdGetRequest struct {
+type DefaultAPIGetUserRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	userId string
 }
 
-func (r DefaultAPIGetUserExtHindclawUsersUserIdGetRequest) Execute() (*UserResponse, *http.Response, error) {
-	return r.ApiService.GetUserExtHindclawUsersUserIdGetExecute(r)
+func (r DefaultAPIGetUserRequest) Execute() (*UserResponse, *http.Response, error) {
+	return r.ApiService.GetUserExecute(r)
 }
 
 /*
-GetUserExtHindclawUsersUserIdGet Get User
+GetUser Get User
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param userId
- @return DefaultAPIGetUserExtHindclawUsersUserIdGetRequest
+ @return DefaultAPIGetUserRequest
 */
-func (a *DefaultAPIService) GetUserExtHindclawUsersUserIdGet(ctx context.Context, userId string) DefaultAPIGetUserExtHindclawUsersUserIdGetRequest {
-	return DefaultAPIGetUserExtHindclawUsersUserIdGetRequest{
+func (a *DefaultAPIService) GetUser(ctx context.Context, userId string) DefaultAPIGetUserRequest {
+	return DefaultAPIGetUserRequest{
 		ApiService: a,
 		ctx: ctx,
 		userId: userId,
@@ -1930,7 +1930,7 @@ func (a *DefaultAPIService) GetUserExtHindclawUsersUserIdGet(ctx context.Context
 
 // Execute executes the request
 //  @return UserResponse
-func (a *DefaultAPIService) GetUserExtHindclawUsersUserIdGetExecute(r DefaultAPIGetUserExtHindclawUsersUserIdGetRequest) (*UserResponse, *http.Response, error) {
+func (a *DefaultAPIService) GetUserExecute(r DefaultAPIGetUserRequest) (*UserResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -1938,7 +1938,7 @@ func (a *DefaultAPIService) GetUserExtHindclawUsersUserIdGetExecute(r DefaultAPI
 		localVarReturnValue  *UserResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetUserExtHindclawUsersUserIdGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2014,27 +2014,27 @@ func (a *DefaultAPIService) GetUserExtHindclawUsersUserIdGetExecute(r DefaultAPI
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIListApiKeysExtHindclawUsersUserIdApiKeysGetRequest struct {
+type DefaultAPIListApiKeysRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	userId string
 }
 
-func (r DefaultAPIListApiKeysExtHindclawUsersUserIdApiKeysGetRequest) Execute() ([]ApiKeyResponse, *http.Response, error) {
-	return r.ApiService.ListApiKeysExtHindclawUsersUserIdApiKeysGetExecute(r)
+func (r DefaultAPIListApiKeysRequest) Execute() ([]ApiKeyResponse, *http.Response, error) {
+	return r.ApiService.ListApiKeysExecute(r)
 }
 
 /*
-ListApiKeysExtHindclawUsersUserIdApiKeysGet List Api Keys
+ListApiKeys List Api Keys
 
 List API keys for a user. Keys are masked after creation.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param userId
- @return DefaultAPIListApiKeysExtHindclawUsersUserIdApiKeysGetRequest
+ @return DefaultAPIListApiKeysRequest
 */
-func (a *DefaultAPIService) ListApiKeysExtHindclawUsersUserIdApiKeysGet(ctx context.Context, userId string) DefaultAPIListApiKeysExtHindclawUsersUserIdApiKeysGetRequest {
-	return DefaultAPIListApiKeysExtHindclawUsersUserIdApiKeysGetRequest{
+func (a *DefaultAPIService) ListApiKeys(ctx context.Context, userId string) DefaultAPIListApiKeysRequest {
+	return DefaultAPIListApiKeysRequest{
 		ApiService: a,
 		ctx: ctx,
 		userId: userId,
@@ -2043,7 +2043,7 @@ func (a *DefaultAPIService) ListApiKeysExtHindclawUsersUserIdApiKeysGet(ctx cont
 
 // Execute executes the request
 //  @return []ApiKeyResponse
-func (a *DefaultAPIService) ListApiKeysExtHindclawUsersUserIdApiKeysGetExecute(r DefaultAPIListApiKeysExtHindclawUsersUserIdApiKeysGetRequest) ([]ApiKeyResponse, *http.Response, error) {
+func (a *DefaultAPIService) ListApiKeysExecute(r DefaultAPIListApiKeysRequest) ([]ApiKeyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2051,7 +2051,7 @@ func (a *DefaultAPIService) ListApiKeysExtHindclawUsersUserIdApiKeysGetExecute(r
 		localVarReturnValue  []ApiKeyResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListApiKeysExtHindclawUsersUserIdApiKeysGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListApiKeys")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2127,25 +2127,25 @@ func (a *DefaultAPIService) ListApiKeysExtHindclawUsersUserIdApiKeysGetExecute(r
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIListBankPermissionsExtHindclawBanksBankIdPermissionsGetRequest struct {
+type DefaultAPIListBankPermissionsRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	bankId string
 }
 
-func (r DefaultAPIListBankPermissionsExtHindclawBanksBankIdPermissionsGetRequest) Execute() ([]BankPermissionResponse, *http.Response, error) {
-	return r.ApiService.ListBankPermissionsExtHindclawBanksBankIdPermissionsGetExecute(r)
+func (r DefaultAPIListBankPermissionsRequest) Execute() ([]BankPermissionResponse, *http.Response, error) {
+	return r.ApiService.ListBankPermissionsExecute(r)
 }
 
 /*
-ListBankPermissionsExtHindclawBanksBankIdPermissionsGet List Bank Permissions
+ListBankPermissions List Bank Permissions
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param bankId
- @return DefaultAPIListBankPermissionsExtHindclawBanksBankIdPermissionsGetRequest
+ @return DefaultAPIListBankPermissionsRequest
 */
-func (a *DefaultAPIService) ListBankPermissionsExtHindclawBanksBankIdPermissionsGet(ctx context.Context, bankId string) DefaultAPIListBankPermissionsExtHindclawBanksBankIdPermissionsGetRequest {
-	return DefaultAPIListBankPermissionsExtHindclawBanksBankIdPermissionsGetRequest{
+func (a *DefaultAPIService) ListBankPermissions(ctx context.Context, bankId string) DefaultAPIListBankPermissionsRequest {
+	return DefaultAPIListBankPermissionsRequest{
 		ApiService: a,
 		ctx: ctx,
 		bankId: bankId,
@@ -2154,7 +2154,7 @@ func (a *DefaultAPIService) ListBankPermissionsExtHindclawBanksBankIdPermissions
 
 // Execute executes the request
 //  @return []BankPermissionResponse
-func (a *DefaultAPIService) ListBankPermissionsExtHindclawBanksBankIdPermissionsGetExecute(r DefaultAPIListBankPermissionsExtHindclawBanksBankIdPermissionsGetRequest) ([]BankPermissionResponse, *http.Response, error) {
+func (a *DefaultAPIService) ListBankPermissionsExecute(r DefaultAPIListBankPermissionsRequest) ([]BankPermissionResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2162,7 +2162,7 @@ func (a *DefaultAPIService) ListBankPermissionsExtHindclawBanksBankIdPermissions
 		localVarReturnValue  []BankPermissionResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListBankPermissionsExtHindclawBanksBankIdPermissionsGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListBankPermissions")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2238,25 +2238,25 @@ func (a *DefaultAPIService) ListBankPermissionsExtHindclawBanksBankIdPermissions
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIListGroupMembersExtHindclawGroupsGroupIdMembersGetRequest struct {
+type DefaultAPIListGroupMembersRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	groupId string
 }
 
-func (r DefaultAPIListGroupMembersExtHindclawGroupsGroupIdMembersGetRequest) Execute() ([]GroupMemberResponse, *http.Response, error) {
-	return r.ApiService.ListGroupMembersExtHindclawGroupsGroupIdMembersGetExecute(r)
+func (r DefaultAPIListGroupMembersRequest) Execute() ([]GroupMemberResponse, *http.Response, error) {
+	return r.ApiService.ListGroupMembersExecute(r)
 }
 
 /*
-ListGroupMembersExtHindclawGroupsGroupIdMembersGet List Group Members
+ListGroupMembers List Group Members
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param groupId
- @return DefaultAPIListGroupMembersExtHindclawGroupsGroupIdMembersGetRequest
+ @return DefaultAPIListGroupMembersRequest
 */
-func (a *DefaultAPIService) ListGroupMembersExtHindclawGroupsGroupIdMembersGet(ctx context.Context, groupId string) DefaultAPIListGroupMembersExtHindclawGroupsGroupIdMembersGetRequest {
-	return DefaultAPIListGroupMembersExtHindclawGroupsGroupIdMembersGetRequest{
+func (a *DefaultAPIService) ListGroupMembers(ctx context.Context, groupId string) DefaultAPIListGroupMembersRequest {
+	return DefaultAPIListGroupMembersRequest{
 		ApiService: a,
 		ctx: ctx,
 		groupId: groupId,
@@ -2265,7 +2265,7 @@ func (a *DefaultAPIService) ListGroupMembersExtHindclawGroupsGroupIdMembersGet(c
 
 // Execute executes the request
 //  @return []GroupMemberResponse
-func (a *DefaultAPIService) ListGroupMembersExtHindclawGroupsGroupIdMembersGetExecute(r DefaultAPIListGroupMembersExtHindclawGroupsGroupIdMembersGetRequest) ([]GroupMemberResponse, *http.Response, error) {
+func (a *DefaultAPIService) ListGroupMembersExecute(r DefaultAPIListGroupMembersRequest) ([]GroupMemberResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2273,7 +2273,7 @@ func (a *DefaultAPIService) ListGroupMembersExtHindclawGroupsGroupIdMembersGetEx
 		localVarReturnValue  []GroupMemberResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListGroupMembersExtHindclawGroupsGroupIdMembersGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListGroupMembers")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2349,23 +2349,23 @@ func (a *DefaultAPIService) ListGroupMembersExtHindclawGroupsGroupIdMembersGetEx
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIListGroupsExtHindclawGroupsGetRequest struct {
+type DefaultAPIListGroupsRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 }
 
-func (r DefaultAPIListGroupsExtHindclawGroupsGetRequest) Execute() ([]GroupSummaryResponse, *http.Response, error) {
-	return r.ApiService.ListGroupsExtHindclawGroupsGetExecute(r)
+func (r DefaultAPIListGroupsRequest) Execute() ([]GroupSummaryResponse, *http.Response, error) {
+	return r.ApiService.ListGroupsExecute(r)
 }
 
 /*
-ListGroupsExtHindclawGroupsGet List Groups
+ListGroups List Groups
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultAPIListGroupsExtHindclawGroupsGetRequest
+ @return DefaultAPIListGroupsRequest
 */
-func (a *DefaultAPIService) ListGroupsExtHindclawGroupsGet(ctx context.Context) DefaultAPIListGroupsExtHindclawGroupsGetRequest {
-	return DefaultAPIListGroupsExtHindclawGroupsGetRequest{
+func (a *DefaultAPIService) ListGroups(ctx context.Context) DefaultAPIListGroupsRequest {
+	return DefaultAPIListGroupsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -2373,7 +2373,7 @@ func (a *DefaultAPIService) ListGroupsExtHindclawGroupsGet(ctx context.Context) 
 
 // Execute executes the request
 //  @return []GroupSummaryResponse
-func (a *DefaultAPIService) ListGroupsExtHindclawGroupsGetExecute(r DefaultAPIListGroupsExtHindclawGroupsGetRequest) ([]GroupSummaryResponse, *http.Response, error) {
+func (a *DefaultAPIService) ListGroupsExecute(r DefaultAPIListGroupsRequest) ([]GroupSummaryResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2381,7 +2381,7 @@ func (a *DefaultAPIService) ListGroupsExtHindclawGroupsGetExecute(r DefaultAPILi
 		localVarReturnValue  []GroupSummaryResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListGroupsExtHindclawGroupsGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListGroups")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2446,25 +2446,25 @@ func (a *DefaultAPIService) ListGroupsExtHindclawGroupsGetExecute(r DefaultAPILi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIListStrategiesExtHindclawBanksBankIdStrategiesGetRequest struct {
+type DefaultAPIListStrategiesRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	bankId string
 }
 
-func (r DefaultAPIListStrategiesExtHindclawBanksBankIdStrategiesGetRequest) Execute() ([]StrategyScopeResponse, *http.Response, error) {
-	return r.ApiService.ListStrategiesExtHindclawBanksBankIdStrategiesGetExecute(r)
+func (r DefaultAPIListStrategiesRequest) Execute() ([]StrategyScopeResponse, *http.Response, error) {
+	return r.ApiService.ListStrategiesExecute(r)
 }
 
 /*
-ListStrategiesExtHindclawBanksBankIdStrategiesGet List Strategies
+ListStrategies List Strategies
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param bankId
- @return DefaultAPIListStrategiesExtHindclawBanksBankIdStrategiesGetRequest
+ @return DefaultAPIListStrategiesRequest
 */
-func (a *DefaultAPIService) ListStrategiesExtHindclawBanksBankIdStrategiesGet(ctx context.Context, bankId string) DefaultAPIListStrategiesExtHindclawBanksBankIdStrategiesGetRequest {
-	return DefaultAPIListStrategiesExtHindclawBanksBankIdStrategiesGetRequest{
+func (a *DefaultAPIService) ListStrategies(ctx context.Context, bankId string) DefaultAPIListStrategiesRequest {
+	return DefaultAPIListStrategiesRequest{
 		ApiService: a,
 		ctx: ctx,
 		bankId: bankId,
@@ -2473,7 +2473,7 @@ func (a *DefaultAPIService) ListStrategiesExtHindclawBanksBankIdStrategiesGet(ct
 
 // Execute executes the request
 //  @return []StrategyScopeResponse
-func (a *DefaultAPIService) ListStrategiesExtHindclawBanksBankIdStrategiesGetExecute(r DefaultAPIListStrategiesExtHindclawBanksBankIdStrategiesGetRequest) ([]StrategyScopeResponse, *http.Response, error) {
+func (a *DefaultAPIService) ListStrategiesExecute(r DefaultAPIListStrategiesRequest) ([]StrategyScopeResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2481,7 +2481,7 @@ func (a *DefaultAPIService) ListStrategiesExtHindclawBanksBankIdStrategiesGetExe
 		localVarReturnValue  []StrategyScopeResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListStrategiesExtHindclawBanksBankIdStrategiesGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListStrategies")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2557,25 +2557,25 @@ func (a *DefaultAPIService) ListStrategiesExtHindclawBanksBankIdStrategiesGetExe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIListUserChannelsExtHindclawUsersUserIdChannelsGetRequest struct {
+type DefaultAPIListUserChannelsRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	userId string
 }
 
-func (r DefaultAPIListUserChannelsExtHindclawUsersUserIdChannelsGetRequest) Execute() ([]ChannelResponse, *http.Response, error) {
-	return r.ApiService.ListUserChannelsExtHindclawUsersUserIdChannelsGetExecute(r)
+func (r DefaultAPIListUserChannelsRequest) Execute() ([]ChannelResponse, *http.Response, error) {
+	return r.ApiService.ListUserChannelsExecute(r)
 }
 
 /*
-ListUserChannelsExtHindclawUsersUserIdChannelsGet List User Channels
+ListUserChannels List User Channels
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param userId
- @return DefaultAPIListUserChannelsExtHindclawUsersUserIdChannelsGetRequest
+ @return DefaultAPIListUserChannelsRequest
 */
-func (a *DefaultAPIService) ListUserChannelsExtHindclawUsersUserIdChannelsGet(ctx context.Context, userId string) DefaultAPIListUserChannelsExtHindclawUsersUserIdChannelsGetRequest {
-	return DefaultAPIListUserChannelsExtHindclawUsersUserIdChannelsGetRequest{
+func (a *DefaultAPIService) ListUserChannels(ctx context.Context, userId string) DefaultAPIListUserChannelsRequest {
+	return DefaultAPIListUserChannelsRequest{
 		ApiService: a,
 		ctx: ctx,
 		userId: userId,
@@ -2584,7 +2584,7 @@ func (a *DefaultAPIService) ListUserChannelsExtHindclawUsersUserIdChannelsGet(ct
 
 // Execute executes the request
 //  @return []ChannelResponse
-func (a *DefaultAPIService) ListUserChannelsExtHindclawUsersUserIdChannelsGetExecute(r DefaultAPIListUserChannelsExtHindclawUsersUserIdChannelsGetRequest) ([]ChannelResponse, *http.Response, error) {
+func (a *DefaultAPIService) ListUserChannelsExecute(r DefaultAPIListUserChannelsRequest) ([]ChannelResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2592,7 +2592,7 @@ func (a *DefaultAPIService) ListUserChannelsExtHindclawUsersUserIdChannelsGetExe
 		localVarReturnValue  []ChannelResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListUserChannelsExtHindclawUsersUserIdChannelsGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListUserChannels")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2668,23 +2668,23 @@ func (a *DefaultAPIService) ListUserChannelsExtHindclawUsersUserIdChannelsGetExe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIListUsersExtHindclawUsersGetRequest struct {
+type DefaultAPIListUsersRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 }
 
-func (r DefaultAPIListUsersExtHindclawUsersGetRequest) Execute() ([]UserResponse, *http.Response, error) {
-	return r.ApiService.ListUsersExtHindclawUsersGetExecute(r)
+func (r DefaultAPIListUsersRequest) Execute() ([]UserResponse, *http.Response, error) {
+	return r.ApiService.ListUsersExecute(r)
 }
 
 /*
-ListUsersExtHindclawUsersGet List Users
+ListUsers List Users
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultAPIListUsersExtHindclawUsersGetRequest
+ @return DefaultAPIListUsersRequest
 */
-func (a *DefaultAPIService) ListUsersExtHindclawUsersGet(ctx context.Context) DefaultAPIListUsersExtHindclawUsersGetRequest {
-	return DefaultAPIListUsersExtHindclawUsersGetRequest{
+func (a *DefaultAPIService) ListUsers(ctx context.Context) DefaultAPIListUsersRequest {
+	return DefaultAPIListUsersRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -2692,7 +2692,7 @@ func (a *DefaultAPIService) ListUsersExtHindclawUsersGet(ctx context.Context) De
 
 // Execute executes the request
 //  @return []UserResponse
-func (a *DefaultAPIService) ListUsersExtHindclawUsersGetExecute(r DefaultAPIListUsersExtHindclawUsersGetRequest) ([]UserResponse, *http.Response, error) {
+func (a *DefaultAPIService) ListUsersExecute(r DefaultAPIListUsersRequest) ([]UserResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2700,7 +2700,7 @@ func (a *DefaultAPIService) ListUsersExtHindclawUsersGetExecute(r DefaultAPIList
 		localVarReturnValue  []UserResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListUsersExtHindclawUsersGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListUsers")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2765,27 +2765,27 @@ func (a *DefaultAPIService) ListUsersExtHindclawUsersGetExecute(r DefaultAPIList
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIRemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteRequest struct {
+type DefaultAPIRemoveGroupMemberRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	groupId string
 	userId string
 }
 
-func (r DefaultAPIRemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteExecute(r)
+func (r DefaultAPIRemoveGroupMemberRequest) Execute() (*http.Response, error) {
+	return r.ApiService.RemoveGroupMemberExecute(r)
 }
 
 /*
-RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDelete Remove Group Member
+RemoveGroupMember Remove Group Member
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param groupId
  @param userId
- @return DefaultAPIRemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteRequest
+ @return DefaultAPIRemoveGroupMemberRequest
 */
-func (a *DefaultAPIService) RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDelete(ctx context.Context, groupId string, userId string) DefaultAPIRemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteRequest {
-	return DefaultAPIRemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteRequest{
+func (a *DefaultAPIService) RemoveGroupMember(ctx context.Context, groupId string, userId string) DefaultAPIRemoveGroupMemberRequest {
+	return DefaultAPIRemoveGroupMemberRequest{
 		ApiService: a,
 		ctx: ctx,
 		groupId: groupId,
@@ -2794,14 +2794,14 @@ func (a *DefaultAPIService) RemoveGroupMemberExtHindclawGroupsGroupIdMembersUser
 }
 
 // Execute executes the request
-func (a *DefaultAPIService) RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteExecute(r DefaultAPIRemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteRequest) (*http.Response, error) {
+func (a *DefaultAPIService) RemoveGroupMemberExecute(r DefaultAPIRemoveGroupMemberRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.RemoveGroupMember")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2869,7 +2869,7 @@ func (a *DefaultAPIService) RemoveGroupMemberExtHindclawGroupsGroupIdMembersUser
 	return localVarHTTPResponse, nil
 }
 
-type DefaultAPIRemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteRequest struct {
+type DefaultAPIRemoveUserChannelRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	userId string
@@ -2877,21 +2877,21 @@ type DefaultAPIRemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDe
 	senderId string
 }
 
-func (r DefaultAPIRemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteExecute(r)
+func (r DefaultAPIRemoveUserChannelRequest) Execute() (*http.Response, error) {
+	return r.ApiService.RemoveUserChannelExecute(r)
 }
 
 /*
-RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDelete Remove User Channel
+RemoveUserChannel Remove User Channel
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param userId
  @param provider
  @param senderId
- @return DefaultAPIRemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteRequest
+ @return DefaultAPIRemoveUserChannelRequest
 */
-func (a *DefaultAPIService) RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDelete(ctx context.Context, userId string, provider string, senderId string) DefaultAPIRemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteRequest {
-	return DefaultAPIRemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteRequest{
+func (a *DefaultAPIService) RemoveUserChannel(ctx context.Context, userId string, provider string, senderId string) DefaultAPIRemoveUserChannelRequest {
+	return DefaultAPIRemoveUserChannelRequest{
 		ApiService: a,
 		ctx: ctx,
 		userId: userId,
@@ -2901,14 +2901,14 @@ func (a *DefaultAPIService) RemoveUserChannelExtHindclawUsersUserIdChannelsProvi
 }
 
 // Execute executes the request
-func (a *DefaultAPIService) RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteExecute(r DefaultAPIRemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteRequest) (*http.Response, error) {
+func (a *DefaultAPIService) RemoveUserChannelExecute(r DefaultAPIRemoveUserChannelRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.RemoveUserChannel")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2977,31 +2977,31 @@ func (a *DefaultAPIService) RemoveUserChannelExtHindclawUsersUserIdChannelsProvi
 	return localVarHTTPResponse, nil
 }
 
-type DefaultAPIUpdateGroupExtHindclawGroupsGroupIdPutRequest struct {
+type DefaultAPIUpdateGroupRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	groupId string
 	updateGroupRequest *UpdateGroupRequest
 }
 
-func (r DefaultAPIUpdateGroupExtHindclawGroupsGroupIdPutRequest) UpdateGroupRequest(updateGroupRequest UpdateGroupRequest) DefaultAPIUpdateGroupExtHindclawGroupsGroupIdPutRequest {
+func (r DefaultAPIUpdateGroupRequest) UpdateGroupRequest(updateGroupRequest UpdateGroupRequest) DefaultAPIUpdateGroupRequest {
 	r.updateGroupRequest = &updateGroupRequest
 	return r
 }
 
-func (r DefaultAPIUpdateGroupExtHindclawGroupsGroupIdPutRequest) Execute() (*GroupResponse, *http.Response, error) {
-	return r.ApiService.UpdateGroupExtHindclawGroupsGroupIdPutExecute(r)
+func (r DefaultAPIUpdateGroupRequest) Execute() (*GroupResponse, *http.Response, error) {
+	return r.ApiService.UpdateGroupExecute(r)
 }
 
 /*
-UpdateGroupExtHindclawGroupsGroupIdPut Update Group
+UpdateGroup Update Group
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param groupId
- @return DefaultAPIUpdateGroupExtHindclawGroupsGroupIdPutRequest
+ @return DefaultAPIUpdateGroupRequest
 */
-func (a *DefaultAPIService) UpdateGroupExtHindclawGroupsGroupIdPut(ctx context.Context, groupId string) DefaultAPIUpdateGroupExtHindclawGroupsGroupIdPutRequest {
-	return DefaultAPIUpdateGroupExtHindclawGroupsGroupIdPutRequest{
+func (a *DefaultAPIService) UpdateGroup(ctx context.Context, groupId string) DefaultAPIUpdateGroupRequest {
+	return DefaultAPIUpdateGroupRequest{
 		ApiService: a,
 		ctx: ctx,
 		groupId: groupId,
@@ -3010,7 +3010,7 @@ func (a *DefaultAPIService) UpdateGroupExtHindclawGroupsGroupIdPut(ctx context.C
 
 // Execute executes the request
 //  @return GroupResponse
-func (a *DefaultAPIService) UpdateGroupExtHindclawGroupsGroupIdPutExecute(r DefaultAPIUpdateGroupExtHindclawGroupsGroupIdPutRequest) (*GroupResponse, *http.Response, error) {
+func (a *DefaultAPIService) UpdateGroupExecute(r DefaultAPIUpdateGroupRequest) (*GroupResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
@@ -3018,7 +3018,7 @@ func (a *DefaultAPIService) UpdateGroupExtHindclawGroupsGroupIdPutExecute(r Defa
 		localVarReturnValue  *GroupResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateGroupExtHindclawGroupsGroupIdPut")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateGroup")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3099,31 +3099,31 @@ func (a *DefaultAPIService) UpdateGroupExtHindclawGroupsGroupIdPutExecute(r Defa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIUpdateUserExtHindclawUsersUserIdPutRequest struct {
+type DefaultAPIUpdateUserRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	userId string
 	updateUserRequest *UpdateUserRequest
 }
 
-func (r DefaultAPIUpdateUserExtHindclawUsersUserIdPutRequest) UpdateUserRequest(updateUserRequest UpdateUserRequest) DefaultAPIUpdateUserExtHindclawUsersUserIdPutRequest {
+func (r DefaultAPIUpdateUserRequest) UpdateUserRequest(updateUserRequest UpdateUserRequest) DefaultAPIUpdateUserRequest {
 	r.updateUserRequest = &updateUserRequest
 	return r
 }
 
-func (r DefaultAPIUpdateUserExtHindclawUsersUserIdPutRequest) Execute() (*UserResponse, *http.Response, error) {
-	return r.ApiService.UpdateUserExtHindclawUsersUserIdPutExecute(r)
+func (r DefaultAPIUpdateUserRequest) Execute() (*UserResponse, *http.Response, error) {
+	return r.ApiService.UpdateUserExecute(r)
 }
 
 /*
-UpdateUserExtHindclawUsersUserIdPut Update User
+UpdateUser Update User
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param userId
- @return DefaultAPIUpdateUserExtHindclawUsersUserIdPutRequest
+ @return DefaultAPIUpdateUserRequest
 */
-func (a *DefaultAPIService) UpdateUserExtHindclawUsersUserIdPut(ctx context.Context, userId string) DefaultAPIUpdateUserExtHindclawUsersUserIdPutRequest {
-	return DefaultAPIUpdateUserExtHindclawUsersUserIdPutRequest{
+func (a *DefaultAPIService) UpdateUser(ctx context.Context, userId string) DefaultAPIUpdateUserRequest {
+	return DefaultAPIUpdateUserRequest{
 		ApiService: a,
 		ctx: ctx,
 		userId: userId,
@@ -3132,7 +3132,7 @@ func (a *DefaultAPIService) UpdateUserExtHindclawUsersUserIdPut(ctx context.Cont
 
 // Execute executes the request
 //  @return UserResponse
-func (a *DefaultAPIService) UpdateUserExtHindclawUsersUserIdPutExecute(r DefaultAPIUpdateUserExtHindclawUsersUserIdPutRequest) (*UserResponse, *http.Response, error) {
+func (a *DefaultAPIService) UpdateUserExecute(r DefaultAPIUpdateUserRequest) (*UserResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
@@ -3140,7 +3140,7 @@ func (a *DefaultAPIService) UpdateUserExtHindclawUsersUserIdPutExecute(r Default
 		localVarReturnValue  *UserResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateUserExtHindclawUsersUserIdPut")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3221,7 +3221,7 @@ func (a *DefaultAPIService) UpdateUserExtHindclawUsersUserIdPutExecute(r Default
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIUpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutRequest struct {
+type DefaultAPIUpsertGroupPermissionRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	bankId string
@@ -3229,25 +3229,25 @@ type DefaultAPIUpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsG
 	bankPermissionRequest *BankPermissionRequest
 }
 
-func (r DefaultAPIUpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutRequest) BankPermissionRequest(bankPermissionRequest BankPermissionRequest) DefaultAPIUpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutRequest {
+func (r DefaultAPIUpsertGroupPermissionRequest) BankPermissionRequest(bankPermissionRequest BankPermissionRequest) DefaultAPIUpsertGroupPermissionRequest {
 	r.bankPermissionRequest = &bankPermissionRequest
 	return r
 }
 
-func (r DefaultAPIUpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutRequest) Execute() (*UpsertConfirmation, *http.Response, error) {
-	return r.ApiService.UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutExecute(r)
+func (r DefaultAPIUpsertGroupPermissionRequest) Execute() (*UpsertConfirmation, *http.Response, error) {
+	return r.ApiService.UpsertGroupPermissionExecute(r)
 }
 
 /*
-UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPut Upsert Group Bank Permission
+UpsertGroupPermission Upsert Group Bank Permission
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param bankId
  @param groupId
- @return DefaultAPIUpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutRequest
+ @return DefaultAPIUpsertGroupPermissionRequest
 */
-func (a *DefaultAPIService) UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPut(ctx context.Context, bankId string, groupId string) DefaultAPIUpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutRequest {
-	return DefaultAPIUpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutRequest{
+func (a *DefaultAPIService) UpsertGroupPermission(ctx context.Context, bankId string, groupId string) DefaultAPIUpsertGroupPermissionRequest {
+	return DefaultAPIUpsertGroupPermissionRequest{
 		ApiService: a,
 		ctx: ctx,
 		bankId: bankId,
@@ -3257,7 +3257,7 @@ func (a *DefaultAPIService) UpsertGroupBankPermissionExtHindclawBanksBankIdPermi
 
 // Execute executes the request
 //  @return UpsertConfirmation
-func (a *DefaultAPIService) UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutExecute(r DefaultAPIUpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutRequest) (*UpsertConfirmation, *http.Response, error) {
+func (a *DefaultAPIService) UpsertGroupPermissionExecute(r DefaultAPIUpsertGroupPermissionRequest) (*UpsertConfirmation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
@@ -3265,7 +3265,7 @@ func (a *DefaultAPIService) UpsertGroupBankPermissionExtHindclawBanksBankIdPermi
 		localVarReturnValue  *UpsertConfirmation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPut")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpsertGroupPermission")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3347,7 +3347,7 @@ func (a *DefaultAPIService) UpsertGroupBankPermissionExtHindclawBanksBankIdPermi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIUpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutRequest struct {
+type DefaultAPIUpsertStrategyRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	bankId string
@@ -3356,26 +3356,26 @@ type DefaultAPIUpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValue
 	strategyRequest *StrategyRequest
 }
 
-func (r DefaultAPIUpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutRequest) StrategyRequest(strategyRequest StrategyRequest) DefaultAPIUpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutRequest {
+func (r DefaultAPIUpsertStrategyRequest) StrategyRequest(strategyRequest StrategyRequest) DefaultAPIUpsertStrategyRequest {
 	r.strategyRequest = &strategyRequest
 	return r
 }
 
-func (r DefaultAPIUpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutRequest) Execute() (*StrategyUpsertConfirmation, *http.Response, error) {
-	return r.ApiService.UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutExecute(r)
+func (r DefaultAPIUpsertStrategyRequest) Execute() (*StrategyUpsertConfirmation, *http.Response, error) {
+	return r.ApiService.UpsertStrategyExecute(r)
 }
 
 /*
-UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePut Upsert Strategy
+UpsertStrategy Upsert Strategy
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param bankId
  @param scopeType
  @param scopeValue
- @return DefaultAPIUpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutRequest
+ @return DefaultAPIUpsertStrategyRequest
 */
-func (a *DefaultAPIService) UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePut(ctx context.Context, bankId string, scopeType string, scopeValue string) DefaultAPIUpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutRequest {
-	return DefaultAPIUpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutRequest{
+func (a *DefaultAPIService) UpsertStrategy(ctx context.Context, bankId string, scopeType string, scopeValue string) DefaultAPIUpsertStrategyRequest {
+	return DefaultAPIUpsertStrategyRequest{
 		ApiService: a,
 		ctx: ctx,
 		bankId: bankId,
@@ -3386,7 +3386,7 @@ func (a *DefaultAPIService) UpsertStrategyExtHindclawBanksBankIdStrategiesScopeT
 
 // Execute executes the request
 //  @return StrategyUpsertConfirmation
-func (a *DefaultAPIService) UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutExecute(r DefaultAPIUpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutRequest) (*StrategyUpsertConfirmation, *http.Response, error) {
+func (a *DefaultAPIService) UpsertStrategyExecute(r DefaultAPIUpsertStrategyRequest) (*StrategyUpsertConfirmation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
@@ -3394,7 +3394,7 @@ func (a *DefaultAPIService) UpsertStrategyExtHindclawBanksBankIdStrategiesScopeT
 		localVarReturnValue  *StrategyUpsertConfirmation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePut")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpsertStrategy")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3477,7 +3477,7 @@ func (a *DefaultAPIService) UpsertStrategyExtHindclawBanksBankIdStrategiesScopeT
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultAPIUpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutRequest struct {
+type DefaultAPIUpsertUserPermissionRequest struct {
 	ctx context.Context
 	ApiService DefaultAPI
 	bankId string
@@ -3485,25 +3485,25 @@ type DefaultAPIUpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUse
 	bankPermissionRequest *BankPermissionRequest
 }
 
-func (r DefaultAPIUpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutRequest) BankPermissionRequest(bankPermissionRequest BankPermissionRequest) DefaultAPIUpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutRequest {
+func (r DefaultAPIUpsertUserPermissionRequest) BankPermissionRequest(bankPermissionRequest BankPermissionRequest) DefaultAPIUpsertUserPermissionRequest {
 	r.bankPermissionRequest = &bankPermissionRequest
 	return r
 }
 
-func (r DefaultAPIUpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutRequest) Execute() (*UpsertConfirmation, *http.Response, error) {
-	return r.ApiService.UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutExecute(r)
+func (r DefaultAPIUpsertUserPermissionRequest) Execute() (*UpsertConfirmation, *http.Response, error) {
+	return r.ApiService.UpsertUserPermissionExecute(r)
 }
 
 /*
-UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPut Upsert User Bank Permission
+UpsertUserPermission Upsert User Bank Permission
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param bankId
  @param userId
- @return DefaultAPIUpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutRequest
+ @return DefaultAPIUpsertUserPermissionRequest
 */
-func (a *DefaultAPIService) UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPut(ctx context.Context, bankId string, userId string) DefaultAPIUpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutRequest {
-	return DefaultAPIUpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutRequest{
+func (a *DefaultAPIService) UpsertUserPermission(ctx context.Context, bankId string, userId string) DefaultAPIUpsertUserPermissionRequest {
+	return DefaultAPIUpsertUserPermissionRequest{
 		ApiService: a,
 		ctx: ctx,
 		bankId: bankId,
@@ -3513,7 +3513,7 @@ func (a *DefaultAPIService) UpsertUserBankPermissionExtHindclawBanksBankIdPermis
 
 // Execute executes the request
 //  @return UpsertConfirmation
-func (a *DefaultAPIService) UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutExecute(r DefaultAPIUpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutRequest) (*UpsertConfirmation, *http.Response, error) {
+func (a *DefaultAPIService) UpsertUserPermissionExecute(r DefaultAPIUpsertUserPermissionRequest) (*UpsertConfirmation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
@@ -3521,7 +3521,7 @@ func (a *DefaultAPIService) UpsertUserBankPermissionExtHindclawBanksBankIdPermis
 		localVarReturnValue  *UpsertConfirmation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPut")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpsertUserPermission")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

@@ -193,13 +193,13 @@ class HindclawHttp(HttpExtension):
 
         # --- Users ---
 
-        @router.get("/users", response_model=list[UserResponse])
+        @router.get("/users", response_model=list[UserResponse], operation_id="list_users")
         async def list_users():
             pool = await db.get_pool()
             rows = await pool.fetch("SELECT id, display_name, email FROM hindclaw_users ORDER BY id")
             return [{"id": r["id"], "display_name": r["display_name"], "email": r["email"]} for r in rows]
 
-        @router.post("/users", status_code=201, response_model=UserResponse)
+        @router.post("/users", status_code=201, response_model=UserResponse, operation_id="create_user")
         async def create_user(req: CreateUserRequest):
             pool = await db.get_pool()
             try:
@@ -211,7 +211,7 @@ class HindclawHttp(HttpExtension):
                 raise HTTPException(409, f"User {req.id} already exists")
             return {"id": req.id, "display_name": req.display_name, "email": req.email}
 
-        @router.get("/users/{user_id}", response_model=UserResponse)
+        @router.get("/users/{user_id}", response_model=UserResponse, operation_id="get_user")
         async def get_user(user_id: str):
             pool = await db.get_pool()
             row = await pool.fetchrow("SELECT id, display_name, email FROM hindclaw_users WHERE id = $1", user_id)
@@ -219,7 +219,7 @@ class HindclawHttp(HttpExtension):
                 raise HTTPException(404, f"User {user_id} not found")
             return {"id": row["id"], "display_name": row["display_name"], "email": row["email"]}
 
-        @router.put("/users/{user_id}", response_model=UserResponse)
+        @router.put("/users/{user_id}", response_model=UserResponse, operation_id="update_user")
         async def update_user(user_id: str, req: UpdateUserRequest):
             pool = await db.get_pool()
             updates = req.model_dump(exclude_none=True)
@@ -236,7 +236,7 @@ class HindclawHttp(HttpExtension):
                 raise HTTPException(404, f"User {user_id} not found")
             return row
 
-        @router.delete("/users/{user_id}", status_code=204)
+        @router.delete("/users/{user_id}", status_code=204, operation_id="delete_user")
         async def delete_user(user_id: str):
             pool = await db.get_pool()
             existing = await pool.fetchval("SELECT id FROM hindclaw_users WHERE id = $1", user_id)
@@ -255,7 +255,7 @@ class HindclawHttp(HttpExtension):
 
         # --- User Channels ---
 
-        @router.get("/users/{user_id}/channels", response_model=list[ChannelResponse])
+        @router.get("/users/{user_id}/channels", response_model=list[ChannelResponse], operation_id="list_user_channels")
         async def list_user_channels(user_id: str):
             pool = await db.get_pool()
             rows = await pool.fetch(
@@ -263,7 +263,7 @@ class HindclawHttp(HttpExtension):
             )
             return [{"provider": r["provider"], "sender_id": r["sender_id"]} for r in rows]
 
-        @router.post("/users/{user_id}/channels", status_code=201, response_model=ChannelResponse)
+        @router.post("/users/{user_id}/channels", status_code=201, response_model=ChannelResponse, operation_id="add_user_channel")
         async def add_user_channel(user_id: str, req: AddChannelRequest):
             pool = await db.get_pool()
             try:
@@ -275,7 +275,7 @@ class HindclawHttp(HttpExtension):
                 raise HTTPException(409, f"Channel {req.provider}:{req.sender_id} already mapped")
             return {"provider": req.provider, "sender_id": req.sender_id}
 
-        @router.delete("/users/{user_id}/channels/{provider}/{sender_id}", status_code=204)
+        @router.delete("/users/{user_id}/channels/{provider}/{sender_id}", status_code=204, operation_id="remove_user_channel")
         async def remove_user_channel(user_id: str, provider: str, sender_id: str):
             pool = await db.get_pool()
             await pool.execute(
@@ -285,13 +285,13 @@ class HindclawHttp(HttpExtension):
 
         # --- Groups ---
 
-        @router.get("/groups", response_model=list[GroupSummaryResponse])
+        @router.get("/groups", response_model=list[GroupSummaryResponse], operation_id="list_groups")
         async def list_groups():
             pool = await db.get_pool()
             rows = await pool.fetch("SELECT id, display_name FROM hindclaw_groups ORDER BY id")
             return [{"id": r["id"], "display_name": r["display_name"]} for r in rows]
 
-        @router.post("/groups", status_code=201, response_model=GroupSummaryResponse)
+        @router.post("/groups", status_code=201, response_model=GroupSummaryResponse, operation_id="create_group")
         async def create_group(req: CreateGroupRequest):
             pool = await db.get_pool()
             data = _serialize_jsonb(req.model_dump())
@@ -308,7 +308,7 @@ class HindclawHttp(HttpExtension):
                 raise HTTPException(409, f"Group {req.id} already exists")
             return {"id": req.id, "display_name": req.display_name}
 
-        @router.get("/groups/{group_id}", response_model=GroupResponse)
+        @router.get("/groups/{group_id}", response_model=GroupResponse, operation_id="get_group")
         async def get_group(group_id: str):
             pool = await db.get_pool()
             row = await pool.fetchrow(
@@ -323,7 +323,7 @@ class HindclawHttp(HttpExtension):
                 raise HTTPException(404, f"Group {group_id} not found")
             return _parse_jsonb_row(row)
 
-        @router.put("/groups/{group_id}", response_model=GroupResponse)
+        @router.put("/groups/{group_id}", response_model=GroupResponse, operation_id="update_group")
         async def update_group(group_id: str, req: UpdateGroupRequest):
             pool = await db.get_pool()
             updates = req.model_dump(exclude_none=True)
@@ -342,7 +342,7 @@ class HindclawHttp(HttpExtension):
                 raise HTTPException(404, f"Group {group_id} not found")
             return _parse_jsonb_row(row)
 
-        @router.delete("/groups/{group_id}", status_code=204)
+        @router.delete("/groups/{group_id}", status_code=204, operation_id="delete_group")
         async def delete_group(group_id: str):
             pool = await db.get_pool()
             existing = await pool.fetchval("SELECT id FROM hindclaw_groups WHERE id = $1", group_id)
@@ -361,7 +361,7 @@ class HindclawHttp(HttpExtension):
 
         # --- Group Members ---
 
-        @router.get("/groups/{group_id}/members", response_model=list[GroupMemberResponse])
+        @router.get("/groups/{group_id}/members", response_model=list[GroupMemberResponse], operation_id="list_group_members")
         async def list_group_members(group_id: str):
             pool = await db.get_pool()
             rows = await pool.fetch(
@@ -369,7 +369,7 @@ class HindclawHttp(HttpExtension):
             )
             return [{"user_id": r["user_id"]} for r in rows]
 
-        @router.post("/groups/{group_id}/members", status_code=201, response_model=GroupMembershipConfirmation)
+        @router.post("/groups/{group_id}/members", status_code=201, response_model=GroupMembershipConfirmation, operation_id="add_group_member")
         async def add_group_member(group_id: str, req: AddMemberRequest):
             pool = await db.get_pool()
             await pool.execute(
@@ -378,7 +378,7 @@ class HindclawHttp(HttpExtension):
             )
             return {"group_id": group_id, "user_id": req.user_id}
 
-        @router.delete("/groups/{group_id}/members/{user_id}", status_code=204)
+        @router.delete("/groups/{group_id}/members/{user_id}", status_code=204, operation_id="remove_group_member")
         async def remove_group_member(group_id: str, user_id: str):
             pool = await db.get_pool()
             await pool.execute(
@@ -388,7 +388,7 @@ class HindclawHttp(HttpExtension):
 
         # --- Bank Permissions ---
 
-        @router.get("/banks/{bank_id}/permissions", response_model=list[BankPermissionResponse])
+        @router.get("/banks/{bank_id}/permissions", response_model=list[BankPermissionResponse], operation_id="list_bank_permissions")
         async def list_bank_permissions(bank_id: str):
             pool = await db.get_pool()
             rows = await pool.fetch(
@@ -402,7 +402,7 @@ class HindclawHttp(HttpExtension):
             )
             return [_parse_jsonb_row(r) for r in rows]
 
-        @router.get("/banks/{bank_id}/permissions/{scope_type}/{scope_id}", response_model=BankPermissionResponse)
+        @router.get("/banks/{bank_id}/permissions/{scope_type}/{scope_id}", response_model=BankPermissionResponse, operation_id="get_bank_permission")
         async def get_bank_permission(bank_id: str, scope_type: str, scope_id: str):
             pool = await db.get_pool()
             row = await pool.fetchrow(
@@ -418,15 +418,15 @@ class HindclawHttp(HttpExtension):
                 raise HTTPException(404, "Permission not found")
             return _parse_jsonb_row(row)
 
-        @router.put("/banks/{bank_id}/permissions/groups/{group_id}", response_model=UpsertConfirmation)
+        @router.put("/banks/{bank_id}/permissions/groups/{group_id}", response_model=UpsertConfirmation, operation_id="upsert_group_permission")
         async def upsert_group_bank_permission(bank_id: str, group_id: str, req: BankPermissionRequest):
             return await _upsert_bank_permission(bank_id, "group", group_id, req)
 
-        @router.put("/banks/{bank_id}/permissions/users/{user_id}", response_model=UpsertConfirmation)
+        @router.put("/banks/{bank_id}/permissions/users/{user_id}", response_model=UpsertConfirmation, operation_id="upsert_user_permission")
         async def upsert_user_bank_permission(bank_id: str, user_id: str, req: BankPermissionRequest):
             return await _upsert_bank_permission(bank_id, "user", user_id, req)
 
-        @router.delete("/banks/{bank_id}/permissions/{scope_type}/{scope_id}", status_code=204)
+        @router.delete("/banks/{bank_id}/permissions/{scope_type}/{scope_id}", status_code=204, operation_id="delete_bank_permission")
         async def delete_bank_permission(bank_id: str, scope_type: str, scope_id: str):
             pool = await db.get_pool()
             await pool.execute(
@@ -436,7 +436,7 @@ class HindclawHttp(HttpExtension):
 
         # --- Strategy Scopes ---
 
-        @router.get("/banks/{bank_id}/strategies", response_model=list[StrategyScopeResponse])
+        @router.get("/banks/{bank_id}/strategies", response_model=list[StrategyScopeResponse], operation_id="list_strategies")
         async def list_strategies(bank_id: str):
             pool = await db.get_pool()
             rows = await pool.fetch(
@@ -447,7 +447,7 @@ class HindclawHttp(HttpExtension):
             )
             return [dict(r) for r in rows]
 
-        @router.put("/banks/{bank_id}/strategies/{scope_type}/{scope_value}", response_model=StrategyUpsertConfirmation)
+        @router.put("/banks/{bank_id}/strategies/{scope_type}/{scope_value}", response_model=StrategyUpsertConfirmation, operation_id="upsert_strategy")
         async def upsert_strategy(bank_id: str, scope_type: str, scope_value: str, req: StrategyRequest):
             pool = await db.get_pool()
             await pool.execute(
@@ -458,7 +458,7 @@ class HindclawHttp(HttpExtension):
             )
             return {"bank_id": bank_id, "scope_type": scope_type, "scope_value": scope_value, "strategy": req.strategy}
 
-        @router.delete("/banks/{bank_id}/strategies/{scope_type}/{scope_value}", status_code=204)
+        @router.delete("/banks/{bank_id}/strategies/{scope_type}/{scope_value}", status_code=204, operation_id="delete_strategy")
         async def delete_strategy(bank_id: str, scope_type: str, scope_value: str):
             pool = await db.get_pool()
             await pool.execute(
@@ -468,7 +468,7 @@ class HindclawHttp(HttpExtension):
 
         # --- API Keys ---
 
-        @router.get("/users/{user_id}/api-keys", response_model=list[ApiKeyResponse])
+        @router.get("/users/{user_id}/api-keys", response_model=list[ApiKeyResponse], operation_id="list_api_keys")
         async def list_api_keys(user_id: str):
             """List API keys for a user. Keys are masked after creation."""
             pool = await db.get_pool()
@@ -481,7 +481,7 @@ class HindclawHttp(HttpExtension):
                 for r in rows
             ]
 
-        @router.post("/users/{user_id}/api-keys", status_code=201, response_model=ApiKeyCreateResponse)
+        @router.post("/users/{user_id}/api-keys", status_code=201, response_model=ApiKeyCreateResponse, operation_id="create_api_key")
         async def create_api_key(user_id: str, req: CreateApiKeyRequest):
             pool = await db.get_pool()
             key_id = secrets.token_hex(8)
@@ -492,7 +492,7 @@ class HindclawHttp(HttpExtension):
             )
             return {"id": key_id, "api_key": api_key, "description": req.description}
 
-        @router.delete("/users/{user_id}/api-keys/{key_id}", status_code=204)
+        @router.delete("/users/{user_id}/api-keys/{key_id}", status_code=204, operation_id="delete_api_key")
         async def delete_api_key(user_id: str, key_id: str):
             pool = await db.get_pool()
             await pool.execute(
@@ -502,7 +502,7 @@ class HindclawHttp(HttpExtension):
 
         # --- Debug ---
 
-        @router.get("/debug/resolve", response_model=ResolvedPermissionsResponse)
+        @router.get("/debug/resolve", response_model=ResolvedPermissionsResponse, operation_id="debug_resolve")
         async def debug_resolve(
             bank: str = Query(...),
             sender: str | None = Query(None),

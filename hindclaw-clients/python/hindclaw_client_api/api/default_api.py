@@ -60,7 +60,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def add_group_member_ext_hindclaw_groups_group_id_members_post(
+    async def add_group_member(
         self,
         group_id: StrictStr,
         add_member_request: AddMemberRequest,
@@ -106,7 +106,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_group_member_ext_hindclaw_groups_group_id_members_post_serialize(
+        _param = self._add_group_member_serialize(
             group_id=group_id,
             add_member_request=add_member_request,
             _request_auth=_request_auth,
@@ -131,7 +131,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def add_group_member_ext_hindclaw_groups_group_id_members_post_with_http_info(
+    async def add_group_member_with_http_info(
         self,
         group_id: StrictStr,
         add_member_request: AddMemberRequest,
@@ -177,7 +177,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_group_member_ext_hindclaw_groups_group_id_members_post_serialize(
+        _param = self._add_group_member_serialize(
             group_id=group_id,
             add_member_request=add_member_request,
             _request_auth=_request_auth,
@@ -202,7 +202,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def add_group_member_ext_hindclaw_groups_group_id_members_post_without_preload_content(
+    async def add_group_member_without_preload_content(
         self,
         group_id: StrictStr,
         add_member_request: AddMemberRequest,
@@ -248,7 +248,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_group_member_ext_hindclaw_groups_group_id_members_post_serialize(
+        _param = self._add_group_member_serialize(
             group_id=group_id,
             add_member_request=add_member_request,
             _request_auth=_request_auth,
@@ -268,7 +268,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _add_group_member_ext_hindclaw_groups_group_id_members_post_serialize(
+    def _add_group_member_serialize(
         self,
         group_id,
         add_member_request,
@@ -349,7 +349,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def add_user_channel_ext_hindclaw_users_user_id_channels_post(
+    async def add_user_channel(
         self,
         user_id: StrictStr,
         add_channel_request: AddChannelRequest,
@@ -395,7 +395,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_user_channel_ext_hindclaw_users_user_id_channels_post_serialize(
+        _param = self._add_user_channel_serialize(
             user_id=user_id,
             add_channel_request=add_channel_request,
             _request_auth=_request_auth,
@@ -420,7 +420,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def add_user_channel_ext_hindclaw_users_user_id_channels_post_with_http_info(
+    async def add_user_channel_with_http_info(
         self,
         user_id: StrictStr,
         add_channel_request: AddChannelRequest,
@@ -466,7 +466,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_user_channel_ext_hindclaw_users_user_id_channels_post_serialize(
+        _param = self._add_user_channel_serialize(
             user_id=user_id,
             add_channel_request=add_channel_request,
             _request_auth=_request_auth,
@@ -491,7 +491,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def add_user_channel_ext_hindclaw_users_user_id_channels_post_without_preload_content(
+    async def add_user_channel_without_preload_content(
         self,
         user_id: StrictStr,
         add_channel_request: AddChannelRequest,
@@ -537,7 +537,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_user_channel_ext_hindclaw_users_user_id_channels_post_serialize(
+        _param = self._add_user_channel_serialize(
             user_id=user_id,
             add_channel_request=add_channel_request,
             _request_auth=_request_auth,
@@ -557,7 +557,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _add_user_channel_ext_hindclaw_users_user_id_channels_post_serialize(
+    def _add_user_channel_serialize(
         self,
         user_id,
         add_channel_request,
@@ -638,7 +638,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def create_api_key_ext_hindclaw_users_user_id_api_keys_post(
+    async def create_api_key(
         self,
         user_id: StrictStr,
         create_api_key_request: CreateApiKeyRequest,
@@ -684,7 +684,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_api_key_ext_hindclaw_users_user_id_api_keys_post_serialize(
+        _param = self._create_api_key_serialize(
             user_id=user_id,
             create_api_key_request=create_api_key_request,
             _request_auth=_request_auth,
@@ -709,7 +709,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def create_api_key_ext_hindclaw_users_user_id_api_keys_post_with_http_info(
+    async def create_api_key_with_http_info(
         self,
         user_id: StrictStr,
         create_api_key_request: CreateApiKeyRequest,
@@ -755,7 +755,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_api_key_ext_hindclaw_users_user_id_api_keys_post_serialize(
+        _param = self._create_api_key_serialize(
             user_id=user_id,
             create_api_key_request=create_api_key_request,
             _request_auth=_request_auth,
@@ -780,7 +780,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def create_api_key_ext_hindclaw_users_user_id_api_keys_post_without_preload_content(
+    async def create_api_key_without_preload_content(
         self,
         user_id: StrictStr,
         create_api_key_request: CreateApiKeyRequest,
@@ -826,7 +826,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_api_key_ext_hindclaw_users_user_id_api_keys_post_serialize(
+        _param = self._create_api_key_serialize(
             user_id=user_id,
             create_api_key_request=create_api_key_request,
             _request_auth=_request_auth,
@@ -846,7 +846,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _create_api_key_ext_hindclaw_users_user_id_api_keys_post_serialize(
+    def _create_api_key_serialize(
         self,
         user_id,
         create_api_key_request,
@@ -927,7 +927,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def create_group_ext_hindclaw_groups_post(
+    async def create_group(
         self,
         create_group_request: CreateGroupRequest,
         _request_timeout: Union[
@@ -970,7 +970,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_group_ext_hindclaw_groups_post_serialize(
+        _param = self._create_group_serialize(
             create_group_request=create_group_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -994,7 +994,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def create_group_ext_hindclaw_groups_post_with_http_info(
+    async def create_group_with_http_info(
         self,
         create_group_request: CreateGroupRequest,
         _request_timeout: Union[
@@ -1037,7 +1037,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_group_ext_hindclaw_groups_post_serialize(
+        _param = self._create_group_serialize(
             create_group_request=create_group_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1061,7 +1061,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def create_group_ext_hindclaw_groups_post_without_preload_content(
+    async def create_group_without_preload_content(
         self,
         create_group_request: CreateGroupRequest,
         _request_timeout: Union[
@@ -1104,7 +1104,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_group_ext_hindclaw_groups_post_serialize(
+        _param = self._create_group_serialize(
             create_group_request=create_group_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1123,7 +1123,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _create_group_ext_hindclaw_groups_post_serialize(
+    def _create_group_serialize(
         self,
         create_group_request,
         _request_auth,
@@ -1201,7 +1201,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def create_user_ext_hindclaw_users_post(
+    async def create_user(
         self,
         create_user_request: CreateUserRequest,
         _request_timeout: Union[
@@ -1244,7 +1244,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_user_ext_hindclaw_users_post_serialize(
+        _param = self._create_user_serialize(
             create_user_request=create_user_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1268,7 +1268,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def create_user_ext_hindclaw_users_post_with_http_info(
+    async def create_user_with_http_info(
         self,
         create_user_request: CreateUserRequest,
         _request_timeout: Union[
@@ -1311,7 +1311,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_user_ext_hindclaw_users_post_serialize(
+        _param = self._create_user_serialize(
             create_user_request=create_user_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1335,7 +1335,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def create_user_ext_hindclaw_users_post_without_preload_content(
+    async def create_user_without_preload_content(
         self,
         create_user_request: CreateUserRequest,
         _request_timeout: Union[
@@ -1378,7 +1378,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_user_ext_hindclaw_users_post_serialize(
+        _param = self._create_user_serialize(
             create_user_request=create_user_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1397,7 +1397,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _create_user_ext_hindclaw_users_post_serialize(
+    def _create_user_serialize(
         self,
         create_user_request,
         _request_auth,
@@ -1475,7 +1475,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def debug_resolve_ext_hindclaw_debug_resolve_get(
+    async def debug_resolve(
         self,
         bank: StrictStr,
         sender: Optional[StrictStr] = None,
@@ -1531,7 +1531,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._debug_resolve_ext_hindclaw_debug_resolve_get_serialize(
+        _param = self._debug_resolve_serialize(
             bank=bank,
             sender=sender,
             agent=agent,
@@ -1559,7 +1559,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def debug_resolve_ext_hindclaw_debug_resolve_get_with_http_info(
+    async def debug_resolve_with_http_info(
         self,
         bank: StrictStr,
         sender: Optional[StrictStr] = None,
@@ -1615,7 +1615,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._debug_resolve_ext_hindclaw_debug_resolve_get_serialize(
+        _param = self._debug_resolve_serialize(
             bank=bank,
             sender=sender,
             agent=agent,
@@ -1643,7 +1643,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def debug_resolve_ext_hindclaw_debug_resolve_get_without_preload_content(
+    async def debug_resolve_without_preload_content(
         self,
         bank: StrictStr,
         sender: Optional[StrictStr] = None,
@@ -1699,7 +1699,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._debug_resolve_ext_hindclaw_debug_resolve_get_serialize(
+        _param = self._debug_resolve_serialize(
             bank=bank,
             sender=sender,
             agent=agent,
@@ -1722,7 +1722,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _debug_resolve_ext_hindclaw_debug_resolve_get_serialize(
+    def _debug_resolve_serialize(
         self,
         bank,
         sender,
@@ -1809,7 +1809,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_api_key_ext_hindclaw_users_user_id_api_keys_key_id_delete(
+    async def delete_api_key(
         self,
         user_id: StrictStr,
         key_id: StrictStr,
@@ -1855,7 +1855,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_api_key_ext_hindclaw_users_user_id_api_keys_key_id_delete_serialize(
+        _param = self._delete_api_key_serialize(
             user_id=user_id,
             key_id=key_id,
             _request_auth=_request_auth,
@@ -1880,7 +1880,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_api_key_ext_hindclaw_users_user_id_api_keys_key_id_delete_with_http_info(
+    async def delete_api_key_with_http_info(
         self,
         user_id: StrictStr,
         key_id: StrictStr,
@@ -1926,7 +1926,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_api_key_ext_hindclaw_users_user_id_api_keys_key_id_delete_serialize(
+        _param = self._delete_api_key_serialize(
             user_id=user_id,
             key_id=key_id,
             _request_auth=_request_auth,
@@ -1951,7 +1951,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_api_key_ext_hindclaw_users_user_id_api_keys_key_id_delete_without_preload_content(
+    async def delete_api_key_without_preload_content(
         self,
         user_id: StrictStr,
         key_id: StrictStr,
@@ -1997,7 +1997,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_api_key_ext_hindclaw_users_user_id_api_keys_key_id_delete_serialize(
+        _param = self._delete_api_key_serialize(
             user_id=user_id,
             key_id=key_id,
             _request_auth=_request_auth,
@@ -2017,7 +2017,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _delete_api_key_ext_hindclaw_users_user_id_api_keys_key_id_delete_serialize(
+    def _delete_api_key_serialize(
         self,
         user_id,
         key_id,
@@ -2085,7 +2085,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_delete(
+    async def delete_bank_permission(
         self,
         bank_id: StrictStr,
         scope_type: StrictStr,
@@ -2134,7 +2134,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_delete_serialize(
+        _param = self._delete_bank_permission_serialize(
             bank_id=bank_id,
             scope_type=scope_type,
             scope_id=scope_id,
@@ -2160,7 +2160,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_delete_with_http_info(
+    async def delete_bank_permission_with_http_info(
         self,
         bank_id: StrictStr,
         scope_type: StrictStr,
@@ -2209,7 +2209,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_delete_serialize(
+        _param = self._delete_bank_permission_serialize(
             bank_id=bank_id,
             scope_type=scope_type,
             scope_id=scope_id,
@@ -2235,7 +2235,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_delete_without_preload_content(
+    async def delete_bank_permission_without_preload_content(
         self,
         bank_id: StrictStr,
         scope_type: StrictStr,
@@ -2284,7 +2284,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_delete_serialize(
+        _param = self._delete_bank_permission_serialize(
             bank_id=bank_id,
             scope_type=scope_type,
             scope_id=scope_id,
@@ -2305,7 +2305,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _delete_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_delete_serialize(
+    def _delete_bank_permission_serialize(
         self,
         bank_id,
         scope_type,
@@ -2376,7 +2376,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_group_ext_hindclaw_groups_group_id_delete(
+    async def delete_group(
         self,
         group_id: StrictStr,
         _request_timeout: Union[
@@ -2419,7 +2419,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_group_ext_hindclaw_groups_group_id_delete_serialize(
+        _param = self._delete_group_serialize(
             group_id=group_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2443,7 +2443,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_group_ext_hindclaw_groups_group_id_delete_with_http_info(
+    async def delete_group_with_http_info(
         self,
         group_id: StrictStr,
         _request_timeout: Union[
@@ -2486,7 +2486,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_group_ext_hindclaw_groups_group_id_delete_serialize(
+        _param = self._delete_group_serialize(
             group_id=group_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2510,7 +2510,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_group_ext_hindclaw_groups_group_id_delete_without_preload_content(
+    async def delete_group_without_preload_content(
         self,
         group_id: StrictStr,
         _request_timeout: Union[
@@ -2553,7 +2553,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_group_ext_hindclaw_groups_group_id_delete_serialize(
+        _param = self._delete_group_serialize(
             group_id=group_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2572,7 +2572,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _delete_group_ext_hindclaw_groups_group_id_delete_serialize(
+    def _delete_group_serialize(
         self,
         group_id,
         _request_auth,
@@ -2637,7 +2637,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_delete(
+    async def delete_strategy(
         self,
         bank_id: StrictStr,
         scope_type: StrictStr,
@@ -2686,7 +2686,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_delete_serialize(
+        _param = self._delete_strategy_serialize(
             bank_id=bank_id,
             scope_type=scope_type,
             scope_value=scope_value,
@@ -2712,7 +2712,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_delete_with_http_info(
+    async def delete_strategy_with_http_info(
         self,
         bank_id: StrictStr,
         scope_type: StrictStr,
@@ -2761,7 +2761,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_delete_serialize(
+        _param = self._delete_strategy_serialize(
             bank_id=bank_id,
             scope_type=scope_type,
             scope_value=scope_value,
@@ -2787,7 +2787,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_delete_without_preload_content(
+    async def delete_strategy_without_preload_content(
         self,
         bank_id: StrictStr,
         scope_type: StrictStr,
@@ -2836,7 +2836,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_delete_serialize(
+        _param = self._delete_strategy_serialize(
             bank_id=bank_id,
             scope_type=scope_type,
             scope_value=scope_value,
@@ -2857,7 +2857,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _delete_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_delete_serialize(
+    def _delete_strategy_serialize(
         self,
         bank_id,
         scope_type,
@@ -2928,7 +2928,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_user_ext_hindclaw_users_user_id_delete(
+    async def delete_user(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -2971,7 +2971,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_user_ext_hindclaw_users_user_id_delete_serialize(
+        _param = self._delete_user_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2995,7 +2995,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_user_ext_hindclaw_users_user_id_delete_with_http_info(
+    async def delete_user_with_http_info(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -3038,7 +3038,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_user_ext_hindclaw_users_user_id_delete_serialize(
+        _param = self._delete_user_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3062,7 +3062,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def delete_user_ext_hindclaw_users_user_id_delete_without_preload_content(
+    async def delete_user_without_preload_content(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -3105,7 +3105,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_user_ext_hindclaw_users_user_id_delete_serialize(
+        _param = self._delete_user_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3124,7 +3124,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _delete_user_ext_hindclaw_users_user_id_delete_serialize(
+    def _delete_user_serialize(
         self,
         user_id,
         _request_auth,
@@ -3189,7 +3189,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def get_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_get(
+    async def get_bank_permission(
         self,
         bank_id: StrictStr,
         scope_type: StrictStr,
@@ -3238,7 +3238,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_get_serialize(
+        _param = self._get_bank_permission_serialize(
             bank_id=bank_id,
             scope_type=scope_type,
             scope_id=scope_id,
@@ -3264,7 +3264,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def get_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_get_with_http_info(
+    async def get_bank_permission_with_http_info(
         self,
         bank_id: StrictStr,
         scope_type: StrictStr,
@@ -3313,7 +3313,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_get_serialize(
+        _param = self._get_bank_permission_serialize(
             bank_id=bank_id,
             scope_type=scope_type,
             scope_id=scope_id,
@@ -3339,7 +3339,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def get_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_get_without_preload_content(
+    async def get_bank_permission_without_preload_content(
         self,
         bank_id: StrictStr,
         scope_type: StrictStr,
@@ -3388,7 +3388,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_get_serialize(
+        _param = self._get_bank_permission_serialize(
             bank_id=bank_id,
             scope_type=scope_type,
             scope_id=scope_id,
@@ -3409,7 +3409,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _get_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_get_serialize(
+    def _get_bank_permission_serialize(
         self,
         bank_id,
         scope_type,
@@ -3480,7 +3480,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def get_group_ext_hindclaw_groups_group_id_get(
+    async def get_group(
         self,
         group_id: StrictStr,
         _request_timeout: Union[
@@ -3523,7 +3523,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_group_ext_hindclaw_groups_group_id_get_serialize(
+        _param = self._get_group_serialize(
             group_id=group_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3547,7 +3547,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def get_group_ext_hindclaw_groups_group_id_get_with_http_info(
+    async def get_group_with_http_info(
         self,
         group_id: StrictStr,
         _request_timeout: Union[
@@ -3590,7 +3590,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_group_ext_hindclaw_groups_group_id_get_serialize(
+        _param = self._get_group_serialize(
             group_id=group_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3614,7 +3614,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def get_group_ext_hindclaw_groups_group_id_get_without_preload_content(
+    async def get_group_without_preload_content(
         self,
         group_id: StrictStr,
         _request_timeout: Union[
@@ -3657,7 +3657,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_group_ext_hindclaw_groups_group_id_get_serialize(
+        _param = self._get_group_serialize(
             group_id=group_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3676,7 +3676,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _get_group_ext_hindclaw_groups_group_id_get_serialize(
+    def _get_group_serialize(
         self,
         group_id,
         _request_auth,
@@ -3741,7 +3741,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def get_user_ext_hindclaw_users_user_id_get(
+    async def get_user(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -3784,7 +3784,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_user_ext_hindclaw_users_user_id_get_serialize(
+        _param = self._get_user_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3808,7 +3808,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def get_user_ext_hindclaw_users_user_id_get_with_http_info(
+    async def get_user_with_http_info(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -3851,7 +3851,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_user_ext_hindclaw_users_user_id_get_serialize(
+        _param = self._get_user_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3875,7 +3875,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def get_user_ext_hindclaw_users_user_id_get_without_preload_content(
+    async def get_user_without_preload_content(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -3918,7 +3918,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_user_ext_hindclaw_users_user_id_get_serialize(
+        _param = self._get_user_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3937,7 +3937,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _get_user_ext_hindclaw_users_user_id_get_serialize(
+    def _get_user_serialize(
         self,
         user_id,
         _request_auth,
@@ -4002,7 +4002,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_api_keys_ext_hindclaw_users_user_id_api_keys_get(
+    async def list_api_keys(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -4046,7 +4046,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_api_keys_ext_hindclaw_users_user_id_api_keys_get_serialize(
+        _param = self._list_api_keys_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -4070,7 +4070,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_api_keys_ext_hindclaw_users_user_id_api_keys_get_with_http_info(
+    async def list_api_keys_with_http_info(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -4114,7 +4114,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_api_keys_ext_hindclaw_users_user_id_api_keys_get_serialize(
+        _param = self._list_api_keys_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -4138,7 +4138,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_api_keys_ext_hindclaw_users_user_id_api_keys_get_without_preload_content(
+    async def list_api_keys_without_preload_content(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -4182,7 +4182,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_api_keys_ext_hindclaw_users_user_id_api_keys_get_serialize(
+        _param = self._list_api_keys_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -4201,7 +4201,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _list_api_keys_ext_hindclaw_users_user_id_api_keys_get_serialize(
+    def _list_api_keys_serialize(
         self,
         user_id,
         _request_auth,
@@ -4266,7 +4266,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_bank_permissions_ext_hindclaw_banks_bank_id_permissions_get(
+    async def list_bank_permissions(
         self,
         bank_id: StrictStr,
         _request_timeout: Union[
@@ -4309,7 +4309,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_bank_permissions_ext_hindclaw_banks_bank_id_permissions_get_serialize(
+        _param = self._list_bank_permissions_serialize(
             bank_id=bank_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -4333,7 +4333,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_bank_permissions_ext_hindclaw_banks_bank_id_permissions_get_with_http_info(
+    async def list_bank_permissions_with_http_info(
         self,
         bank_id: StrictStr,
         _request_timeout: Union[
@@ -4376,7 +4376,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_bank_permissions_ext_hindclaw_banks_bank_id_permissions_get_serialize(
+        _param = self._list_bank_permissions_serialize(
             bank_id=bank_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -4400,7 +4400,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_bank_permissions_ext_hindclaw_banks_bank_id_permissions_get_without_preload_content(
+    async def list_bank_permissions_without_preload_content(
         self,
         bank_id: StrictStr,
         _request_timeout: Union[
@@ -4443,7 +4443,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_bank_permissions_ext_hindclaw_banks_bank_id_permissions_get_serialize(
+        _param = self._list_bank_permissions_serialize(
             bank_id=bank_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -4462,7 +4462,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _list_bank_permissions_ext_hindclaw_banks_bank_id_permissions_get_serialize(
+    def _list_bank_permissions_serialize(
         self,
         bank_id,
         _request_auth,
@@ -4527,7 +4527,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_group_members_ext_hindclaw_groups_group_id_members_get(
+    async def list_group_members(
         self,
         group_id: StrictStr,
         _request_timeout: Union[
@@ -4570,7 +4570,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_group_members_ext_hindclaw_groups_group_id_members_get_serialize(
+        _param = self._list_group_members_serialize(
             group_id=group_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -4594,7 +4594,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_group_members_ext_hindclaw_groups_group_id_members_get_with_http_info(
+    async def list_group_members_with_http_info(
         self,
         group_id: StrictStr,
         _request_timeout: Union[
@@ -4637,7 +4637,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_group_members_ext_hindclaw_groups_group_id_members_get_serialize(
+        _param = self._list_group_members_serialize(
             group_id=group_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -4661,7 +4661,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_group_members_ext_hindclaw_groups_group_id_members_get_without_preload_content(
+    async def list_group_members_without_preload_content(
         self,
         group_id: StrictStr,
         _request_timeout: Union[
@@ -4704,7 +4704,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_group_members_ext_hindclaw_groups_group_id_members_get_serialize(
+        _param = self._list_group_members_serialize(
             group_id=group_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -4723,7 +4723,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _list_group_members_ext_hindclaw_groups_group_id_members_get_serialize(
+    def _list_group_members_serialize(
         self,
         group_id,
         _request_auth,
@@ -4788,7 +4788,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_groups_ext_hindclaw_groups_get(
+    async def list_groups(
         self,
         _request_timeout: Union[
             None,
@@ -4828,7 +4828,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_groups_ext_hindclaw_groups_get_serialize(
+        _param = self._list_groups_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4850,7 +4850,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_groups_ext_hindclaw_groups_get_with_http_info(
+    async def list_groups_with_http_info(
         self,
         _request_timeout: Union[
             None,
@@ -4890,7 +4890,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_groups_ext_hindclaw_groups_get_serialize(
+        _param = self._list_groups_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4912,7 +4912,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_groups_ext_hindclaw_groups_get_without_preload_content(
+    async def list_groups_without_preload_content(
         self,
         _request_timeout: Union[
             None,
@@ -4952,7 +4952,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_groups_ext_hindclaw_groups_get_serialize(
+        _param = self._list_groups_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4969,7 +4969,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _list_groups_ext_hindclaw_groups_get_serialize(
+    def _list_groups_serialize(
         self,
         _request_auth,
         _content_type,
@@ -5031,7 +5031,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_strategies_ext_hindclaw_banks_bank_id_strategies_get(
+    async def list_strategies(
         self,
         bank_id: StrictStr,
         _request_timeout: Union[
@@ -5074,7 +5074,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_strategies_ext_hindclaw_banks_bank_id_strategies_get_serialize(
+        _param = self._list_strategies_serialize(
             bank_id=bank_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -5098,7 +5098,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_strategies_ext_hindclaw_banks_bank_id_strategies_get_with_http_info(
+    async def list_strategies_with_http_info(
         self,
         bank_id: StrictStr,
         _request_timeout: Union[
@@ -5141,7 +5141,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_strategies_ext_hindclaw_banks_bank_id_strategies_get_serialize(
+        _param = self._list_strategies_serialize(
             bank_id=bank_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -5165,7 +5165,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_strategies_ext_hindclaw_banks_bank_id_strategies_get_without_preload_content(
+    async def list_strategies_without_preload_content(
         self,
         bank_id: StrictStr,
         _request_timeout: Union[
@@ -5208,7 +5208,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_strategies_ext_hindclaw_banks_bank_id_strategies_get_serialize(
+        _param = self._list_strategies_serialize(
             bank_id=bank_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -5227,7 +5227,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _list_strategies_ext_hindclaw_banks_bank_id_strategies_get_serialize(
+    def _list_strategies_serialize(
         self,
         bank_id,
         _request_auth,
@@ -5292,7 +5292,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_user_channels_ext_hindclaw_users_user_id_channels_get(
+    async def list_user_channels(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -5335,7 +5335,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_user_channels_ext_hindclaw_users_user_id_channels_get_serialize(
+        _param = self._list_user_channels_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -5359,7 +5359,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_user_channels_ext_hindclaw_users_user_id_channels_get_with_http_info(
+    async def list_user_channels_with_http_info(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -5402,7 +5402,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_user_channels_ext_hindclaw_users_user_id_channels_get_serialize(
+        _param = self._list_user_channels_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -5426,7 +5426,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_user_channels_ext_hindclaw_users_user_id_channels_get_without_preload_content(
+    async def list_user_channels_without_preload_content(
         self,
         user_id: StrictStr,
         _request_timeout: Union[
@@ -5469,7 +5469,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_user_channels_ext_hindclaw_users_user_id_channels_get_serialize(
+        _param = self._list_user_channels_serialize(
             user_id=user_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -5488,7 +5488,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _list_user_channels_ext_hindclaw_users_user_id_channels_get_serialize(
+    def _list_user_channels_serialize(
         self,
         user_id,
         _request_auth,
@@ -5553,7 +5553,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_users_ext_hindclaw_users_get(
+    async def list_users(
         self,
         _request_timeout: Union[
             None,
@@ -5593,7 +5593,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_users_ext_hindclaw_users_get_serialize(
+        _param = self._list_users_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5615,7 +5615,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_users_ext_hindclaw_users_get_with_http_info(
+    async def list_users_with_http_info(
         self,
         _request_timeout: Union[
             None,
@@ -5655,7 +5655,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_users_ext_hindclaw_users_get_serialize(
+        _param = self._list_users_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5677,7 +5677,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def list_users_ext_hindclaw_users_get_without_preload_content(
+    async def list_users_without_preload_content(
         self,
         _request_timeout: Union[
             None,
@@ -5717,7 +5717,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_users_ext_hindclaw_users_get_serialize(
+        _param = self._list_users_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5734,7 +5734,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _list_users_ext_hindclaw_users_get_serialize(
+    def _list_users_serialize(
         self,
         _request_auth,
         _content_type,
@@ -5796,7 +5796,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def remove_group_member_ext_hindclaw_groups_group_id_members_user_id_delete(
+    async def remove_group_member(
         self,
         group_id: StrictStr,
         user_id: StrictStr,
@@ -5842,7 +5842,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_group_member_ext_hindclaw_groups_group_id_members_user_id_delete_serialize(
+        _param = self._remove_group_member_serialize(
             group_id=group_id,
             user_id=user_id,
             _request_auth=_request_auth,
@@ -5867,7 +5867,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def remove_group_member_ext_hindclaw_groups_group_id_members_user_id_delete_with_http_info(
+    async def remove_group_member_with_http_info(
         self,
         group_id: StrictStr,
         user_id: StrictStr,
@@ -5913,7 +5913,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_group_member_ext_hindclaw_groups_group_id_members_user_id_delete_serialize(
+        _param = self._remove_group_member_serialize(
             group_id=group_id,
             user_id=user_id,
             _request_auth=_request_auth,
@@ -5938,7 +5938,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def remove_group_member_ext_hindclaw_groups_group_id_members_user_id_delete_without_preload_content(
+    async def remove_group_member_without_preload_content(
         self,
         group_id: StrictStr,
         user_id: StrictStr,
@@ -5984,7 +5984,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_group_member_ext_hindclaw_groups_group_id_members_user_id_delete_serialize(
+        _param = self._remove_group_member_serialize(
             group_id=group_id,
             user_id=user_id,
             _request_auth=_request_auth,
@@ -6004,7 +6004,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _remove_group_member_ext_hindclaw_groups_group_id_members_user_id_delete_serialize(
+    def _remove_group_member_serialize(
         self,
         group_id,
         user_id,
@@ -6072,7 +6072,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def remove_user_channel_ext_hindclaw_users_user_id_channels_provider_sender_id_delete(
+    async def remove_user_channel(
         self,
         user_id: StrictStr,
         provider: StrictStr,
@@ -6121,7 +6121,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_user_channel_ext_hindclaw_users_user_id_channels_provider_sender_id_delete_serialize(
+        _param = self._remove_user_channel_serialize(
             user_id=user_id,
             provider=provider,
             sender_id=sender_id,
@@ -6147,7 +6147,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def remove_user_channel_ext_hindclaw_users_user_id_channels_provider_sender_id_delete_with_http_info(
+    async def remove_user_channel_with_http_info(
         self,
         user_id: StrictStr,
         provider: StrictStr,
@@ -6196,7 +6196,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_user_channel_ext_hindclaw_users_user_id_channels_provider_sender_id_delete_serialize(
+        _param = self._remove_user_channel_serialize(
             user_id=user_id,
             provider=provider,
             sender_id=sender_id,
@@ -6222,7 +6222,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def remove_user_channel_ext_hindclaw_users_user_id_channels_provider_sender_id_delete_without_preload_content(
+    async def remove_user_channel_without_preload_content(
         self,
         user_id: StrictStr,
         provider: StrictStr,
@@ -6271,7 +6271,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_user_channel_ext_hindclaw_users_user_id_channels_provider_sender_id_delete_serialize(
+        _param = self._remove_user_channel_serialize(
             user_id=user_id,
             provider=provider,
             sender_id=sender_id,
@@ -6292,7 +6292,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _remove_user_channel_ext_hindclaw_users_user_id_channels_provider_sender_id_delete_serialize(
+    def _remove_user_channel_serialize(
         self,
         user_id,
         provider,
@@ -6363,7 +6363,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def update_group_ext_hindclaw_groups_group_id_put(
+    async def update_group(
         self,
         group_id: StrictStr,
         update_group_request: UpdateGroupRequest,
@@ -6409,7 +6409,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_group_ext_hindclaw_groups_group_id_put_serialize(
+        _param = self._update_group_serialize(
             group_id=group_id,
             update_group_request=update_group_request,
             _request_auth=_request_auth,
@@ -6434,7 +6434,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def update_group_ext_hindclaw_groups_group_id_put_with_http_info(
+    async def update_group_with_http_info(
         self,
         group_id: StrictStr,
         update_group_request: UpdateGroupRequest,
@@ -6480,7 +6480,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_group_ext_hindclaw_groups_group_id_put_serialize(
+        _param = self._update_group_serialize(
             group_id=group_id,
             update_group_request=update_group_request,
             _request_auth=_request_auth,
@@ -6505,7 +6505,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def update_group_ext_hindclaw_groups_group_id_put_without_preload_content(
+    async def update_group_without_preload_content(
         self,
         group_id: StrictStr,
         update_group_request: UpdateGroupRequest,
@@ -6551,7 +6551,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_group_ext_hindclaw_groups_group_id_put_serialize(
+        _param = self._update_group_serialize(
             group_id=group_id,
             update_group_request=update_group_request,
             _request_auth=_request_auth,
@@ -6571,7 +6571,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _update_group_ext_hindclaw_groups_group_id_put_serialize(
+    def _update_group_serialize(
         self,
         group_id,
         update_group_request,
@@ -6652,7 +6652,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def update_user_ext_hindclaw_users_user_id_put(
+    async def update_user(
         self,
         user_id: StrictStr,
         update_user_request: UpdateUserRequest,
@@ -6698,7 +6698,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_user_ext_hindclaw_users_user_id_put_serialize(
+        _param = self._update_user_serialize(
             user_id=user_id,
             update_user_request=update_user_request,
             _request_auth=_request_auth,
@@ -6723,7 +6723,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def update_user_ext_hindclaw_users_user_id_put_with_http_info(
+    async def update_user_with_http_info(
         self,
         user_id: StrictStr,
         update_user_request: UpdateUserRequest,
@@ -6769,7 +6769,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_user_ext_hindclaw_users_user_id_put_serialize(
+        _param = self._update_user_serialize(
             user_id=user_id,
             update_user_request=update_user_request,
             _request_auth=_request_auth,
@@ -6794,7 +6794,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def update_user_ext_hindclaw_users_user_id_put_without_preload_content(
+    async def update_user_without_preload_content(
         self,
         user_id: StrictStr,
         update_user_request: UpdateUserRequest,
@@ -6840,7 +6840,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_user_ext_hindclaw_users_user_id_put_serialize(
+        _param = self._update_user_serialize(
             user_id=user_id,
             update_user_request=update_user_request,
             _request_auth=_request_auth,
@@ -6860,7 +6860,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _update_user_ext_hindclaw_users_user_id_put_serialize(
+    def _update_user_serialize(
         self,
         user_id,
         update_user_request,
@@ -6941,7 +6941,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def upsert_group_bank_permission_ext_hindclaw_banks_bank_id_permissions_groups_group_id_put(
+    async def upsert_group_permission(
         self,
         bank_id: StrictStr,
         group_id: StrictStr,
@@ -6990,7 +6990,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._upsert_group_bank_permission_ext_hindclaw_banks_bank_id_permissions_groups_group_id_put_serialize(
+        _param = self._upsert_group_permission_serialize(
             bank_id=bank_id,
             group_id=group_id,
             bank_permission_request=bank_permission_request,
@@ -7016,7 +7016,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def upsert_group_bank_permission_ext_hindclaw_banks_bank_id_permissions_groups_group_id_put_with_http_info(
+    async def upsert_group_permission_with_http_info(
         self,
         bank_id: StrictStr,
         group_id: StrictStr,
@@ -7065,7 +7065,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._upsert_group_bank_permission_ext_hindclaw_banks_bank_id_permissions_groups_group_id_put_serialize(
+        _param = self._upsert_group_permission_serialize(
             bank_id=bank_id,
             group_id=group_id,
             bank_permission_request=bank_permission_request,
@@ -7091,7 +7091,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def upsert_group_bank_permission_ext_hindclaw_banks_bank_id_permissions_groups_group_id_put_without_preload_content(
+    async def upsert_group_permission_without_preload_content(
         self,
         bank_id: StrictStr,
         group_id: StrictStr,
@@ -7140,7 +7140,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._upsert_group_bank_permission_ext_hindclaw_banks_bank_id_permissions_groups_group_id_put_serialize(
+        _param = self._upsert_group_permission_serialize(
             bank_id=bank_id,
             group_id=group_id,
             bank_permission_request=bank_permission_request,
@@ -7161,7 +7161,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _upsert_group_bank_permission_ext_hindclaw_banks_bank_id_permissions_groups_group_id_put_serialize(
+    def _upsert_group_permission_serialize(
         self,
         bank_id,
         group_id,
@@ -7245,7 +7245,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def upsert_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_put(
+    async def upsert_strategy(
         self,
         bank_id: StrictStr,
         scope_type: StrictStr,
@@ -7297,7 +7297,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._upsert_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_put_serialize(
+        _param = self._upsert_strategy_serialize(
             bank_id=bank_id,
             scope_type=scope_type,
             scope_value=scope_value,
@@ -7324,7 +7324,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def upsert_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_put_with_http_info(
+    async def upsert_strategy_with_http_info(
         self,
         bank_id: StrictStr,
         scope_type: StrictStr,
@@ -7376,7 +7376,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._upsert_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_put_serialize(
+        _param = self._upsert_strategy_serialize(
             bank_id=bank_id,
             scope_type=scope_type,
             scope_value=scope_value,
@@ -7403,7 +7403,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def upsert_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_put_without_preload_content(
+    async def upsert_strategy_without_preload_content(
         self,
         bank_id: StrictStr,
         scope_type: StrictStr,
@@ -7455,7 +7455,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._upsert_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_put_serialize(
+        _param = self._upsert_strategy_serialize(
             bank_id=bank_id,
             scope_type=scope_type,
             scope_value=scope_value,
@@ -7477,7 +7477,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _upsert_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_put_serialize(
+    def _upsert_strategy_serialize(
         self,
         bank_id,
         scope_type,
@@ -7564,7 +7564,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def upsert_user_bank_permission_ext_hindclaw_banks_bank_id_permissions_users_user_id_put(
+    async def upsert_user_permission(
         self,
         bank_id: StrictStr,
         user_id: StrictStr,
@@ -7613,7 +7613,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._upsert_user_bank_permission_ext_hindclaw_banks_bank_id_permissions_users_user_id_put_serialize(
+        _param = self._upsert_user_permission_serialize(
             bank_id=bank_id,
             user_id=user_id,
             bank_permission_request=bank_permission_request,
@@ -7639,7 +7639,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def upsert_user_bank_permission_ext_hindclaw_banks_bank_id_permissions_users_user_id_put_with_http_info(
+    async def upsert_user_permission_with_http_info(
         self,
         bank_id: StrictStr,
         user_id: StrictStr,
@@ -7688,7 +7688,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._upsert_user_bank_permission_ext_hindclaw_banks_bank_id_permissions_users_user_id_put_serialize(
+        _param = self._upsert_user_permission_serialize(
             bank_id=bank_id,
             user_id=user_id,
             bank_permission_request=bank_permission_request,
@@ -7714,7 +7714,7 @@ class DefaultApi:
 
 
     @validate_call
-    async def upsert_user_bank_permission_ext_hindclaw_banks_bank_id_permissions_users_user_id_put_without_preload_content(
+    async def upsert_user_permission_without_preload_content(
         self,
         bank_id: StrictStr,
         user_id: StrictStr,
@@ -7763,7 +7763,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._upsert_user_bank_permission_ext_hindclaw_banks_bank_id_permissions_users_user_id_put_serialize(
+        _param = self._upsert_user_permission_serialize(
             bank_id=bank_id,
             user_id=user_id,
             bank_permission_request=bank_permission_request,
@@ -7784,7 +7784,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _upsert_user_bank_permission_ext_hindclaw_banks_bank_id_permissions_users_user_id_put_serialize(
+    def _upsert_user_permission_serialize(
         self,
         bank_id,
         user_id,

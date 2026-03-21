@@ -8,7 +8,7 @@ servers:
 paths:
   /ext/hindclaw/users:
     get:
-      operationId: list_users_ext_hindclaw_users_get
+      operationId: list_users
       responses:
         "200":
           content:
@@ -22,7 +22,7 @@ paths:
       - HTTPBearer: []
       summary: List Users
     post:
-      operationId: create_user_ext_hindclaw_users_post
+      operationId: create_user
       requestBody:
         content:
           application/json:
@@ -47,7 +47,7 @@ paths:
       summary: Create User
   /ext/hindclaw/users/{user_id}:
     delete:
-      operationId: delete_user_ext_hindclaw_users__user_id__delete
+      operationId: delete_user
       parameters:
       - explode: false
         in: path
@@ -70,7 +70,7 @@ paths:
       - HTTPBearer: []
       summary: Delete User
     get:
-      operationId: get_user_ext_hindclaw_users__user_id__get
+      operationId: get_user
       parameters:
       - explode: false
         in: path
@@ -97,7 +97,7 @@ paths:
       - HTTPBearer: []
       summary: Get User
     put:
-      operationId: update_user_ext_hindclaw_users__user_id__put
+      operationId: update_user
       parameters:
       - explode: false
         in: path
@@ -131,7 +131,7 @@ paths:
       summary: Update User
   /ext/hindclaw/users/{user_id}/channels:
     get:
-      operationId: list_user_channels_ext_hindclaw_users__user_id__channels_get
+      operationId: list_user_channels
       parameters:
       - explode: false
         in: path
@@ -160,7 +160,7 @@ paths:
       - HTTPBearer: []
       summary: List User Channels
     post:
-      operationId: add_user_channel_ext_hindclaw_users__user_id__channels_post
+      operationId: add_user_channel
       parameters:
       - explode: false
         in: path
@@ -194,7 +194,7 @@ paths:
       summary: Add User Channel
   /ext/hindclaw/users/{user_id}/channels/{provider}/{sender_id}:
     delete:
-      operationId: remove_user_channel_ext_hindclaw_users__user_id__channels__provider___sender_id__delete
+      operationId: remove_user_channel
       parameters:
       - explode: false
         in: path
@@ -234,7 +234,7 @@ paths:
       summary: Remove User Channel
   /ext/hindclaw/groups:
     get:
-      operationId: list_groups_ext_hindclaw_groups_get
+      operationId: list_groups
       responses:
         "200":
           content:
@@ -248,7 +248,7 @@ paths:
       - HTTPBearer: []
       summary: List Groups
     post:
-      operationId: create_group_ext_hindclaw_groups_post
+      operationId: create_group
       requestBody:
         content:
           application/json:
@@ -273,7 +273,7 @@ paths:
       summary: Create Group
   /ext/hindclaw/groups/{group_id}:
     delete:
-      operationId: delete_group_ext_hindclaw_groups__group_id__delete
+      operationId: delete_group
       parameters:
       - explode: false
         in: path
@@ -296,7 +296,7 @@ paths:
       - HTTPBearer: []
       summary: Delete Group
     get:
-      operationId: get_group_ext_hindclaw_groups__group_id__get
+      operationId: get_group
       parameters:
       - explode: false
         in: path
@@ -323,7 +323,7 @@ paths:
       - HTTPBearer: []
       summary: Get Group
     put:
-      operationId: update_group_ext_hindclaw_groups__group_id__put
+      operationId: update_group
       parameters:
       - explode: false
         in: path
@@ -357,7 +357,7 @@ paths:
       summary: Update Group
   /ext/hindclaw/groups/{group_id}/members:
     get:
-      operationId: list_group_members_ext_hindclaw_groups__group_id__members_get
+      operationId: list_group_members
       parameters:
       - explode: false
         in: path
@@ -386,7 +386,7 @@ paths:
       - HTTPBearer: []
       summary: List Group Members
     post:
-      operationId: add_group_member_ext_hindclaw_groups__group_id__members_post
+      operationId: add_group_member
       parameters:
       - explode: false
         in: path
@@ -420,7 +420,7 @@ paths:
       summary: Add Group Member
   /ext/hindclaw/groups/{group_id}/members/{user_id}:
     delete:
-      operationId: remove_group_member_ext_hindclaw_groups__group_id__members__user_id__delete
+      operationId: remove_group_member
       parameters:
       - explode: false
         in: path
@@ -452,7 +452,7 @@ paths:
       summary: Remove Group Member
   /ext/hindclaw/banks/{bank_id}/permissions:
     get:
-      operationId: list_bank_permissions_ext_hindclaw_banks__bank_id__permissions_get
+      operationId: list_bank_permissions
       parameters:
       - explode: false
         in: path
@@ -482,7 +482,7 @@ paths:
       summary: List Bank Permissions
   /ext/hindclaw/banks/{bank_id}/permissions/{scope_type}/{scope_id}:
     delete:
-      operationId: delete_bank_permission_ext_hindclaw_banks__bank_id__permissions__scope_type___scope_id__delete
+      operationId: delete_bank_permission
       parameters:
       - explode: false
         in: path
@@ -521,7 +521,7 @@ paths:
       - HTTPBearer: []
       summary: Delete Bank Permission
     get:
-      operationId: get_bank_permission_ext_hindclaw_banks__bank_id__permissions__scope_type___scope_id__get
+      operationId: get_bank_permission
       parameters:
       - explode: false
         in: path
@@ -565,7 +565,7 @@ paths:
       summary: Get Bank Permission
   /ext/hindclaw/banks/{bank_id}/permissions/groups/{group_id}:
     put:
-      operationId: upsert_group_bank_permission_ext_hindclaw_banks__bank_id__permissions_groups__group_id__put
+      operationId: upsert_group_permission
       parameters:
       - explode: false
         in: path
@@ -607,7 +607,7 @@ paths:
       summary: Upsert Group Bank Permission
   /ext/hindclaw/banks/{bank_id}/permissions/users/{user_id}:
     put:
-      operationId: upsert_user_bank_permission_ext_hindclaw_banks__bank_id__permissions_users__user_id__put
+      operationId: upsert_user_permission
       parameters:
       - explode: false
         in: path
@@ -649,7 +649,7 @@ paths:
       summary: Upsert User Bank Permission
   /ext/hindclaw/banks/{bank_id}/strategies:
     get:
-      operationId: list_strategies_ext_hindclaw_banks__bank_id__strategies_get
+      operationId: list_strategies
       parameters:
       - explode: false
         in: path
@@ -679,7 +679,7 @@ paths:
       summary: List Strategies
   /ext/hindclaw/banks/{bank_id}/strategies/{scope_type}/{scope_value}:
     delete:
-      operationId: delete_strategy_ext_hindclaw_banks__bank_id__strategies__scope_type___scope_value__delete
+      operationId: delete_strategy
       parameters:
       - explode: false
         in: path
@@ -718,7 +718,7 @@ paths:
       - HTTPBearer: []
       summary: Delete Strategy
     put:
-      operationId: upsert_strategy_ext_hindclaw_banks__bank_id__strategies__scope_type___scope_value__put
+      operationId: upsert_strategy
       parameters:
       - explode: false
         in: path
@@ -769,7 +769,7 @@ paths:
   /ext/hindclaw/users/{user_id}/api-keys:
     get:
       description: List API keys for a user. Keys are masked after creation.
-      operationId: list_api_keys_ext_hindclaw_users__user_id__api_keys_get
+      operationId: list_api_keys
       parameters:
       - explode: false
         in: path
@@ -798,7 +798,7 @@ paths:
       - HTTPBearer: []
       summary: List Api Keys
     post:
-      operationId: create_api_key_ext_hindclaw_users__user_id__api_keys_post
+      operationId: create_api_key
       parameters:
       - explode: false
         in: path
@@ -832,7 +832,7 @@ paths:
       summary: Create Api Key
   /ext/hindclaw/users/{user_id}/api-keys/{key_id}:
     delete:
-      operationId: delete_api_key_ext_hindclaw_users__user_id__api_keys__key_id__delete
+      operationId: delete_api_key
       parameters:
       - explode: false
         in: path
@@ -865,7 +865,7 @@ paths:
   /ext/hindclaw/debug/resolve:
     get:
       description: Resolve and return full permissions for a given context.
-      operationId: debug_resolve_ext_hindclaw_debug_resolve_get
+      operationId: debug_resolve
       parameters:
       - explode: true
         in: query

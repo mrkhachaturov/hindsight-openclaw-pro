@@ -695,50 +695,50 @@ export type ValidationError = {
     };
 };
 
-export type ListUsersExtHindclawUsersGetData = {
+export type ListUsersData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/ext/hindclaw/users';
 };
 
-export type ListUsersExtHindclawUsersGetResponses = {
+export type ListUsersResponses = {
     /**
-     * Response List Users Ext Hindclaw Users Get
+     * Response List Users
      *
      * Successful Response
      */
     200: Array<UserResponse>;
 };
 
-export type ListUsersExtHindclawUsersGetResponse = ListUsersExtHindclawUsersGetResponses[keyof ListUsersExtHindclawUsersGetResponses];
+export type ListUsersResponse = ListUsersResponses[keyof ListUsersResponses];
 
-export type CreateUserExtHindclawUsersPostData = {
+export type CreateUserData = {
     body: CreateUserRequest;
     path?: never;
     query?: never;
     url: '/ext/hindclaw/users';
 };
 
-export type CreateUserExtHindclawUsersPostErrors = {
+export type CreateUserErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CreateUserExtHindclawUsersPostError = CreateUserExtHindclawUsersPostErrors[keyof CreateUserExtHindclawUsersPostErrors];
+export type CreateUserError = CreateUserErrors[keyof CreateUserErrors];
 
-export type CreateUserExtHindclawUsersPostResponses = {
+export type CreateUserResponses = {
     /**
      * Successful Response
      */
     201: UserResponse;
 };
 
-export type CreateUserExtHindclawUsersPostResponse = CreateUserExtHindclawUsersPostResponses[keyof CreateUserExtHindclawUsersPostResponses];
+export type CreateUserResponse = CreateUserResponses[keyof CreateUserResponses];
 
-export type DeleteUserExtHindclawUsersUserIdDeleteData = {
+export type DeleteUserData = {
     body?: never;
     path: {
         /**
@@ -750,25 +750,25 @@ export type DeleteUserExtHindclawUsersUserIdDeleteData = {
     url: '/ext/hindclaw/users/{user_id}';
 };
 
-export type DeleteUserExtHindclawUsersUserIdDeleteErrors = {
+export type DeleteUserErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type DeleteUserExtHindclawUsersUserIdDeleteError = DeleteUserExtHindclawUsersUserIdDeleteErrors[keyof DeleteUserExtHindclawUsersUserIdDeleteErrors];
+export type DeleteUserError = DeleteUserErrors[keyof DeleteUserErrors];
 
-export type DeleteUserExtHindclawUsersUserIdDeleteResponses = {
+export type DeleteUserResponses = {
     /**
      * Successful Response
      */
     204: void;
 };
 
-export type DeleteUserExtHindclawUsersUserIdDeleteResponse = DeleteUserExtHindclawUsersUserIdDeleteResponses[keyof DeleteUserExtHindclawUsersUserIdDeleteResponses];
+export type DeleteUserResponse = DeleteUserResponses[keyof DeleteUserResponses];
 
-export type GetUserExtHindclawUsersUserIdGetData = {
+export type GetUserData = {
     body?: never;
     path: {
         /**
@@ -780,25 +780,25 @@ export type GetUserExtHindclawUsersUserIdGetData = {
     url: '/ext/hindclaw/users/{user_id}';
 };
 
-export type GetUserExtHindclawUsersUserIdGetErrors = {
+export type GetUserErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetUserExtHindclawUsersUserIdGetError = GetUserExtHindclawUsersUserIdGetErrors[keyof GetUserExtHindclawUsersUserIdGetErrors];
+export type GetUserError = GetUserErrors[keyof GetUserErrors];
 
-export type GetUserExtHindclawUsersUserIdGetResponses = {
+export type GetUserResponses = {
     /**
      * Successful Response
      */
     200: UserResponse;
 };
 
-export type GetUserExtHindclawUsersUserIdGetResponse = GetUserExtHindclawUsersUserIdGetResponses[keyof GetUserExtHindclawUsersUserIdGetResponses];
+export type GetUserResponse = GetUserResponses[keyof GetUserResponses];
 
-export type UpdateUserExtHindclawUsersUserIdPutData = {
+export type UpdateUserData = {
     body: UpdateUserRequest;
     path: {
         /**
@@ -810,25 +810,25 @@ export type UpdateUserExtHindclawUsersUserIdPutData = {
     url: '/ext/hindclaw/users/{user_id}';
 };
 
-export type UpdateUserExtHindclawUsersUserIdPutErrors = {
+export type UpdateUserErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type UpdateUserExtHindclawUsersUserIdPutError = UpdateUserExtHindclawUsersUserIdPutErrors[keyof UpdateUserExtHindclawUsersUserIdPutErrors];
+export type UpdateUserError = UpdateUserErrors[keyof UpdateUserErrors];
 
-export type UpdateUserExtHindclawUsersUserIdPutResponses = {
+export type UpdateUserResponses = {
     /**
      * Successful Response
      */
     200: UserResponse;
 };
 
-export type UpdateUserExtHindclawUsersUserIdPutResponse = UpdateUserExtHindclawUsersUserIdPutResponses[keyof UpdateUserExtHindclawUsersUserIdPutResponses];
+export type UpdateUserResponse = UpdateUserResponses[keyof UpdateUserResponses];
 
-export type ListUserChannelsExtHindclawUsersUserIdChannelsGetData = {
+export type ListUserChannelsData = {
     body?: never;
     path: {
         /**
@@ -840,27 +840,27 @@ export type ListUserChannelsExtHindclawUsersUserIdChannelsGetData = {
     url: '/ext/hindclaw/users/{user_id}/channels';
 };
 
-export type ListUserChannelsExtHindclawUsersUserIdChannelsGetErrors = {
+export type ListUserChannelsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListUserChannelsExtHindclawUsersUserIdChannelsGetError = ListUserChannelsExtHindclawUsersUserIdChannelsGetErrors[keyof ListUserChannelsExtHindclawUsersUserIdChannelsGetErrors];
+export type ListUserChannelsError = ListUserChannelsErrors[keyof ListUserChannelsErrors];
 
-export type ListUserChannelsExtHindclawUsersUserIdChannelsGetResponses = {
+export type ListUserChannelsResponses = {
     /**
-     * Response List User Channels Ext Hindclaw Users  User Id  Channels Get
+     * Response List User Channels
      *
      * Successful Response
      */
     200: Array<ChannelResponse>;
 };
 
-export type ListUserChannelsExtHindclawUsersUserIdChannelsGetResponse = ListUserChannelsExtHindclawUsersUserIdChannelsGetResponses[keyof ListUserChannelsExtHindclawUsersUserIdChannelsGetResponses];
+export type ListUserChannelsResponse = ListUserChannelsResponses[keyof ListUserChannelsResponses];
 
-export type AddUserChannelExtHindclawUsersUserIdChannelsPostData = {
+export type AddUserChannelData = {
     body: AddChannelRequest;
     path: {
         /**
@@ -872,25 +872,25 @@ export type AddUserChannelExtHindclawUsersUserIdChannelsPostData = {
     url: '/ext/hindclaw/users/{user_id}/channels';
 };
 
-export type AddUserChannelExtHindclawUsersUserIdChannelsPostErrors = {
+export type AddUserChannelErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type AddUserChannelExtHindclawUsersUserIdChannelsPostError = AddUserChannelExtHindclawUsersUserIdChannelsPostErrors[keyof AddUserChannelExtHindclawUsersUserIdChannelsPostErrors];
+export type AddUserChannelError = AddUserChannelErrors[keyof AddUserChannelErrors];
 
-export type AddUserChannelExtHindclawUsersUserIdChannelsPostResponses = {
+export type AddUserChannelResponses = {
     /**
      * Successful Response
      */
     201: ChannelResponse;
 };
 
-export type AddUserChannelExtHindclawUsersUserIdChannelsPostResponse = AddUserChannelExtHindclawUsersUserIdChannelsPostResponses[keyof AddUserChannelExtHindclawUsersUserIdChannelsPostResponses];
+export type AddUserChannelResponse = AddUserChannelResponses[keyof AddUserChannelResponses];
 
-export type RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteData = {
+export type RemoveUserChannelData = {
     body?: never;
     path: {
         /**
@@ -910,68 +910,68 @@ export type RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDelet
     url: '/ext/hindclaw/users/{user_id}/channels/{provider}/{sender_id}';
 };
 
-export type RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteErrors = {
+export type RemoveUserChannelErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteError = RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteErrors[keyof RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteErrors];
+export type RemoveUserChannelError = RemoveUserChannelErrors[keyof RemoveUserChannelErrors];
 
-export type RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteResponses = {
+export type RemoveUserChannelResponses = {
     /**
      * Successful Response
      */
     204: void;
 };
 
-export type RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteResponse = RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteResponses[keyof RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteResponses];
+export type RemoveUserChannelResponse = RemoveUserChannelResponses[keyof RemoveUserChannelResponses];
 
-export type ListGroupsExtHindclawGroupsGetData = {
+export type ListGroupsData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/ext/hindclaw/groups';
 };
 
-export type ListGroupsExtHindclawGroupsGetResponses = {
+export type ListGroupsResponses = {
     /**
-     * Response List Groups Ext Hindclaw Groups Get
+     * Response List Groups
      *
      * Successful Response
      */
     200: Array<GroupSummaryResponse>;
 };
 
-export type ListGroupsExtHindclawGroupsGetResponse = ListGroupsExtHindclawGroupsGetResponses[keyof ListGroupsExtHindclawGroupsGetResponses];
+export type ListGroupsResponse = ListGroupsResponses[keyof ListGroupsResponses];
 
-export type CreateGroupExtHindclawGroupsPostData = {
+export type CreateGroupData = {
     body: CreateGroupRequest;
     path?: never;
     query?: never;
     url: '/ext/hindclaw/groups';
 };
 
-export type CreateGroupExtHindclawGroupsPostErrors = {
+export type CreateGroupErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CreateGroupExtHindclawGroupsPostError = CreateGroupExtHindclawGroupsPostErrors[keyof CreateGroupExtHindclawGroupsPostErrors];
+export type CreateGroupError = CreateGroupErrors[keyof CreateGroupErrors];
 
-export type CreateGroupExtHindclawGroupsPostResponses = {
+export type CreateGroupResponses = {
     /**
      * Successful Response
      */
     201: GroupSummaryResponse;
 };
 
-export type CreateGroupExtHindclawGroupsPostResponse = CreateGroupExtHindclawGroupsPostResponses[keyof CreateGroupExtHindclawGroupsPostResponses];
+export type CreateGroupResponse = CreateGroupResponses[keyof CreateGroupResponses];
 
-export type DeleteGroupExtHindclawGroupsGroupIdDeleteData = {
+export type DeleteGroupData = {
     body?: never;
     path: {
         /**
@@ -983,25 +983,25 @@ export type DeleteGroupExtHindclawGroupsGroupIdDeleteData = {
     url: '/ext/hindclaw/groups/{group_id}';
 };
 
-export type DeleteGroupExtHindclawGroupsGroupIdDeleteErrors = {
+export type DeleteGroupErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type DeleteGroupExtHindclawGroupsGroupIdDeleteError = DeleteGroupExtHindclawGroupsGroupIdDeleteErrors[keyof DeleteGroupExtHindclawGroupsGroupIdDeleteErrors];
+export type DeleteGroupError = DeleteGroupErrors[keyof DeleteGroupErrors];
 
-export type DeleteGroupExtHindclawGroupsGroupIdDeleteResponses = {
+export type DeleteGroupResponses = {
     /**
      * Successful Response
      */
     204: void;
 };
 
-export type DeleteGroupExtHindclawGroupsGroupIdDeleteResponse = DeleteGroupExtHindclawGroupsGroupIdDeleteResponses[keyof DeleteGroupExtHindclawGroupsGroupIdDeleteResponses];
+export type DeleteGroupResponse = DeleteGroupResponses[keyof DeleteGroupResponses];
 
-export type GetGroupExtHindclawGroupsGroupIdGetData = {
+export type GetGroupData = {
     body?: never;
     path: {
         /**
@@ -1013,25 +1013,25 @@ export type GetGroupExtHindclawGroupsGroupIdGetData = {
     url: '/ext/hindclaw/groups/{group_id}';
 };
 
-export type GetGroupExtHindclawGroupsGroupIdGetErrors = {
+export type GetGroupErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetGroupExtHindclawGroupsGroupIdGetError = GetGroupExtHindclawGroupsGroupIdGetErrors[keyof GetGroupExtHindclawGroupsGroupIdGetErrors];
+export type GetGroupError = GetGroupErrors[keyof GetGroupErrors];
 
-export type GetGroupExtHindclawGroupsGroupIdGetResponses = {
+export type GetGroupResponses = {
     /**
      * Successful Response
      */
     200: GroupResponse;
 };
 
-export type GetGroupExtHindclawGroupsGroupIdGetResponse = GetGroupExtHindclawGroupsGroupIdGetResponses[keyof GetGroupExtHindclawGroupsGroupIdGetResponses];
+export type GetGroupResponse = GetGroupResponses[keyof GetGroupResponses];
 
-export type UpdateGroupExtHindclawGroupsGroupIdPutData = {
+export type UpdateGroupData = {
     body: UpdateGroupRequest;
     path: {
         /**
@@ -1043,25 +1043,25 @@ export type UpdateGroupExtHindclawGroupsGroupIdPutData = {
     url: '/ext/hindclaw/groups/{group_id}';
 };
 
-export type UpdateGroupExtHindclawGroupsGroupIdPutErrors = {
+export type UpdateGroupErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type UpdateGroupExtHindclawGroupsGroupIdPutError = UpdateGroupExtHindclawGroupsGroupIdPutErrors[keyof UpdateGroupExtHindclawGroupsGroupIdPutErrors];
+export type UpdateGroupError = UpdateGroupErrors[keyof UpdateGroupErrors];
 
-export type UpdateGroupExtHindclawGroupsGroupIdPutResponses = {
+export type UpdateGroupResponses = {
     /**
      * Successful Response
      */
     200: GroupResponse;
 };
 
-export type UpdateGroupExtHindclawGroupsGroupIdPutResponse = UpdateGroupExtHindclawGroupsGroupIdPutResponses[keyof UpdateGroupExtHindclawGroupsGroupIdPutResponses];
+export type UpdateGroupResponse = UpdateGroupResponses[keyof UpdateGroupResponses];
 
-export type ListGroupMembersExtHindclawGroupsGroupIdMembersGetData = {
+export type ListGroupMembersData = {
     body?: never;
     path: {
         /**
@@ -1073,27 +1073,27 @@ export type ListGroupMembersExtHindclawGroupsGroupIdMembersGetData = {
     url: '/ext/hindclaw/groups/{group_id}/members';
 };
 
-export type ListGroupMembersExtHindclawGroupsGroupIdMembersGetErrors = {
+export type ListGroupMembersErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListGroupMembersExtHindclawGroupsGroupIdMembersGetError = ListGroupMembersExtHindclawGroupsGroupIdMembersGetErrors[keyof ListGroupMembersExtHindclawGroupsGroupIdMembersGetErrors];
+export type ListGroupMembersError = ListGroupMembersErrors[keyof ListGroupMembersErrors];
 
-export type ListGroupMembersExtHindclawGroupsGroupIdMembersGetResponses = {
+export type ListGroupMembersResponses = {
     /**
-     * Response List Group Members Ext Hindclaw Groups  Group Id  Members Get
+     * Response List Group Members
      *
      * Successful Response
      */
     200: Array<GroupMemberResponse>;
 };
 
-export type ListGroupMembersExtHindclawGroupsGroupIdMembersGetResponse = ListGroupMembersExtHindclawGroupsGroupIdMembersGetResponses[keyof ListGroupMembersExtHindclawGroupsGroupIdMembersGetResponses];
+export type ListGroupMembersResponse = ListGroupMembersResponses[keyof ListGroupMembersResponses];
 
-export type AddGroupMemberExtHindclawGroupsGroupIdMembersPostData = {
+export type AddGroupMemberData = {
     body: AddMemberRequest;
     path: {
         /**
@@ -1105,25 +1105,25 @@ export type AddGroupMemberExtHindclawGroupsGroupIdMembersPostData = {
     url: '/ext/hindclaw/groups/{group_id}/members';
 };
 
-export type AddGroupMemberExtHindclawGroupsGroupIdMembersPostErrors = {
+export type AddGroupMemberErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type AddGroupMemberExtHindclawGroupsGroupIdMembersPostError = AddGroupMemberExtHindclawGroupsGroupIdMembersPostErrors[keyof AddGroupMemberExtHindclawGroupsGroupIdMembersPostErrors];
+export type AddGroupMemberError = AddGroupMemberErrors[keyof AddGroupMemberErrors];
 
-export type AddGroupMemberExtHindclawGroupsGroupIdMembersPostResponses = {
+export type AddGroupMemberResponses = {
     /**
      * Successful Response
      */
     201: GroupMembershipConfirmation;
 };
 
-export type AddGroupMemberExtHindclawGroupsGroupIdMembersPostResponse = AddGroupMemberExtHindclawGroupsGroupIdMembersPostResponses[keyof AddGroupMemberExtHindclawGroupsGroupIdMembersPostResponses];
+export type AddGroupMemberResponse = AddGroupMemberResponses[keyof AddGroupMemberResponses];
 
-export type RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteData = {
+export type RemoveGroupMemberData = {
     body?: never;
     path: {
         /**
@@ -1139,25 +1139,25 @@ export type RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteData = {
     url: '/ext/hindclaw/groups/{group_id}/members/{user_id}';
 };
 
-export type RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteErrors = {
+export type RemoveGroupMemberErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteError = RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteErrors[keyof RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteErrors];
+export type RemoveGroupMemberError = RemoveGroupMemberErrors[keyof RemoveGroupMemberErrors];
 
-export type RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteResponses = {
+export type RemoveGroupMemberResponses = {
     /**
      * Successful Response
      */
     204: void;
 };
 
-export type RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteResponse = RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteResponses[keyof RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteResponses];
+export type RemoveGroupMemberResponse = RemoveGroupMemberResponses[keyof RemoveGroupMemberResponses];
 
-export type ListBankPermissionsExtHindclawBanksBankIdPermissionsGetData = {
+export type ListBankPermissionsData = {
     body?: never;
     path: {
         /**
@@ -1169,27 +1169,27 @@ export type ListBankPermissionsExtHindclawBanksBankIdPermissionsGetData = {
     url: '/ext/hindclaw/banks/{bank_id}/permissions';
 };
 
-export type ListBankPermissionsExtHindclawBanksBankIdPermissionsGetErrors = {
+export type ListBankPermissionsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListBankPermissionsExtHindclawBanksBankIdPermissionsGetError = ListBankPermissionsExtHindclawBanksBankIdPermissionsGetErrors[keyof ListBankPermissionsExtHindclawBanksBankIdPermissionsGetErrors];
+export type ListBankPermissionsError = ListBankPermissionsErrors[keyof ListBankPermissionsErrors];
 
-export type ListBankPermissionsExtHindclawBanksBankIdPermissionsGetResponses = {
+export type ListBankPermissionsResponses = {
     /**
-     * Response List Bank Permissions Ext Hindclaw Banks  Bank Id  Permissions Get
+     * Response List Bank Permissions
      *
      * Successful Response
      */
     200: Array<BankPermissionResponse>;
 };
 
-export type ListBankPermissionsExtHindclawBanksBankIdPermissionsGetResponse = ListBankPermissionsExtHindclawBanksBankIdPermissionsGetResponses[keyof ListBankPermissionsExtHindclawBanksBankIdPermissionsGetResponses];
+export type ListBankPermissionsResponse = ListBankPermissionsResponses[keyof ListBankPermissionsResponses];
 
-export type DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteData = {
+export type DeleteBankPermissionData = {
     body?: never;
     path: {
         /**
@@ -1209,25 +1209,25 @@ export type DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeI
     url: '/ext/hindclaw/banks/{bank_id}/permissions/{scope_type}/{scope_id}';
 };
 
-export type DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteErrors = {
+export type DeleteBankPermissionErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteError = DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteErrors[keyof DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteErrors];
+export type DeleteBankPermissionError = DeleteBankPermissionErrors[keyof DeleteBankPermissionErrors];
 
-export type DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteResponses = {
+export type DeleteBankPermissionResponses = {
     /**
      * Successful Response
      */
     204: void;
 };
 
-export type DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteResponse = DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteResponses[keyof DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteResponses];
+export type DeleteBankPermissionResponse = DeleteBankPermissionResponses[keyof DeleteBankPermissionResponses];
 
-export type GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetData = {
+export type GetBankPermissionData = {
     body?: never;
     path: {
         /**
@@ -1247,25 +1247,25 @@ export type GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGe
     url: '/ext/hindclaw/banks/{bank_id}/permissions/{scope_type}/{scope_id}';
 };
 
-export type GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetErrors = {
+export type GetBankPermissionErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetError = GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetErrors[keyof GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetErrors];
+export type GetBankPermissionError = GetBankPermissionErrors[keyof GetBankPermissionErrors];
 
-export type GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetResponses = {
+export type GetBankPermissionResponses = {
     /**
      * Successful Response
      */
     200: BankPermissionResponse;
 };
 
-export type GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetResponse = GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetResponses[keyof GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetResponses];
+export type GetBankPermissionResponse = GetBankPermissionResponses[keyof GetBankPermissionResponses];
 
-export type UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutData = {
+export type UpsertGroupPermissionData = {
     body: BankPermissionRequest;
     path: {
         /**
@@ -1281,25 +1281,25 @@ export type UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGrou
     url: '/ext/hindclaw/banks/{bank_id}/permissions/groups/{group_id}';
 };
 
-export type UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutErrors = {
+export type UpsertGroupPermissionErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutError = UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutErrors[keyof UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutErrors];
+export type UpsertGroupPermissionError = UpsertGroupPermissionErrors[keyof UpsertGroupPermissionErrors];
 
-export type UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutResponses = {
+export type UpsertGroupPermissionResponses = {
     /**
      * Successful Response
      */
     200: UpsertConfirmation;
 };
 
-export type UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutResponse = UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutResponses[keyof UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutResponses];
+export type UpsertGroupPermissionResponse = UpsertGroupPermissionResponses[keyof UpsertGroupPermissionResponses];
 
-export type UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutData = {
+export type UpsertUserPermissionData = {
     body: BankPermissionRequest;
     path: {
         /**
@@ -1315,25 +1315,25 @@ export type UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserId
     url: '/ext/hindclaw/banks/{bank_id}/permissions/users/{user_id}';
 };
 
-export type UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutErrors = {
+export type UpsertUserPermissionErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutError = UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutErrors[keyof UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutErrors];
+export type UpsertUserPermissionError = UpsertUserPermissionErrors[keyof UpsertUserPermissionErrors];
 
-export type UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutResponses = {
+export type UpsertUserPermissionResponses = {
     /**
      * Successful Response
      */
     200: UpsertConfirmation;
 };
 
-export type UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutResponse = UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutResponses[keyof UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutResponses];
+export type UpsertUserPermissionResponse = UpsertUserPermissionResponses[keyof UpsertUserPermissionResponses];
 
-export type ListStrategiesExtHindclawBanksBankIdStrategiesGetData = {
+export type ListStrategiesData = {
     body?: never;
     path: {
         /**
@@ -1345,27 +1345,27 @@ export type ListStrategiesExtHindclawBanksBankIdStrategiesGetData = {
     url: '/ext/hindclaw/banks/{bank_id}/strategies';
 };
 
-export type ListStrategiesExtHindclawBanksBankIdStrategiesGetErrors = {
+export type ListStrategiesErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListStrategiesExtHindclawBanksBankIdStrategiesGetError = ListStrategiesExtHindclawBanksBankIdStrategiesGetErrors[keyof ListStrategiesExtHindclawBanksBankIdStrategiesGetErrors];
+export type ListStrategiesError = ListStrategiesErrors[keyof ListStrategiesErrors];
 
-export type ListStrategiesExtHindclawBanksBankIdStrategiesGetResponses = {
+export type ListStrategiesResponses = {
     /**
-     * Response List Strategies Ext Hindclaw Banks  Bank Id  Strategies Get
+     * Response List Strategies
      *
      * Successful Response
      */
     200: Array<StrategyScopeResponse>;
 };
 
-export type ListStrategiesExtHindclawBanksBankIdStrategiesGetResponse = ListStrategiesExtHindclawBanksBankIdStrategiesGetResponses[keyof ListStrategiesExtHindclawBanksBankIdStrategiesGetResponses];
+export type ListStrategiesResponse = ListStrategiesResponses[keyof ListStrategiesResponses];
 
-export type DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteData = {
+export type DeleteStrategyData = {
     body?: never;
     path: {
         /**
@@ -1385,25 +1385,25 @@ export type DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDel
     url: '/ext/hindclaw/banks/{bank_id}/strategies/{scope_type}/{scope_value}';
 };
 
-export type DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteErrors = {
+export type DeleteStrategyErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteError = DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteErrors[keyof DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteErrors];
+export type DeleteStrategyError = DeleteStrategyErrors[keyof DeleteStrategyErrors];
 
-export type DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteResponses = {
+export type DeleteStrategyResponses = {
     /**
      * Successful Response
      */
     204: void;
 };
 
-export type DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteResponse = DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteResponses[keyof DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteResponses];
+export type DeleteStrategyResponse = DeleteStrategyResponses[keyof DeleteStrategyResponses];
 
-export type UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutData = {
+export type UpsertStrategyData = {
     body: StrategyRequest;
     path: {
         /**
@@ -1423,25 +1423,25 @@ export type UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePut
     url: '/ext/hindclaw/banks/{bank_id}/strategies/{scope_type}/{scope_value}';
 };
 
-export type UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutErrors = {
+export type UpsertStrategyErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutError = UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutErrors[keyof UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutErrors];
+export type UpsertStrategyError = UpsertStrategyErrors[keyof UpsertStrategyErrors];
 
-export type UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutResponses = {
+export type UpsertStrategyResponses = {
     /**
      * Successful Response
      */
     200: StrategyUpsertConfirmation;
 };
 
-export type UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutResponse = UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutResponses[keyof UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutResponses];
+export type UpsertStrategyResponse = UpsertStrategyResponses[keyof UpsertStrategyResponses];
 
-export type ListApiKeysExtHindclawUsersUserIdApiKeysGetData = {
+export type ListApiKeysData = {
     body?: never;
     path: {
         /**
@@ -1453,27 +1453,27 @@ export type ListApiKeysExtHindclawUsersUserIdApiKeysGetData = {
     url: '/ext/hindclaw/users/{user_id}/api-keys';
 };
 
-export type ListApiKeysExtHindclawUsersUserIdApiKeysGetErrors = {
+export type ListApiKeysErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListApiKeysExtHindclawUsersUserIdApiKeysGetError = ListApiKeysExtHindclawUsersUserIdApiKeysGetErrors[keyof ListApiKeysExtHindclawUsersUserIdApiKeysGetErrors];
+export type ListApiKeysError = ListApiKeysErrors[keyof ListApiKeysErrors];
 
-export type ListApiKeysExtHindclawUsersUserIdApiKeysGetResponses = {
+export type ListApiKeysResponses = {
     /**
-     * Response List Api Keys Ext Hindclaw Users  User Id  Api Keys Get
+     * Response List Api Keys
      *
      * Successful Response
      */
     200: Array<ApiKeyResponse>;
 };
 
-export type ListApiKeysExtHindclawUsersUserIdApiKeysGetResponse = ListApiKeysExtHindclawUsersUserIdApiKeysGetResponses[keyof ListApiKeysExtHindclawUsersUserIdApiKeysGetResponses];
+export type ListApiKeysResponse = ListApiKeysResponses[keyof ListApiKeysResponses];
 
-export type CreateApiKeyExtHindclawUsersUserIdApiKeysPostData = {
+export type CreateApiKeyData = {
     body: CreateApiKeyRequest;
     path: {
         /**
@@ -1485,25 +1485,25 @@ export type CreateApiKeyExtHindclawUsersUserIdApiKeysPostData = {
     url: '/ext/hindclaw/users/{user_id}/api-keys';
 };
 
-export type CreateApiKeyExtHindclawUsersUserIdApiKeysPostErrors = {
+export type CreateApiKeyErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CreateApiKeyExtHindclawUsersUserIdApiKeysPostError = CreateApiKeyExtHindclawUsersUserIdApiKeysPostErrors[keyof CreateApiKeyExtHindclawUsersUserIdApiKeysPostErrors];
+export type CreateApiKeyError = CreateApiKeyErrors[keyof CreateApiKeyErrors];
 
-export type CreateApiKeyExtHindclawUsersUserIdApiKeysPostResponses = {
+export type CreateApiKeyResponses = {
     /**
      * Successful Response
      */
     201: ApiKeyCreateResponse;
 };
 
-export type CreateApiKeyExtHindclawUsersUserIdApiKeysPostResponse = CreateApiKeyExtHindclawUsersUserIdApiKeysPostResponses[keyof CreateApiKeyExtHindclawUsersUserIdApiKeysPostResponses];
+export type CreateApiKeyResponse = CreateApiKeyResponses[keyof CreateApiKeyResponses];
 
-export type DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteData = {
+export type DeleteApiKeyData = {
     body?: never;
     path: {
         /**
@@ -1519,25 +1519,25 @@ export type DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteData = {
     url: '/ext/hindclaw/users/{user_id}/api-keys/{key_id}';
 };
 
-export type DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteErrors = {
+export type DeleteApiKeyErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteError = DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteErrors[keyof DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteErrors];
+export type DeleteApiKeyError = DeleteApiKeyErrors[keyof DeleteApiKeyErrors];
 
-export type DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteResponses = {
+export type DeleteApiKeyResponses = {
     /**
      * Successful Response
      */
     204: void;
 };
 
-export type DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteResponse = DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteResponses[keyof DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteResponses];
+export type DeleteApiKeyResponse = DeleteApiKeyResponses[keyof DeleteApiKeyResponses];
 
-export type DebugResolveExtHindclawDebugResolveGetData = {
+export type DebugResolveData = {
     body?: never;
     path?: never;
     query: {
@@ -1565,20 +1565,20 @@ export type DebugResolveExtHindclawDebugResolveGetData = {
     url: '/ext/hindclaw/debug/resolve';
 };
 
-export type DebugResolveExtHindclawDebugResolveGetErrors = {
+export type DebugResolveErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type DebugResolveExtHindclawDebugResolveGetError = DebugResolveExtHindclawDebugResolveGetErrors[keyof DebugResolveExtHindclawDebugResolveGetErrors];
+export type DebugResolveError = DebugResolveErrors[keyof DebugResolveErrors];
 
-export type DebugResolveExtHindclawDebugResolveGetResponses = {
+export type DebugResolveResponses = {
     /**
      * Successful Response
      */
     200: ResolvedPermissionsResponse;
 };
 
-export type DebugResolveExtHindclawDebugResolveGetResponse = DebugResolveExtHindclawDebugResolveGetResponses[keyof DebugResolveExtHindclawDebugResolveGetResponses];
+export type DebugResolveResponse = DebugResolveResponses[keyof DebugResolveResponses];

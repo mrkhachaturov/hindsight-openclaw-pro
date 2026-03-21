@@ -62,11 +62,11 @@ async with hindclaw_client_api.ApiClient(configuration) as api_client:
 
     try:
         # Add Group Member
-        api_response = await api_instance.add_group_member_ext_hindclaw_groups_group_id_members_post(group_id, add_member_request)
-        print("The response of DefaultApi->add_group_member_ext_hindclaw_groups_group_id_members_post:\n")
+        api_response = await api_instance.add_group_member(group_id, add_member_request)
+        print("The response of DefaultApi->add_group_member:\n")
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling DefaultApi->add_group_member_ext_hindclaw_groups_group_id_members_post: %s\n" % e)
+        print("Exception when calling DefaultApi->add_group_member: %s\n" % e)
 
 ```
 
@@ -76,34 +76,34 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**add_group_member_ext_hindclaw_groups_group_id_members_post**](hindclaw_client_api/docs/DefaultApi.md#add_group_member_ext_hindclaw_groups_group_id_members_post) | **POST** /ext/hindclaw/groups/{group_id}/members | Add Group Member
-*DefaultApi* | [**add_user_channel_ext_hindclaw_users_user_id_channels_post**](hindclaw_client_api/docs/DefaultApi.md#add_user_channel_ext_hindclaw_users_user_id_channels_post) | **POST** /ext/hindclaw/users/{user_id}/channels | Add User Channel
-*DefaultApi* | [**create_api_key_ext_hindclaw_users_user_id_api_keys_post**](hindclaw_client_api/docs/DefaultApi.md#create_api_key_ext_hindclaw_users_user_id_api_keys_post) | **POST** /ext/hindclaw/users/{user_id}/api-keys | Create Api Key
-*DefaultApi* | [**create_group_ext_hindclaw_groups_post**](hindclaw_client_api/docs/DefaultApi.md#create_group_ext_hindclaw_groups_post) | **POST** /ext/hindclaw/groups | Create Group
-*DefaultApi* | [**create_user_ext_hindclaw_users_post**](hindclaw_client_api/docs/DefaultApi.md#create_user_ext_hindclaw_users_post) | **POST** /ext/hindclaw/users | Create User
-*DefaultApi* | [**debug_resolve_ext_hindclaw_debug_resolve_get**](hindclaw_client_api/docs/DefaultApi.md#debug_resolve_ext_hindclaw_debug_resolve_get) | **GET** /ext/hindclaw/debug/resolve | Debug Resolve
-*DefaultApi* | [**delete_api_key_ext_hindclaw_users_user_id_api_keys_key_id_delete**](hindclaw_client_api/docs/DefaultApi.md#delete_api_key_ext_hindclaw_users_user_id_api_keys_key_id_delete) | **DELETE** /ext/hindclaw/users/{user_id}/api-keys/{key_id} | Delete Api Key
-*DefaultApi* | [**delete_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_delete**](hindclaw_client_api/docs/DefaultApi.md#delete_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_delete) | **DELETE** /ext/hindclaw/banks/{bank_id}/permissions/{scope_type}/{scope_id} | Delete Bank Permission
-*DefaultApi* | [**delete_group_ext_hindclaw_groups_group_id_delete**](hindclaw_client_api/docs/DefaultApi.md#delete_group_ext_hindclaw_groups_group_id_delete) | **DELETE** /ext/hindclaw/groups/{group_id} | Delete Group
-*DefaultApi* | [**delete_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_delete**](hindclaw_client_api/docs/DefaultApi.md#delete_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_delete) | **DELETE** /ext/hindclaw/banks/{bank_id}/strategies/{scope_type}/{scope_value} | Delete Strategy
-*DefaultApi* | [**delete_user_ext_hindclaw_users_user_id_delete**](hindclaw_client_api/docs/DefaultApi.md#delete_user_ext_hindclaw_users_user_id_delete) | **DELETE** /ext/hindclaw/users/{user_id} | Delete User
-*DefaultApi* | [**get_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_get**](hindclaw_client_api/docs/DefaultApi.md#get_bank_permission_ext_hindclaw_banks_bank_id_permissions_scope_type_scope_id_get) | **GET** /ext/hindclaw/banks/{bank_id}/permissions/{scope_type}/{scope_id} | Get Bank Permission
-*DefaultApi* | [**get_group_ext_hindclaw_groups_group_id_get**](hindclaw_client_api/docs/DefaultApi.md#get_group_ext_hindclaw_groups_group_id_get) | **GET** /ext/hindclaw/groups/{group_id} | Get Group
-*DefaultApi* | [**get_user_ext_hindclaw_users_user_id_get**](hindclaw_client_api/docs/DefaultApi.md#get_user_ext_hindclaw_users_user_id_get) | **GET** /ext/hindclaw/users/{user_id} | Get User
-*DefaultApi* | [**list_api_keys_ext_hindclaw_users_user_id_api_keys_get**](hindclaw_client_api/docs/DefaultApi.md#list_api_keys_ext_hindclaw_users_user_id_api_keys_get) | **GET** /ext/hindclaw/users/{user_id}/api-keys | List Api Keys
-*DefaultApi* | [**list_bank_permissions_ext_hindclaw_banks_bank_id_permissions_get**](hindclaw_client_api/docs/DefaultApi.md#list_bank_permissions_ext_hindclaw_banks_bank_id_permissions_get) | **GET** /ext/hindclaw/banks/{bank_id}/permissions | List Bank Permissions
-*DefaultApi* | [**list_group_members_ext_hindclaw_groups_group_id_members_get**](hindclaw_client_api/docs/DefaultApi.md#list_group_members_ext_hindclaw_groups_group_id_members_get) | **GET** /ext/hindclaw/groups/{group_id}/members | List Group Members
-*DefaultApi* | [**list_groups_ext_hindclaw_groups_get**](hindclaw_client_api/docs/DefaultApi.md#list_groups_ext_hindclaw_groups_get) | **GET** /ext/hindclaw/groups | List Groups
-*DefaultApi* | [**list_strategies_ext_hindclaw_banks_bank_id_strategies_get**](hindclaw_client_api/docs/DefaultApi.md#list_strategies_ext_hindclaw_banks_bank_id_strategies_get) | **GET** /ext/hindclaw/banks/{bank_id}/strategies | List Strategies
-*DefaultApi* | [**list_user_channels_ext_hindclaw_users_user_id_channels_get**](hindclaw_client_api/docs/DefaultApi.md#list_user_channels_ext_hindclaw_users_user_id_channels_get) | **GET** /ext/hindclaw/users/{user_id}/channels | List User Channels
-*DefaultApi* | [**list_users_ext_hindclaw_users_get**](hindclaw_client_api/docs/DefaultApi.md#list_users_ext_hindclaw_users_get) | **GET** /ext/hindclaw/users | List Users
-*DefaultApi* | [**remove_group_member_ext_hindclaw_groups_group_id_members_user_id_delete**](hindclaw_client_api/docs/DefaultApi.md#remove_group_member_ext_hindclaw_groups_group_id_members_user_id_delete) | **DELETE** /ext/hindclaw/groups/{group_id}/members/{user_id} | Remove Group Member
-*DefaultApi* | [**remove_user_channel_ext_hindclaw_users_user_id_channels_provider_sender_id_delete**](hindclaw_client_api/docs/DefaultApi.md#remove_user_channel_ext_hindclaw_users_user_id_channels_provider_sender_id_delete) | **DELETE** /ext/hindclaw/users/{user_id}/channels/{provider}/{sender_id} | Remove User Channel
-*DefaultApi* | [**update_group_ext_hindclaw_groups_group_id_put**](hindclaw_client_api/docs/DefaultApi.md#update_group_ext_hindclaw_groups_group_id_put) | **PUT** /ext/hindclaw/groups/{group_id} | Update Group
-*DefaultApi* | [**update_user_ext_hindclaw_users_user_id_put**](hindclaw_client_api/docs/DefaultApi.md#update_user_ext_hindclaw_users_user_id_put) | **PUT** /ext/hindclaw/users/{user_id} | Update User
-*DefaultApi* | [**upsert_group_bank_permission_ext_hindclaw_banks_bank_id_permissions_groups_group_id_put**](hindclaw_client_api/docs/DefaultApi.md#upsert_group_bank_permission_ext_hindclaw_banks_bank_id_permissions_groups_group_id_put) | **PUT** /ext/hindclaw/banks/{bank_id}/permissions/groups/{group_id} | Upsert Group Bank Permission
-*DefaultApi* | [**upsert_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_put**](hindclaw_client_api/docs/DefaultApi.md#upsert_strategy_ext_hindclaw_banks_bank_id_strategies_scope_type_scope_value_put) | **PUT** /ext/hindclaw/banks/{bank_id}/strategies/{scope_type}/{scope_value} | Upsert Strategy
-*DefaultApi* | [**upsert_user_bank_permission_ext_hindclaw_banks_bank_id_permissions_users_user_id_put**](hindclaw_client_api/docs/DefaultApi.md#upsert_user_bank_permission_ext_hindclaw_banks_bank_id_permissions_users_user_id_put) | **PUT** /ext/hindclaw/banks/{bank_id}/permissions/users/{user_id} | Upsert User Bank Permission
+*DefaultApi* | [**add_group_member**](hindclaw_client_api/docs/DefaultApi.md#add_group_member) | **POST** /ext/hindclaw/groups/{group_id}/members | Add Group Member
+*DefaultApi* | [**add_user_channel**](hindclaw_client_api/docs/DefaultApi.md#add_user_channel) | **POST** /ext/hindclaw/users/{user_id}/channels | Add User Channel
+*DefaultApi* | [**create_api_key**](hindclaw_client_api/docs/DefaultApi.md#create_api_key) | **POST** /ext/hindclaw/users/{user_id}/api-keys | Create Api Key
+*DefaultApi* | [**create_group**](hindclaw_client_api/docs/DefaultApi.md#create_group) | **POST** /ext/hindclaw/groups | Create Group
+*DefaultApi* | [**create_user**](hindclaw_client_api/docs/DefaultApi.md#create_user) | **POST** /ext/hindclaw/users | Create User
+*DefaultApi* | [**debug_resolve**](hindclaw_client_api/docs/DefaultApi.md#debug_resolve) | **GET** /ext/hindclaw/debug/resolve | Debug Resolve
+*DefaultApi* | [**delete_api_key**](hindclaw_client_api/docs/DefaultApi.md#delete_api_key) | **DELETE** /ext/hindclaw/users/{user_id}/api-keys/{key_id} | Delete Api Key
+*DefaultApi* | [**delete_bank_permission**](hindclaw_client_api/docs/DefaultApi.md#delete_bank_permission) | **DELETE** /ext/hindclaw/banks/{bank_id}/permissions/{scope_type}/{scope_id} | Delete Bank Permission
+*DefaultApi* | [**delete_group**](hindclaw_client_api/docs/DefaultApi.md#delete_group) | **DELETE** /ext/hindclaw/groups/{group_id} | Delete Group
+*DefaultApi* | [**delete_strategy**](hindclaw_client_api/docs/DefaultApi.md#delete_strategy) | **DELETE** /ext/hindclaw/banks/{bank_id}/strategies/{scope_type}/{scope_value} | Delete Strategy
+*DefaultApi* | [**delete_user**](hindclaw_client_api/docs/DefaultApi.md#delete_user) | **DELETE** /ext/hindclaw/users/{user_id} | Delete User
+*DefaultApi* | [**get_bank_permission**](hindclaw_client_api/docs/DefaultApi.md#get_bank_permission) | **GET** /ext/hindclaw/banks/{bank_id}/permissions/{scope_type}/{scope_id} | Get Bank Permission
+*DefaultApi* | [**get_group**](hindclaw_client_api/docs/DefaultApi.md#get_group) | **GET** /ext/hindclaw/groups/{group_id} | Get Group
+*DefaultApi* | [**get_user**](hindclaw_client_api/docs/DefaultApi.md#get_user) | **GET** /ext/hindclaw/users/{user_id} | Get User
+*DefaultApi* | [**list_api_keys**](hindclaw_client_api/docs/DefaultApi.md#list_api_keys) | **GET** /ext/hindclaw/users/{user_id}/api-keys | List Api Keys
+*DefaultApi* | [**list_bank_permissions**](hindclaw_client_api/docs/DefaultApi.md#list_bank_permissions) | **GET** /ext/hindclaw/banks/{bank_id}/permissions | List Bank Permissions
+*DefaultApi* | [**list_group_members**](hindclaw_client_api/docs/DefaultApi.md#list_group_members) | **GET** /ext/hindclaw/groups/{group_id}/members | List Group Members
+*DefaultApi* | [**list_groups**](hindclaw_client_api/docs/DefaultApi.md#list_groups) | **GET** /ext/hindclaw/groups | List Groups
+*DefaultApi* | [**list_strategies**](hindclaw_client_api/docs/DefaultApi.md#list_strategies) | **GET** /ext/hindclaw/banks/{bank_id}/strategies | List Strategies
+*DefaultApi* | [**list_user_channels**](hindclaw_client_api/docs/DefaultApi.md#list_user_channels) | **GET** /ext/hindclaw/users/{user_id}/channels | List User Channels
+*DefaultApi* | [**list_users**](hindclaw_client_api/docs/DefaultApi.md#list_users) | **GET** /ext/hindclaw/users | List Users
+*DefaultApi* | [**remove_group_member**](hindclaw_client_api/docs/DefaultApi.md#remove_group_member) | **DELETE** /ext/hindclaw/groups/{group_id}/members/{user_id} | Remove Group Member
+*DefaultApi* | [**remove_user_channel**](hindclaw_client_api/docs/DefaultApi.md#remove_user_channel) | **DELETE** /ext/hindclaw/users/{user_id}/channels/{provider}/{sender_id} | Remove User Channel
+*DefaultApi* | [**update_group**](hindclaw_client_api/docs/DefaultApi.md#update_group) | **PUT** /ext/hindclaw/groups/{group_id} | Update Group
+*DefaultApi* | [**update_user**](hindclaw_client_api/docs/DefaultApi.md#update_user) | **PUT** /ext/hindclaw/users/{user_id} | Update User
+*DefaultApi* | [**upsert_group_permission**](hindclaw_client_api/docs/DefaultApi.md#upsert_group_permission) | **PUT** /ext/hindclaw/banks/{bank_id}/permissions/groups/{group_id} | Upsert Group Bank Permission
+*DefaultApi* | [**upsert_strategy**](hindclaw_client_api/docs/DefaultApi.md#upsert_strategy) | **PUT** /ext/hindclaw/banks/{bank_id}/strategies/{scope_type}/{scope_value} | Upsert Strategy
+*DefaultApi* | [**upsert_user_permission**](hindclaw_client_api/docs/DefaultApi.md#upsert_user_permission) | **PUT** /ext/hindclaw/banks/{bank_id}/permissions/users/{user_id} | Upsert User Bank Permission
 
 
 ## Documentation For Models

@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { AddGroupMemberExtHindclawGroupsGroupIdMembersPostData, AddGroupMemberExtHindclawGroupsGroupIdMembersPostErrors, AddGroupMemberExtHindclawGroupsGroupIdMembersPostResponses, AddUserChannelExtHindclawUsersUserIdChannelsPostData, AddUserChannelExtHindclawUsersUserIdChannelsPostErrors, AddUserChannelExtHindclawUsersUserIdChannelsPostResponses, CreateApiKeyExtHindclawUsersUserIdApiKeysPostData, CreateApiKeyExtHindclawUsersUserIdApiKeysPostErrors, CreateApiKeyExtHindclawUsersUserIdApiKeysPostResponses, CreateGroupExtHindclawGroupsPostData, CreateGroupExtHindclawGroupsPostErrors, CreateGroupExtHindclawGroupsPostResponses, CreateUserExtHindclawUsersPostData, CreateUserExtHindclawUsersPostErrors, CreateUserExtHindclawUsersPostResponses, DebugResolveExtHindclawDebugResolveGetData, DebugResolveExtHindclawDebugResolveGetErrors, DebugResolveExtHindclawDebugResolveGetResponses, DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteData, DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteErrors, DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteResponses, DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteData, DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteErrors, DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteResponses, DeleteGroupExtHindclawGroupsGroupIdDeleteData, DeleteGroupExtHindclawGroupsGroupIdDeleteErrors, DeleteGroupExtHindclawGroupsGroupIdDeleteResponses, DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteData, DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteErrors, DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteResponses, DeleteUserExtHindclawUsersUserIdDeleteData, DeleteUserExtHindclawUsersUserIdDeleteErrors, DeleteUserExtHindclawUsersUserIdDeleteResponses, GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetData, GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetErrors, GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetResponses, GetGroupExtHindclawGroupsGroupIdGetData, GetGroupExtHindclawGroupsGroupIdGetErrors, GetGroupExtHindclawGroupsGroupIdGetResponses, GetUserExtHindclawUsersUserIdGetData, GetUserExtHindclawUsersUserIdGetErrors, GetUserExtHindclawUsersUserIdGetResponses, ListApiKeysExtHindclawUsersUserIdApiKeysGetData, ListApiKeysExtHindclawUsersUserIdApiKeysGetErrors, ListApiKeysExtHindclawUsersUserIdApiKeysGetResponses, ListBankPermissionsExtHindclawBanksBankIdPermissionsGetData, ListBankPermissionsExtHindclawBanksBankIdPermissionsGetErrors, ListBankPermissionsExtHindclawBanksBankIdPermissionsGetResponses, ListGroupMembersExtHindclawGroupsGroupIdMembersGetData, ListGroupMembersExtHindclawGroupsGroupIdMembersGetErrors, ListGroupMembersExtHindclawGroupsGroupIdMembersGetResponses, ListGroupsExtHindclawGroupsGetData, ListGroupsExtHindclawGroupsGetResponses, ListStrategiesExtHindclawBanksBankIdStrategiesGetData, ListStrategiesExtHindclawBanksBankIdStrategiesGetErrors, ListStrategiesExtHindclawBanksBankIdStrategiesGetResponses, ListUserChannelsExtHindclawUsersUserIdChannelsGetData, ListUserChannelsExtHindclawUsersUserIdChannelsGetErrors, ListUserChannelsExtHindclawUsersUserIdChannelsGetResponses, ListUsersExtHindclawUsersGetData, ListUsersExtHindclawUsersGetResponses, RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteData, RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteErrors, RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteResponses, RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteData, RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteErrors, RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteResponses, UpdateGroupExtHindclawGroupsGroupIdPutData, UpdateGroupExtHindclawGroupsGroupIdPutErrors, UpdateGroupExtHindclawGroupsGroupIdPutResponses, UpdateUserExtHindclawUsersUserIdPutData, UpdateUserExtHindclawUsersUserIdPutErrors, UpdateUserExtHindclawUsersUserIdPutResponses, UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutData, UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutErrors, UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutResponses, UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutData, UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutErrors, UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutResponses, UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutData, UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutErrors, UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutResponses } from './types.gen';
+import type { AddGroupMemberData, AddGroupMemberErrors, AddGroupMemberResponses, AddUserChannelData, AddUserChannelErrors, AddUserChannelResponses, CreateApiKeyData, CreateApiKeyErrors, CreateApiKeyResponses, CreateGroupData, CreateGroupErrors, CreateGroupResponses, CreateUserData, CreateUserErrors, CreateUserResponses, DebugResolveData, DebugResolveErrors, DebugResolveResponses, DeleteApiKeyData, DeleteApiKeyErrors, DeleteApiKeyResponses, DeleteBankPermissionData, DeleteBankPermissionErrors, DeleteBankPermissionResponses, DeleteGroupData, DeleteGroupErrors, DeleteGroupResponses, DeleteStrategyData, DeleteStrategyErrors, DeleteStrategyResponses, DeleteUserData, DeleteUserErrors, DeleteUserResponses, GetBankPermissionData, GetBankPermissionErrors, GetBankPermissionResponses, GetGroupData, GetGroupErrors, GetGroupResponses, GetUserData, GetUserErrors, GetUserResponses, ListApiKeysData, ListApiKeysErrors, ListApiKeysResponses, ListBankPermissionsData, ListBankPermissionsErrors, ListBankPermissionsResponses, ListGroupMembersData, ListGroupMembersErrors, ListGroupMembersResponses, ListGroupsData, ListGroupsResponses, ListStrategiesData, ListStrategiesErrors, ListStrategiesResponses, ListUserChannelsData, ListUserChannelsErrors, ListUserChannelsResponses, ListUsersData, ListUsersResponses, RemoveGroupMemberData, RemoveGroupMemberErrors, RemoveGroupMemberResponses, RemoveUserChannelData, RemoveUserChannelErrors, RemoveUserChannelResponses, UpdateGroupData, UpdateGroupErrors, UpdateGroupResponses, UpdateUserData, UpdateUserErrors, UpdateUserResponses, UpsertGroupPermissionData, UpsertGroupPermissionErrors, UpsertGroupPermissionResponses, UpsertStrategyData, UpsertStrategyErrors, UpsertStrategyResponses, UpsertUserPermissionData, UpsertUserPermissionErrors, UpsertUserPermissionResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -21,7 +21,7 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
 /**
  * List Users
  */
-export const listUsersExtHindclawUsersGet = <ThrowOnError extends boolean = false>(options?: Options<ListUsersExtHindclawUsersGetData, ThrowOnError>) => (options?.client ?? client).get<ListUsersExtHindclawUsersGetResponses, unknown, ThrowOnError>({
+export const listUsers = <ThrowOnError extends boolean = false>(options?: Options<ListUsersData, ThrowOnError>) => (options?.client ?? client).get<ListUsersResponses, unknown, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/users',
     ...options
@@ -30,7 +30,7 @@ export const listUsersExtHindclawUsersGet = <ThrowOnError extends boolean = fals
 /**
  * Create User
  */
-export const createUserExtHindclawUsersPost = <ThrowOnError extends boolean = false>(options: Options<CreateUserExtHindclawUsersPostData, ThrowOnError>) => (options.client ?? client).post<CreateUserExtHindclawUsersPostResponses, CreateUserExtHindclawUsersPostErrors, ThrowOnError>({
+export const createUser = <ThrowOnError extends boolean = false>(options: Options<CreateUserData, ThrowOnError>) => (options.client ?? client).post<CreateUserResponses, CreateUserErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/users',
     ...options,
@@ -43,7 +43,7 @@ export const createUserExtHindclawUsersPost = <ThrowOnError extends boolean = fa
 /**
  * Delete User
  */
-export const deleteUserExtHindclawUsersUserIdDelete = <ThrowOnError extends boolean = false>(options: Options<DeleteUserExtHindclawUsersUserIdDeleteData, ThrowOnError>) => (options.client ?? client).delete<DeleteUserExtHindclawUsersUserIdDeleteResponses, DeleteUserExtHindclawUsersUserIdDeleteErrors, ThrowOnError>({
+export const deleteUser = <ThrowOnError extends boolean = false>(options: Options<DeleteUserData, ThrowOnError>) => (options.client ?? client).delete<DeleteUserResponses, DeleteUserErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/users/{user_id}',
     ...options
@@ -52,7 +52,7 @@ export const deleteUserExtHindclawUsersUserIdDelete = <ThrowOnError extends bool
 /**
  * Get User
  */
-export const getUserExtHindclawUsersUserIdGet = <ThrowOnError extends boolean = false>(options: Options<GetUserExtHindclawUsersUserIdGetData, ThrowOnError>) => (options.client ?? client).get<GetUserExtHindclawUsersUserIdGetResponses, GetUserExtHindclawUsersUserIdGetErrors, ThrowOnError>({
+export const getUser = <ThrowOnError extends boolean = false>(options: Options<GetUserData, ThrowOnError>) => (options.client ?? client).get<GetUserResponses, GetUserErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/users/{user_id}',
     ...options
@@ -61,7 +61,7 @@ export const getUserExtHindclawUsersUserIdGet = <ThrowOnError extends boolean = 
 /**
  * Update User
  */
-export const updateUserExtHindclawUsersUserIdPut = <ThrowOnError extends boolean = false>(options: Options<UpdateUserExtHindclawUsersUserIdPutData, ThrowOnError>) => (options.client ?? client).put<UpdateUserExtHindclawUsersUserIdPutResponses, UpdateUserExtHindclawUsersUserIdPutErrors, ThrowOnError>({
+export const updateUser = <ThrowOnError extends boolean = false>(options: Options<UpdateUserData, ThrowOnError>) => (options.client ?? client).put<UpdateUserResponses, UpdateUserErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/users/{user_id}',
     ...options,
@@ -74,7 +74,7 @@ export const updateUserExtHindclawUsersUserIdPut = <ThrowOnError extends boolean
 /**
  * List User Channels
  */
-export const listUserChannelsExtHindclawUsersUserIdChannelsGet = <ThrowOnError extends boolean = false>(options: Options<ListUserChannelsExtHindclawUsersUserIdChannelsGetData, ThrowOnError>) => (options.client ?? client).get<ListUserChannelsExtHindclawUsersUserIdChannelsGetResponses, ListUserChannelsExtHindclawUsersUserIdChannelsGetErrors, ThrowOnError>({
+export const listUserChannels = <ThrowOnError extends boolean = false>(options: Options<ListUserChannelsData, ThrowOnError>) => (options.client ?? client).get<ListUserChannelsResponses, ListUserChannelsErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/users/{user_id}/channels',
     ...options
@@ -83,7 +83,7 @@ export const listUserChannelsExtHindclawUsersUserIdChannelsGet = <ThrowOnError e
 /**
  * Add User Channel
  */
-export const addUserChannelExtHindclawUsersUserIdChannelsPost = <ThrowOnError extends boolean = false>(options: Options<AddUserChannelExtHindclawUsersUserIdChannelsPostData, ThrowOnError>) => (options.client ?? client).post<AddUserChannelExtHindclawUsersUserIdChannelsPostResponses, AddUserChannelExtHindclawUsersUserIdChannelsPostErrors, ThrowOnError>({
+export const addUserChannel = <ThrowOnError extends boolean = false>(options: Options<AddUserChannelData, ThrowOnError>) => (options.client ?? client).post<AddUserChannelResponses, AddUserChannelErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/users/{user_id}/channels',
     ...options,
@@ -96,7 +96,7 @@ export const addUserChannelExtHindclawUsersUserIdChannelsPost = <ThrowOnError ex
 /**
  * Remove User Channel
  */
-export const removeUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDelete = <ThrowOnError extends boolean = false>(options: Options<RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteData, ThrowOnError>) => (options.client ?? client).delete<RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteResponses, RemoveUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDeleteErrors, ThrowOnError>({
+export const removeUserChannel = <ThrowOnError extends boolean = false>(options: Options<RemoveUserChannelData, ThrowOnError>) => (options.client ?? client).delete<RemoveUserChannelResponses, RemoveUserChannelErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/users/{user_id}/channels/{provider}/{sender_id}',
     ...options
@@ -105,7 +105,7 @@ export const removeUserChannelExtHindclawUsersUserIdChannelsProviderSenderIdDele
 /**
  * List Groups
  */
-export const listGroupsExtHindclawGroupsGet = <ThrowOnError extends boolean = false>(options?: Options<ListGroupsExtHindclawGroupsGetData, ThrowOnError>) => (options?.client ?? client).get<ListGroupsExtHindclawGroupsGetResponses, unknown, ThrowOnError>({
+export const listGroups = <ThrowOnError extends boolean = false>(options?: Options<ListGroupsData, ThrowOnError>) => (options?.client ?? client).get<ListGroupsResponses, unknown, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/groups',
     ...options
@@ -114,7 +114,7 @@ export const listGroupsExtHindclawGroupsGet = <ThrowOnError extends boolean = fa
 /**
  * Create Group
  */
-export const createGroupExtHindclawGroupsPost = <ThrowOnError extends boolean = false>(options: Options<CreateGroupExtHindclawGroupsPostData, ThrowOnError>) => (options.client ?? client).post<CreateGroupExtHindclawGroupsPostResponses, CreateGroupExtHindclawGroupsPostErrors, ThrowOnError>({
+export const createGroup = <ThrowOnError extends boolean = false>(options: Options<CreateGroupData, ThrowOnError>) => (options.client ?? client).post<CreateGroupResponses, CreateGroupErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/groups',
     ...options,
@@ -127,7 +127,7 @@ export const createGroupExtHindclawGroupsPost = <ThrowOnError extends boolean = 
 /**
  * Delete Group
  */
-export const deleteGroupExtHindclawGroupsGroupIdDelete = <ThrowOnError extends boolean = false>(options: Options<DeleteGroupExtHindclawGroupsGroupIdDeleteData, ThrowOnError>) => (options.client ?? client).delete<DeleteGroupExtHindclawGroupsGroupIdDeleteResponses, DeleteGroupExtHindclawGroupsGroupIdDeleteErrors, ThrowOnError>({
+export const deleteGroup = <ThrowOnError extends boolean = false>(options: Options<DeleteGroupData, ThrowOnError>) => (options.client ?? client).delete<DeleteGroupResponses, DeleteGroupErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/groups/{group_id}',
     ...options
@@ -136,7 +136,7 @@ export const deleteGroupExtHindclawGroupsGroupIdDelete = <ThrowOnError extends b
 /**
  * Get Group
  */
-export const getGroupExtHindclawGroupsGroupIdGet = <ThrowOnError extends boolean = false>(options: Options<GetGroupExtHindclawGroupsGroupIdGetData, ThrowOnError>) => (options.client ?? client).get<GetGroupExtHindclawGroupsGroupIdGetResponses, GetGroupExtHindclawGroupsGroupIdGetErrors, ThrowOnError>({
+export const getGroup = <ThrowOnError extends boolean = false>(options: Options<GetGroupData, ThrowOnError>) => (options.client ?? client).get<GetGroupResponses, GetGroupErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/groups/{group_id}',
     ...options
@@ -145,7 +145,7 @@ export const getGroupExtHindclawGroupsGroupIdGet = <ThrowOnError extends boolean
 /**
  * Update Group
  */
-export const updateGroupExtHindclawGroupsGroupIdPut = <ThrowOnError extends boolean = false>(options: Options<UpdateGroupExtHindclawGroupsGroupIdPutData, ThrowOnError>) => (options.client ?? client).put<UpdateGroupExtHindclawGroupsGroupIdPutResponses, UpdateGroupExtHindclawGroupsGroupIdPutErrors, ThrowOnError>({
+export const updateGroup = <ThrowOnError extends boolean = false>(options: Options<UpdateGroupData, ThrowOnError>) => (options.client ?? client).put<UpdateGroupResponses, UpdateGroupErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/groups/{group_id}',
     ...options,
@@ -158,7 +158,7 @@ export const updateGroupExtHindclawGroupsGroupIdPut = <ThrowOnError extends bool
 /**
  * List Group Members
  */
-export const listGroupMembersExtHindclawGroupsGroupIdMembersGet = <ThrowOnError extends boolean = false>(options: Options<ListGroupMembersExtHindclawGroupsGroupIdMembersGetData, ThrowOnError>) => (options.client ?? client).get<ListGroupMembersExtHindclawGroupsGroupIdMembersGetResponses, ListGroupMembersExtHindclawGroupsGroupIdMembersGetErrors, ThrowOnError>({
+export const listGroupMembers = <ThrowOnError extends boolean = false>(options: Options<ListGroupMembersData, ThrowOnError>) => (options.client ?? client).get<ListGroupMembersResponses, ListGroupMembersErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/groups/{group_id}/members',
     ...options
@@ -167,7 +167,7 @@ export const listGroupMembersExtHindclawGroupsGroupIdMembersGet = <ThrowOnError 
 /**
  * Add Group Member
  */
-export const addGroupMemberExtHindclawGroupsGroupIdMembersPost = <ThrowOnError extends boolean = false>(options: Options<AddGroupMemberExtHindclawGroupsGroupIdMembersPostData, ThrowOnError>) => (options.client ?? client).post<AddGroupMemberExtHindclawGroupsGroupIdMembersPostResponses, AddGroupMemberExtHindclawGroupsGroupIdMembersPostErrors, ThrowOnError>({
+export const addGroupMember = <ThrowOnError extends boolean = false>(options: Options<AddGroupMemberData, ThrowOnError>) => (options.client ?? client).post<AddGroupMemberResponses, AddGroupMemberErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/groups/{group_id}/members',
     ...options,
@@ -180,7 +180,7 @@ export const addGroupMemberExtHindclawGroupsGroupIdMembersPost = <ThrowOnError e
 /**
  * Remove Group Member
  */
-export const removeGroupMemberExtHindclawGroupsGroupIdMembersUserIdDelete = <ThrowOnError extends boolean = false>(options: Options<RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteData, ThrowOnError>) => (options.client ?? client).delete<RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteResponses, RemoveGroupMemberExtHindclawGroupsGroupIdMembersUserIdDeleteErrors, ThrowOnError>({
+export const removeGroupMember = <ThrowOnError extends boolean = false>(options: Options<RemoveGroupMemberData, ThrowOnError>) => (options.client ?? client).delete<RemoveGroupMemberResponses, RemoveGroupMemberErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/groups/{group_id}/members/{user_id}',
     ...options
@@ -189,7 +189,7 @@ export const removeGroupMemberExtHindclawGroupsGroupIdMembersUserIdDelete = <Thr
 /**
  * List Bank Permissions
  */
-export const listBankPermissionsExtHindclawBanksBankIdPermissionsGet = <ThrowOnError extends boolean = false>(options: Options<ListBankPermissionsExtHindclawBanksBankIdPermissionsGetData, ThrowOnError>) => (options.client ?? client).get<ListBankPermissionsExtHindclawBanksBankIdPermissionsGetResponses, ListBankPermissionsExtHindclawBanksBankIdPermissionsGetErrors, ThrowOnError>({
+export const listBankPermissions = <ThrowOnError extends boolean = false>(options: Options<ListBankPermissionsData, ThrowOnError>) => (options.client ?? client).get<ListBankPermissionsResponses, ListBankPermissionsErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/banks/{bank_id}/permissions',
     ...options
@@ -198,7 +198,7 @@ export const listBankPermissionsExtHindclawBanksBankIdPermissionsGet = <ThrowOnE
 /**
  * Delete Bank Permission
  */
-export const deleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDelete = <ThrowOnError extends boolean = false>(options: Options<DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteData, ThrowOnError>) => (options.client ?? client).delete<DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteResponses, DeleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdDeleteErrors, ThrowOnError>({
+export const deleteBankPermission = <ThrowOnError extends boolean = false>(options: Options<DeleteBankPermissionData, ThrowOnError>) => (options.client ?? client).delete<DeleteBankPermissionResponses, DeleteBankPermissionErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/banks/{bank_id}/permissions/{scope_type}/{scope_id}',
     ...options
@@ -207,7 +207,7 @@ export const deleteBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScope
 /**
  * Get Bank Permission
  */
-export const getBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGet = <ThrowOnError extends boolean = false>(options: Options<GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetData, ThrowOnError>) => (options.client ?? client).get<GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetResponses, GetBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdGetErrors, ThrowOnError>({
+export const getBankPermission = <ThrowOnError extends boolean = false>(options: Options<GetBankPermissionData, ThrowOnError>) => (options.client ?? client).get<GetBankPermissionResponses, GetBankPermissionErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/banks/{bank_id}/permissions/{scope_type}/{scope_id}',
     ...options
@@ -216,7 +216,7 @@ export const getBankPermissionExtHindclawBanksBankIdPermissionsScopeTypeScopeIdG
 /**
  * Upsert Group Bank Permission
  */
-export const upsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPut = <ThrowOnError extends boolean = false>(options: Options<UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutData, ThrowOnError>) => (options.client ?? client).put<UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutResponses, UpsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGroupIdPutErrors, ThrowOnError>({
+export const upsertGroupPermission = <ThrowOnError extends boolean = false>(options: Options<UpsertGroupPermissionData, ThrowOnError>) => (options.client ?? client).put<UpsertGroupPermissionResponses, UpsertGroupPermissionErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/banks/{bank_id}/permissions/groups/{group_id}',
     ...options,
@@ -229,7 +229,7 @@ export const upsertGroupBankPermissionExtHindclawBanksBankIdPermissionsGroupsGro
 /**
  * Upsert User Bank Permission
  */
-export const upsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPut = <ThrowOnError extends boolean = false>(options: Options<UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutData, ThrowOnError>) => (options.client ?? client).put<UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutResponses, UpsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserIdPutErrors, ThrowOnError>({
+export const upsertUserPermission = <ThrowOnError extends boolean = false>(options: Options<UpsertUserPermissionData, ThrowOnError>) => (options.client ?? client).put<UpsertUserPermissionResponses, UpsertUserPermissionErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/banks/{bank_id}/permissions/users/{user_id}',
     ...options,
@@ -242,7 +242,7 @@ export const upsertUserBankPermissionExtHindclawBanksBankIdPermissionsUsersUserI
 /**
  * List Strategies
  */
-export const listStrategiesExtHindclawBanksBankIdStrategiesGet = <ThrowOnError extends boolean = false>(options: Options<ListStrategiesExtHindclawBanksBankIdStrategiesGetData, ThrowOnError>) => (options.client ?? client).get<ListStrategiesExtHindclawBanksBankIdStrategiesGetResponses, ListStrategiesExtHindclawBanksBankIdStrategiesGetErrors, ThrowOnError>({
+export const listStrategies = <ThrowOnError extends boolean = false>(options: Options<ListStrategiesData, ThrowOnError>) => (options.client ?? client).get<ListStrategiesResponses, ListStrategiesErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/banks/{bank_id}/strategies',
     ...options
@@ -251,7 +251,7 @@ export const listStrategiesExtHindclawBanksBankIdStrategiesGet = <ThrowOnError e
 /**
  * Delete Strategy
  */
-export const deleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDelete = <ThrowOnError extends boolean = false>(options: Options<DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteData, ThrowOnError>) => (options.client ?? client).delete<DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteResponses, DeleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDeleteErrors, ThrowOnError>({
+export const deleteStrategy = <ThrowOnError extends boolean = false>(options: Options<DeleteStrategyData, ThrowOnError>) => (options.client ?? client).delete<DeleteStrategyResponses, DeleteStrategyErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/banks/{bank_id}/strategies/{scope_type}/{scope_value}',
     ...options
@@ -260,7 +260,7 @@ export const deleteStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValueDe
 /**
  * Upsert Strategy
  */
-export const upsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePut = <ThrowOnError extends boolean = false>(options: Options<UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutData, ThrowOnError>) => (options.client ?? client).put<UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutResponses, UpsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePutErrors, ThrowOnError>({
+export const upsertStrategy = <ThrowOnError extends boolean = false>(options: Options<UpsertStrategyData, ThrowOnError>) => (options.client ?? client).put<UpsertStrategyResponses, UpsertStrategyErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/banks/{bank_id}/strategies/{scope_type}/{scope_value}',
     ...options,
@@ -275,7 +275,7 @@ export const upsertStrategyExtHindclawBanksBankIdStrategiesScopeTypeScopeValuePu
  *
  * List API keys for a user. Keys are masked after creation.
  */
-export const listApiKeysExtHindclawUsersUserIdApiKeysGet = <ThrowOnError extends boolean = false>(options: Options<ListApiKeysExtHindclawUsersUserIdApiKeysGetData, ThrowOnError>) => (options.client ?? client).get<ListApiKeysExtHindclawUsersUserIdApiKeysGetResponses, ListApiKeysExtHindclawUsersUserIdApiKeysGetErrors, ThrowOnError>({
+export const listApiKeys = <ThrowOnError extends boolean = false>(options: Options<ListApiKeysData, ThrowOnError>) => (options.client ?? client).get<ListApiKeysResponses, ListApiKeysErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/users/{user_id}/api-keys',
     ...options
@@ -284,7 +284,7 @@ export const listApiKeysExtHindclawUsersUserIdApiKeysGet = <ThrowOnError extends
 /**
  * Create Api Key
  */
-export const createApiKeyExtHindclawUsersUserIdApiKeysPost = <ThrowOnError extends boolean = false>(options: Options<CreateApiKeyExtHindclawUsersUserIdApiKeysPostData, ThrowOnError>) => (options.client ?? client).post<CreateApiKeyExtHindclawUsersUserIdApiKeysPostResponses, CreateApiKeyExtHindclawUsersUserIdApiKeysPostErrors, ThrowOnError>({
+export const createApiKey = <ThrowOnError extends boolean = false>(options: Options<CreateApiKeyData, ThrowOnError>) => (options.client ?? client).post<CreateApiKeyResponses, CreateApiKeyErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/users/{user_id}/api-keys',
     ...options,
@@ -297,7 +297,7 @@ export const createApiKeyExtHindclawUsersUserIdApiKeysPost = <ThrowOnError exten
 /**
  * Delete Api Key
  */
-export const deleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDelete = <ThrowOnError extends boolean = false>(options: Options<DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteData, ThrowOnError>) => (options.client ?? client).delete<DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteResponses, DeleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDeleteErrors, ThrowOnError>({
+export const deleteApiKey = <ThrowOnError extends boolean = false>(options: Options<DeleteApiKeyData, ThrowOnError>) => (options.client ?? client).delete<DeleteApiKeyResponses, DeleteApiKeyErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/users/{user_id}/api-keys/{key_id}',
     ...options
@@ -308,7 +308,7 @@ export const deleteApiKeyExtHindclawUsersUserIdApiKeysKeyIdDelete = <ThrowOnErro
  *
  * Resolve and return full permissions for a given context.
  */
-export const debugResolveExtHindclawDebugResolveGet = <ThrowOnError extends boolean = false>(options: Options<DebugResolveExtHindclawDebugResolveGetData, ThrowOnError>) => (options.client ?? client).get<DebugResolveExtHindclawDebugResolveGetResponses, DebugResolveExtHindclawDebugResolveGetErrors, ThrowOnError>({
+export const debugResolve = <ThrowOnError extends boolean = false>(options: Options<DebugResolveData, ThrowOnError>) => (options.client ?? client).get<DebugResolveResponses, DebugResolveErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/ext/hindclaw/debug/resolve',
     ...options
