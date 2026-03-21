@@ -1,0 +1,33 @@
+{
+  "name": "@hindclaw/client",
+  "version": "0.1.0",
+  "description": "TypeScript client for Hindclaw access control API",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf dist",
+    "generate": "npx @hey-api/openapi-ts --input ../openapi.json --output generated"
+  },
+  "author": "Hindclaw",
+  "license": "MIT",
+  "devDependencies": {
+    "@hey-api/openapi-ts": "0.88.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist",
+    "src",
+    "generated",
+    "README.md"
+  ]
+}

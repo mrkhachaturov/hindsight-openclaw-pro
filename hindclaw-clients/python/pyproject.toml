@@ -1,0 +1,14 @@
+[project]
+name = "hindclaw-client"
+version = "0.1.0"
+description = "Python client for Hindclaw access control API"
+requires-python = ">=3.11"
+dependencies = [
+    "aiohttp>=3.9.0",
+    "aiohttp-retry>=2.8.0",
+    "pydantic>=2.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
