@@ -207,14 +207,14 @@ describe('handleRetain', () => {
   it('sends retainContext and retainObservationScopes from agentConfig', async () => {
     const event = makeEvent([{ role: 'user', content: 'Hi there friend' }]);
     const agentConfig: ResolvedConfig = {
-      retainContext: { project: 'astromech', env: 'prod' },
+      retainContext: 'Telegram DM with Ruben',
       retainObservationScopes: ['fitness', 'sleep'],
     };
 
     await handleRetain(event, ctx, agentConfig, client, pluginConfig);
 
     const [, request] = mockRetain.mock.calls[0];
-    expect(request.items[0].context).toEqual({ project: 'astromech', env: 'prod' });
+    expect(request.items[0].context).toBe('Telegram DM with Ruben');
     expect(request.items[0].observation_scopes).toEqual(['fitness', 'sleep']);
   });
 
