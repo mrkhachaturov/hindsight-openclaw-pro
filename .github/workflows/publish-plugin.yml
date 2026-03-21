@@ -1,9 +1,9 @@
-name: Publish to npm
+name: Publish hindclaw-openclaw to npm
 
 on:
   push:
     tags:
-      - 'v*'
+      - 'openclaw-v*'
 
 permissions:
   id-token: write
@@ -13,6 +13,9 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     environment: npm
+    defaults:
+      run:
+        working-directory: hindclaw-integrations/openclaw
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -32,23 +35,25 @@ jobs:
 
       - name: Get version from tag
         id: tag
-        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+        run: echo "version=${GITHUB_REF#refs/tags/openclaw-v}" >> $GITHUB_OUTPUT
 
       - name: Read changelog
         id: changelog
         uses: mindsers/changelog-reader-action@v2
         with:
           version: ${{ steps.tag.outputs.version }}
-          path: ./CHANGELOG.md
+          path: hindclaw-integrations/openclaw/CHANGELOG.md
 
       - name: Publish to npm
         run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
-          tag: v${{ steps.changelog.outputs.version }}
-          name: v${{ steps.changelog.outputs.version }}
+          tag: openclaw-v${{ steps.changelog.outputs.version }}
+          name: hindclaw-openclaw v${{ steps.changelog.outputs.version }}
           body: ${{ steps.changelog.outputs.changes }}
           prerelease: ${{ steps.changelog.outputs.status == 'prereleased' }}
           draft: ${{ steps.changelog.outputs.status == 'unreleased' }}
