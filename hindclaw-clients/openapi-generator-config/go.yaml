@@ -1,0 +1,9 @@
+# Go client generator config for OpenAPI Generator v7.10.0
+# Matches upstream Hindsight pattern (build/hindsight/.upstream/hindsight-clients/go/)
+packageName: hindclaw
+gitUserId: mrkhachaturov
+gitRepoId: hindclaw/hindclaw-clients/go
+isGoSubmodule: true
+enumClassPrefix: true
+structPrefix: true
+generateInterfaces: true

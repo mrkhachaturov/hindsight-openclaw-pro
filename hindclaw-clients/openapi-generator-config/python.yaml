@@ -1,0 +1,12 @@
+# Python client generator config for OpenAPI Generator v7.10.0
+# Matches upstream Hindsight pattern (build/hindsight/.upstream/hindsight-clients/python/)
+packageName: hindclaw_client_api
+projectName: hindclaw-client
+packageVersion: 0.1.0
+library: asyncio
+generateSourceCodeOnly: true
+globalProperties:
+  apiTests: false
+  modelTests: false
+  apiDocs: false
+  modelDocs: false
